@@ -1,0 +1,5 @@
+Changelog for AdminTools.
+
+1.0.0-pl
+==============
+- Initial release.

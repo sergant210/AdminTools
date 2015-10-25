@@ -1,0 +1,77 @@
+.x-grid3-col-actions {
+	padding: 3px 0 3px 5px;
+}
+ul.admintools-row-actions {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.admintools-row-actions li {
+	float: left;
+}
+ul.admintools-row-actions .btn {
+	padding: 5px;
+	margin-right: 2px;
+	min-width: 26px;
+	font-size: inherit;
+}
+.admintools-grid-row-disabled {
+	font-style: italic;
+	opacity: .6;
+	color: #555;
+}
+.action-red {
+	color: darkred !important;
+}
+.action-green {
+	color: darkgreen !important;
+}
+.action-blue {
+	color: cadetblue !important;
+}
+.action-yellow {
+	color: goldenrod !important;
+}
+.action-gray {
+	color: dimgray !important;
+}
+a.x-menu-item .x-menu-item-text, a.x-menu-item .x-menu-item-text .icon {
+	cursor: pointer;
+}
+a.x-menu-item .x-menu-item-text .icon {
+	line-height: 16px;
+	top: auto;
+}
+.x-menu-list .icon {
+	min-width: 1em;
+	text-align: center;
+}
+.x-menu-list-item:hover .icon {
+	color: inherit !important;
+}
+.badge {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff !important;
+	margin-right: 5px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #337ab7 !important;
+	border-radius: 10px;
+}
+#modx-tree-element .x-btn-over {
+	color: #555 !important;
+}
+.x-element-favorite,
+.x-element-favorite > a span{
+	color: #155b00 !important;
+}
+/*
+ul.admintools-row-actions .actions-menu {width: 40px;}
+ul.admintools-row-actions .actions-menu:after {content: " \f107";}
+*/
