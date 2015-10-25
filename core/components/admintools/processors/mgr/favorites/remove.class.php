@@ -21,7 +21,7 @@ class atFavoritesRemoveElementProcessor extends modProcessor {
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheElementKey = 'elements';
         $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'favoriteElements',
+            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements',
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
         $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['favoriteElements']['elements'], 0, $cacheOptions);

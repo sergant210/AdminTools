@@ -1,5 +1,9 @@
 Changelog for AdminTools.
 
+1.0.1-pl
+==============
+- Changed the cache path.
+
 1.0.0-pl
 ==============
 - Initial release.
