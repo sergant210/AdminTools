@@ -26,12 +26,12 @@ Ext.apply(MODx.tree.Element.prototype,{
 							handler: function (btn, evt) {
 								evt.stopPropagation(evt);
 								if (btn.pressed) {
-									//btn.getEl().removeClass('icon-star-o').addClass('icon-star');
+									btn.getEl().removeClass('icon-star-o').addClass('icon-star');
 									btn.pressed = true;
 									btn.tooltip.setTitle(_('admintools_show_all'));
 									favorElements.states[type[1]] = true;
 								} else {
-									//btn.getEl().removeClass('icon-star').addClass('icon-star-o');
+									btn.getEl().removeClass('icon-star').addClass('icon-star-o');
 									btn.pressed = false;
 									btn.tooltip.setTitle(_('admintools_show_favorites'));
 									favorElements.states[type[1]] = false;
@@ -39,7 +39,7 @@ Ext.apply(MODx.tree.Element.prototype,{
 								node.getOwnerTree().handleFavoritesClick(node,btn.pressed);
 								node.getOwnerTree().saveFavoritesState(node.attributes.type,btn.pressed);
 							},
-							iconCls: 'icon-star-o',
+							iconCls: favorElements.states[type[1]] ? 'icon-star' : 'icon-star-o',
 							pressed: favorElements.states[type[1]],
 							renderTo: elId,
 							listeners: {
