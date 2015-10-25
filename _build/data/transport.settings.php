@@ -2,13 +2,12 @@
 
 $settings = array();
 
-$tmp = array(/*
-	'some_setting' => array(
-		'xtype' => 'combo-boolean',
-		'value' => true,
+$tmp = array(
+	'favorites_icon' => array(
+		'xtype' => 'textfield',
+		'value' => '',
 		'area' => 'admintools_main',
 	),
-	*/
 );
 
 foreach ($tmp as $k => $v) {

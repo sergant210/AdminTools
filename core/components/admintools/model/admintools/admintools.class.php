@@ -61,7 +61,10 @@ class AdminTools {
                         }
                     }
                     $data = $_SESSION['favoriteElements'];
-                    $data['config']['connector_url'] = $this->config['assetsUrl'].'connector.php';
+                    $data['config'] = array(
+                        'connector_url' => $this->config['assetsUrl'].'connector.php',
+                        'icon' => $this->modx->getOption('admintools_favorites_icon',null,''),
+                    );
                     $_html = "<script type=\"text/javascript\">\n";
                     $_html .= "\tvar favorElements = ".$this->modx->toJSON($data)."\n";
                     $_html .= "</script>";

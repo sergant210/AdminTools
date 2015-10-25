@@ -186,6 +186,7 @@ Ext.apply(MODx.tree.Element.prototype,{
 			,scope:this
 		});
 		node.ui.addClass('x-element-favorite');
+		if (favorElements.config.icon) node.ui.iconNode.className = 'icon ' + favorElements.config.icon;
 		//node.ui.iconNode.className = 'icon icon-star';
 	},
 	fromFavorites: function(n){
@@ -231,7 +232,7 @@ Ext.apply(MODx.tree.Element.prototype,{
 			if (node.leaf && MODx.in_array(type[0],['template','tv','chunk','snippet','plugin'])) {
 				if ( MODx.in_array(type[2],favorElements.elements[type[0]+'s'])) {
 					node.ui.addClass('x-element-favorite');
-					//node.ui.iconNode.className = 'icon icon-star';
+					if (favorElements.config.icon) node.ui.iconNode.className = 'icon ' + favorElements.config.icon;
 				}
 			}
 		});

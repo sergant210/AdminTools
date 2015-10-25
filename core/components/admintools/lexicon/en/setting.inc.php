@@ -1,7 +1,5 @@
 <?php
-/*
-$_lang['area_admintools_main'] = 'Main';
 
-$_lang['setting_admintools_some_setting'] = 'Some setting';
-$_lang['setting_admintools_some_setting_desc'] = 'This is description for some setting';
-*/
+$_lang['area_admintools_main'] = 'Main';
+$_lang['setting_admintools_favorites_icon'] = 'Favorite element icon';
+$_lang['setting_admintools_favorites_icon_desc'] = 'An icon to replace standart icon. For example, "icon-star".';
