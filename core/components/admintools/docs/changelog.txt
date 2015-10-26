@@ -1,5 +1,9 @@
 Changelog for AdminTools.
 
+1.0.2-pl
+==============
+- Personal setting for each user.
+
 1.0.1-pl
 ==============
 - Changed the cache path.

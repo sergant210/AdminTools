@@ -81,7 +81,7 @@ class AdminTools {
     public function getFromCache($cacheElementKey){
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements',
+            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
         return $this->modx->cacheManager->get($cacheElementKey, $cacheOptions);
@@ -90,7 +90,7 @@ class AdminTools {
     public function saveToCache($cacheElementKey){
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'favoriteElements',
+            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
         $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['favoriteElements'][$cacheElementKey], 0, $cacheOptions);
