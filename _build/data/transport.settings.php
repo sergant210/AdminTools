@@ -8,6 +8,16 @@ $tmp = array(
 		'value' => '',
 		'area' => 'admintools_main',
 	),
+    'check_elements_permissions' => array(
+		'xtype' => 'combo-boolean',
+		'value' => true,
+		'area' => 'admintools_main',
+	),
+    'remember_system_settings' => array(
+		'xtype' => 'combo-boolean',
+		'value' => true,
+		'area' => 'admintools_main',
+	),
 );
 
 foreach ($tmp as $k => $v) {

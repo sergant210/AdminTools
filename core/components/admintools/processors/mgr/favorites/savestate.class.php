@@ -13,7 +13,7 @@ class atFavoritesSaveStateProcessor extends modProcessor {
     {
         $state = $this->getProperty('state') == 'true' ? true : false;
         $type = $this->getProperty('type');
-        $_SESSION['favoriteElements']['states'][$type] = $state;
+        $_SESSION['admintools']['favoriteElements']['states'][$type] = $state;
 
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheElementKey = 'states';
@@ -21,9 +21,9 @@ class atFavoritesSaveStateProcessor extends modProcessor {
             xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
-        $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['favoriteElements']['states'], 0, $cacheOptions);
+        $this->modx->cacheManager->set($cacheElementKey, $_SESSION['admintools']['favoriteElements']['states'], 0, $cacheOptions);
         @session_write_close();
-        return $this->success('');
+        return $this->success('',$_SESSION['admintools']['favoriteElements']['states']);
     }
 }
 

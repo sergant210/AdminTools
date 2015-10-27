@@ -16,7 +16,7 @@ class atFavoritesRemoveElementProcessor extends modProcessor {
     public function process() {
         $id = (int) $this->getProperty('id');
         $type = $this->getProperty('type').'s';
-        $_SESSION['favoriteElements']['elements'][$type] = array_values(array_diff($_SESSION['favoriteElements']['elements'][$type],array($id)));
+        $_SESSION['admintools']['favoriteElements']['elements'][$type] = array_values(array_diff($_SESSION['admintools']['favoriteElements']['elements'][$type],array($id)));
 
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheElementKey = 'elements';
@@ -24,9 +24,9 @@ class atFavoritesRemoveElementProcessor extends modProcessor {
             xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
-        $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['favoriteElements']['elements'], 0, $cacheOptions);
+        $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['admintools']['favoriteElements']['elements'], 0, $cacheOptions);
         @session_write_close();
-        return $this->success('',$_SESSION['favoriteElements']['elements']);
+        return $this->success('',$_SESSION['admintools']['favoriteElements']['elements']);
     }
 
 }

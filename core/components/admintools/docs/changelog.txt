@@ -1,5 +1,11 @@
 Changelog for AdminTools.
 
+1.1.0-pl
+==============
+- Remember system settings state.
+- Added system setting allowing to switch off the check of the elements permission while the tree is building.
+- Show favorite elements without category folders.
+
 1.0.2-pl
 ==============
 - Personal setting for each user.

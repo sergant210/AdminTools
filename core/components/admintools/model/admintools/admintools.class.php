@@ -42,31 +42,43 @@ class AdminTools {
                     $this->modx->controller->addLexiconTopic('admintools:default');
                     $this->modx->controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
                     $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/favorites.js');
-                    if (empty($_SESSION['favoriteElements']['states'])) {
+                    if (empty($_SESSION['admintools']['favoriteElements']['states'])) {
                         $states = $this->getFromCache('states');
                         if (empty($states)) {
-                            $_SESSION['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
+                            $_SESSION['admintools']['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
                             $this->saveToCache('states');
                         } else {
-                            $_SESSION['favoriteElements']['states'] = $states;
+                            $_SESSION['admintools']['favoriteElements']['states'] = $states;
                         }
                     }
-                    if (empty($_SESSION['favoriteElements']['elements'])) {
+                    if (empty($_SESSION['admintools']['favoriteElements']['elements'])) {
                         $elements = $this->getFromCache('elements');
                         if (empty($elements)) {
-                            $_SESSION['favoriteElements']['elements'] = array('templates'=>array(),'tvs'=>array(),'chunks'=>array(),'plugins'=>array(),'snippets'=>array());
+                            $_SESSION['admintools']['favoriteElements']['elements'] = array('templates'=>array(),'tvs'=>array(),'chunks'=>array(),'plugins'=>array(),'snippets'=>array());
                             $this->saveToCache('elements');
                         } else {
-                            $_SESSION['favoriteElements']['elements'] = $elements;
+                            $_SESSION['admintools']['favoriteElements']['elements'] = $elements;
                         }
                     }
-                    $data = $_SESSION['favoriteElements'];
-                    $data['config'] = array(
+                    if ($this->modx->getOption('admintools_remember_system_settings',null,true)) {
+                        $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/systemsettings.js');
+                        if (empty($_SESSION['admintools']['systemSettings'])) {
+                            $settings = $this->getFromCache('systemSettings');
+                            if (empty($settings)) {
+                                $_SESSION['admintools']['systemSettings'] = array('namespace'=>'core','area'=>'');
+                                $this->saveToCache('systemSettings');
+                            } else {
+                                $_SESSION['admintools']['systemSettings'] = $settings;
+                            }
+                        }
+                        if (empty($_SESSION['admintools']['systemSettings']['namespace'])) $_SESSION['admintools']['systemSettings']['namespace'] = 'core';
+                    }
+                    $_SESSION['admintools']['favoriteElements']['icon'] = $this->modx->getOption('admintools_favorites_icon',null,'');
+                    $_SESSION['admintools']['config'] = array(
                         'connector_url' => $this->config['assetsUrl'].'connector.php',
-                        'icon' => $this->modx->getOption('admintools_favorites_icon',null,''),
                     );
                     $_html = "<script type=\"text/javascript\">\n";
-                    $_html .= "\tvar favorElements = ".$this->modx->toJSON($data)."\n";
+                    $_html .= "\tvar adminTools = ".$this->modx->toJSON($_SESSION['admintools'])."\n";
                     $_html .= "</script>";
                     $this->modx->controller->addHtml($_html);
                     $this->initialized[$ctx] = true;

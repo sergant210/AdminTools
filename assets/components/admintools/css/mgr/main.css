@@ -71,6 +71,28 @@ a.x-menu-item .x-menu-item-text .icon {
 .x-element-favorite > a span{
 	color: #155b00 !important;
 }
+#admintools-panel-link {
+
+}
+#admintools-panel-link > a {
+	padding: 0 14px;
+}
+#admintools-panel-link.opened a{
+	background-color: #333;
+}
+#admintools-panel {
+	background-color: #000;
+	height: 100%;
+	opacity: 0.8;
+	position: absolute;
+	right: 0;
+	top: 55px;
+	width: 39px;
+	z-index: 50;
+}
+#modx-user-menu {
+	margin-right: 0;
+}
 /*
 ul.admintools-row-actions .actions-menu {width: 40px;}
 ul.admintools-row-actions .actions-menu:after {content: " \f107";}
