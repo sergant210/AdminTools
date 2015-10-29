@@ -1,9 +1,19 @@
 Changelog for AdminTools.
 
+1.2.0-pl
+==============
+- Added a log of recently edited elements to the tree toolbar.
+- Switch off check the elements permission for users with sudo while the tree is building.
+- Fixed some bugs.
+
+1.1.1-pl
+==============
+- Fixed session array for admintools.
+
 1.1.0-pl
 ==============
 - Remember system settings state.
-- Added system setting allowing to switch off the check of the elements permission while the tree is building.
+- Added system setting allowing to switch off check the elements permission while the tree is building.
 - Show favorite elements without category folders.
 
 1.0.2-pl

@@ -19,7 +19,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 								text: '',
 								scope: this,
 								tooltip: new Ext.ToolTip({
-									title: adminTools.favoriteElements.states[type[1]] ? _('admintools_show_all') : _('admintools_show_favorites'),
+									title: adminToolsSettings.favoriteElements.states[type[1]] ? _('admintools_show_all') : _('admintools_show_favorites'),
 									target: this
 								}),
 								node: node,
@@ -30,17 +30,17 @@ if (typeof MODx.tree.Element != 'undefined') {
 										btn.getEl().removeClass('icon-star-o').addClass('icon-star');
 										btn.pressed = true;
 										btn.tooltip.setTitle(_('admintools_show_all'));
-										adminTools.favoriteElements.states[type[1]] = true;
+										adminToolsSettings.favoriteElements.states[type[1]] = true;
 									} else {
 										btn.getEl().removeClass('icon-star').addClass('icon-star-o');
 										btn.pressed = false;
 										btn.tooltip.setTitle(_('admintools_show_favorites'));
-										adminTools.favoriteElements.states[type[1]] = false;
+										adminToolsSettings.favoriteElements.states[type[1]] = false;
 									}
 									node.getOwnerTree().saveFavoritesState(node, btn.pressed);
 								},
-								iconCls: adminTools.favoriteElements.states[type[1]] ? 'icon-star' : 'icon-star-o',
-								pressed: adminTools.favoriteElements.states[type[1]],
+								iconCls: adminToolsSettings.favoriteElements.states[type[1]] ? 'icon-star' : 'icon-star-o',
+								pressed: adminToolsSettings.favoriteElements.states[type[1]],
 								renderTo: elId,
 								listeners: {
 									mouseover: function (button, e) {
@@ -111,7 +111,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 		saveFavoritesState: function (node, state) {
 			var type = node.attributes.type;
 			Ext.Ajax.request({
-				url: adminTools.config.connector_url
+				url: adminToolsSettings.config.connector_url
 				, params: {
 					action: 'mgr/favorites/savestate',
 					type: type,
@@ -119,7 +119,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 				}
 				, success: function (r) {
 					var res = Ext.decode(r.responseText);
-					adminTools.favoriteElements.states = res.object;
+					adminToolsSettings.favoriteElements.states = res.object;
 					node.reload();
 				}
 				, scope: this
@@ -169,7 +169,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 			parent.favChilds++;
 
 			Ext.Ajax.request({
-				url: adminTools.config.connector_url
+				url: adminToolsSettings.config.connector_url
 				, params: {
 					action: 'mgr/favorites/add',
 					type: node.attributes.type,
@@ -177,9 +177,9 @@ if (typeof MODx.tree.Element != 'undefined') {
 				}
 				, success: function (r) {
 					var res = Ext.decode(r.responseText);
-					adminTools.favoriteElements.elements = res.object;
+					adminToolsSettings.favoriteElements.elements = res.object;
 					node.ui.addClass('x-element-favorite');
-					if (adminTools.favoriteElements.icon) node.ui.iconNode.className = 'icon ' + adminTools.favoriteElements.icon;
+					if (adminToolsSettings.favoriteElements.icon) node.ui.iconNode.className = 'icon ' + adminToolsSettings.favoriteElements.icon;
 				}
 				, scope: this
 			});
@@ -187,13 +187,13 @@ if (typeof MODx.tree.Element != 'undefined') {
 		fromFavorites: function () {
 			var node = this.cm.activeNode;
 			var type = node.attributes.type,
-				favoriteMode = adminTools.favoriteElements.states[type];
+				favoriteMode = adminToolsSettings.favoriteElements.states[type];
 
 			if (favoriteMode) {
 				node.getUI().hide();
 			}
 			Ext.Ajax.request({
-				url: adminTools.config.connector_url
+				url: adminToolsSettings.config.connector_url
 				, params: {
 					action: 'mgr/favorites/remove',
 					type: node.attributes.type,
@@ -201,7 +201,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 				}
 				, success: function (r) {
 					var res = Ext.decode(r.responseText);
-					adminTools.favoriteElements.elements = res.object;
+					adminToolsSettings.favoriteElements.elements = res.object;
 					node.getUI().removeClass('x-element-favorite');
 					node.ui.iconNode.className = node.attributes.iconCls;
 				}
@@ -235,7 +235,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 
 	Ext.onReady(function () {
 		var tree = Ext.getCmp('modx-tree-element');
-		tree.config.url = adminTools.config.connector_url;
+		tree.config.url = adminToolsSettings.config.connector_url;
 		tree.baseParams.action = 'mgr/element/getnodes';
 		tree.config.sortAction = 'mgr/element/sort';
 		tree.removeElement = function (itm, e) {

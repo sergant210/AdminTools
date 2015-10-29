@@ -17,6 +17,8 @@ class modElementGetNodesProcessor extends modProcessor {
         'category' => 'modCategory',
     );
     public $actionMap = array();
+    public $checkPermission = true;
+
 
     public function checkPermissions() {
         return $this->modx->hasPermission('element_tree');
@@ -30,13 +32,12 @@ class modElementGetNodesProcessor extends modProcessor {
             'stringLiterals' => false,
             'id' => 0,
         ));
+        if ($this->modx->user->sudo || !$this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            $this->checkPermission = false;
+        }
         return true;
     }
-    public function convert($size)
-    {
-        $unit=array('b','kb','mb','gb','tb','pb');
-        return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
-    }
+
     public function process() {
         $this->getActions();
         $map = $this->getMap();
@@ -84,14 +85,14 @@ class modElementGetNodesProcessor extends modProcessor {
     public function getFavoriteElements($type){
         $elementClassKey = $this->typeMap[$type];;
         $nodes = array();
-        if (count($_SESSION['favoriteElements']['elements'][$type.'s']) == 0 ) return $nodes;
+        if (count($_SESSION['admintools']['favoriteElements']['elements'][$type.'s']) == 0 ) return $nodes;
         $c = $this->modx->newQuery($elementClassKey);
         $c->where(array(
-            'id:IN' => $_SESSION['favoriteElements']['elements'][$type.'s'],
+            'id:IN' => $_SESSION['admintools']['favoriteElements']['elements'][$type.'s'],
         ));
         $c->sortby($elementClassKey == 'modTemplate' ? 'templatename' : 'name','ASC');
 
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             $elements = $this->modx->getCollection($elementClassKey, $c);
             /* do permission checks */
             $canNewCategory = $this->modx->hasPermission('new_category');
@@ -115,7 +116,7 @@ class modElementGetNodesProcessor extends modProcessor {
         /** @var modElement $element */
         foreach ($elements as $element) {
 
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if (!$element->checkPolicy('list')) continue;
                 /* handle templatename case */
                 $name = $elementClassKey == 'modTemplate' ? $element->get('templatename') : $element->get('name');
@@ -124,7 +125,7 @@ class modElementGetNodesProcessor extends modProcessor {
             }
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if ($canEditElement && $element->checkPolicy(array('save' => true, 'view' => true))) $class[] = 'pedit';
                 if ($canDeleteElement && $element->checkPolicy('remove')) $class[] = 'pdelete';
                 $element = $element->toArray();
@@ -146,7 +147,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 $active = true;
             }
             $favIcon = $this->modx->getOption('admintools_favorites_icon',null,'');
-            if (in_array($element['id'],$_SESSION['favoriteElements']['elements'][$type.'s']) && $favIcon) {
+            if (in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$type.'s']) && $favIcon) {
                 $icon =  $favIcon;
             } else {
                 $icon = ($element['icon'] ? $element['icon'] : ($element['static'] ? 'icon-file-text-o' : 'icon-file-o'));
@@ -169,7 +170,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 'active' => !$element['disabled'],
                 'qtip' => strip_tags($element['description']),
                 'selected' => $active,
-                'favorite' => in_array($element['id'],$_SESSION['favoriteElements']['elements'][$type.'s'])
+                'favorite' => in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$type.'s'])
             );
         }
         return $nodes;
@@ -360,7 +361,7 @@ class modElementGetNodesProcessor extends modProcessor {
         $c->groupby($this->modx->getSelectColumns('modCategory','modCategory'));
         $c->sortby($this->modx->getSelectColumns('modCategory','modCategory','',array('category')),'ASC');
 
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             $categories = $this->modx->getCollection('modCategory',$c);
         } else {
             $c->prepare();
@@ -373,7 +374,7 @@ class modElementGetNodesProcessor extends modProcessor {
         $class = array('folder');
         $types = array('template','tv','chunk','snippet','plugin');
         foreach ($types as $type) {
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if ($this->modx->hasPermission('new_'.$type)) {
                     $class[] = 'pnew_'.$type;
                 }
@@ -381,7 +382,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 $class[] = 'pnew_'.$type;
             }
         }
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             if ($this->modx->hasPermission('new_category')) $class[] = 'pnewcat';
             if ($this->modx->hasPermission('edit_category')) $class[] = 'peditcat';
             if ($this->modx->hasPermission('delete_category')) $class[] = 'pdelcat';
@@ -396,7 +397,7 @@ class modElementGetNodesProcessor extends modProcessor {
         /* loop through categories */
         /** @var modCategory $category */
         foreach ($categories as $category) {
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if (!$category->checkPolicy('list')) continue;
                 if ($category->get('elementCount') <= 0 && $category->get('childrenCount') <= 0) continue;
                 $category = $category->toArray();
@@ -434,7 +435,7 @@ class modElementGetNodesProcessor extends modProcessor {
         ));
         $c->sortby($elementIdentifier == 'template' ? 'templatename' : 'name','ASC');
 
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             $elements = $this->modx->getCollection($elementClassKey,$c);
             /* do permission checks */
             $canNewElement = $this->modx->hasPermission('new_'.$elementIdentifier);
@@ -457,7 +458,7 @@ class modElementGetNodesProcessor extends modProcessor {
         /* loop through elements */
         /** @var modElement $element */
         foreach ($elements as $element) {
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if (!$element->checkPolicy('list')) continue;
                 /* handle templatename case */
                 $name = $elementClassKey == 'modTemplate' ? $element->get('templatename') : $element->get('name');
@@ -466,7 +467,7 @@ class modElementGetNodesProcessor extends modProcessor {
             }
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if ($canEditElement && $element->checkPolicy(array('save' => true, 'view' => true))) $class[] = 'pedit';
                 if ($canDeleteElement && $element->checkPolicy('remove')) $class[] = 'pdelete';
                 $element = $element->toArray();
@@ -485,7 +486,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 $active = true;
             }
             $favIcon = $this->modx->getOption('admintools_favorites_icon',null,'');
-            if (in_array($element['id'],$_SESSION['favoriteElements']['elements'][$map[0].'s']) && $favIcon) {
+            if (in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$map[0].'s']) && $favIcon) {
                 $icon =  $favIcon;
             } else {
                 $icon = ($element['icon'] ? $element['icon'] : ($element['static'] ? 'icon-file-text-o' : 'icon-file-o'));
@@ -509,7 +510,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 'active' => !$element['disabled'],
                 'qtip' => strip_tags($element['description']),
                 'selected' => $active,
-                'favorite' => in_array($element['id'],$_SESSION['favoriteElements']['elements'][$map[0].'s'])
+                'favorite' => in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$map[0].'s'])
             );
         }
 
@@ -535,7 +536,7 @@ class modElementGetNodesProcessor extends modProcessor {
         ));
         $c->sortby($this->modx->getSelectColumns('modCategory','modCategory','',array('category')),'ASC');
         $c->groupby($this->modx->getSelectColumns('modCategory','modCategory'));
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             $categories = $this->modx->getCollection('modCategory', $c);
         } else {
             $c->prepare();
@@ -547,7 +548,7 @@ class modElementGetNodesProcessor extends modProcessor {
         $class = 'folder';
         $types = array('template','tv','chunk','snippet','plugin');
         foreach ($types as $type) {
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if ($this->modx->hasPermission('new_'.$type)) {
                     $class .= ' pnew_'.$type;
                 }
@@ -555,7 +556,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 $class .= ' pnew_'.$type;
             }
         }
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             $class .= $this->modx->hasPermission('new_category') ? ' pnewcat' : '';
             $class .= $this->modx->hasPermission('edit_category') ? ' peditcat' : '';
             $class .= $this->modx->hasPermission('delete_category') ? ' pdelcat' : '';
@@ -566,7 +567,7 @@ class modElementGetNodesProcessor extends modProcessor {
         /* loop through categories with elements in this type */
         /** @var modCategory $category */
         foreach ($categories as $category) {
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true) && !$category->checkPolicy('list')) continue;
+            if ($this->checkPermission && !$category->checkPolicy('list')) continue;
 
             $categoryId = is_object($category) ? (int)$category->get('id') : (int) $category['id'];
             $categoryCat = is_object($category) ? $category->get('category') : $category['category'];
@@ -608,7 +609,7 @@ class modElementGetNodesProcessor extends modProcessor {
         ));
         $c->sortby($elementClassKey == 'modTemplate' ? 'templatename' : 'name','ASC');
 
-        if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+        if ($this->checkPermission) {
             $elements = $this->modx->getCollection($elementClassKey, $c);
             /* do permission checks */
             $canNewCategory = $this->modx->hasPermission('new_category');
@@ -630,7 +631,7 @@ class modElementGetNodesProcessor extends modProcessor {
         /* loop through elements */
         /** @var modElement $element */
         foreach ($elements as $element) {
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if (!$element->checkPolicy('list')) continue;
                 /* handle templatename case */
                 $name = $elementClassKey == 'modTemplate' ? $element->get('templatename') : $element->get('name');
@@ -639,7 +640,7 @@ class modElementGetNodesProcessor extends modProcessor {
             }
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
-            if ($this->modx->getOption('admintools_check_elements_permissions', null, true)) {
+            if ($this->checkPermission) {
                 if ($canEditElement && $element->checkPolicy(array('save' => true,'view' => true))) $class[] = 'pedit';
                 if ($canDeleteElement && $element->checkPolicy('remove')) $class[] = 'pdelete';
                 $element = $element->toArray();
@@ -661,7 +662,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 $active = true;
             }
             $favIcon = $this->modx->getOption('admintools_favorites_icon',null,'');
-            if (in_array($element['id'],$_SESSION['favoriteElements']['elements'][$map[1].'s']) && $favIcon) {
+            if (in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$map[1].'s']) && $favIcon) {
                 $icon =  $favIcon;
             } else {
                 $icon = ($element['icon'] ? $element['icon'] : ($element['static'] ? 'icon-file-text-o' : 'icon-file-o'));
@@ -684,7 +685,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 'active' => !$element['disabled'],
                 'qtip' => strip_tags($element['description']),
                 'selected' => $active,
-                'favorite' => in_array($element['id'],$_SESSION['favoriteElements']['elements'][$map[1].'s'])
+                'favorite' => in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$map[1].'s'])
             );
         }
         return $nodes;

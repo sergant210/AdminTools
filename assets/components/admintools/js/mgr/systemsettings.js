@@ -2,8 +2,8 @@ if (typeof MODx.grid.SystemSettings != 'undefined') {
 	Ext.apply(MODx.grid.SystemSettings.prototype, {
 		filterByNamespace: function (cb, rec, ri) {
 			var init = typeof ri == 'undefined';
-			var ns = init ? adminTools.systemSettings.namespace : rec.data.name;
-			var area = init ? adminTools.systemSettings.area : '';
+			var ns = init ? adminToolsSettings.systemSettings.namespace : rec.data.name;
+			var area = init ? adminToolsSettings.systemSettings.area : '';
 			Ext.getCmp('modx-filter-namespace').setValue(ns);
 			this.getStore().baseParams['namespace'] = ns;
 			this.getStore().baseParams['area'] = area;
@@ -20,7 +20,7 @@ if (typeof MODx.grid.SystemSettings != 'undefined') {
 			}
 			if (!init) {
 				Ext.Ajax.request({
-					url: adminTools.config.connector_url
+					url: adminToolsSettings.config.connector_url
 					, params: {
 						action: 'mgr/systemsettings/savestate',
 						namespace: ns,
@@ -28,7 +28,7 @@ if (typeof MODx.grid.SystemSettings != 'undefined') {
 					}
 					, success: function (r) {
 						var res = Ext.decode(r.responseText);
-						adminTools.systemSettings = res.object;
+						adminToolsSettings.systemSettings = res.object;
 					}
 					, scope: this
 				});
@@ -38,15 +38,15 @@ if (typeof MODx.grid.SystemSettings != 'undefined') {
 			this.getStore().baseParams['area'] = rec.data['v'];
 			this.getBottomToolbar().changePage(1);
 			Ext.Ajax.request({
-				url: adminTools.config.connector_url
+				url: adminToolsSettings.config.connector_url
 				, params: {
 					action: 'mgr/systemsettings/savestate',
-					namespace: adminTools.systemSettings.namespace,
+					namespace: adminToolsSettings.systemSettings.namespace,
 					area: rec.data['v']
 				}
 				, success: function (r) {
 					var res = Ext.decode(r.responseText);
-					adminTools.systemSettings = res.object;
+					adminToolsSettings.systemSettings = res.object;
 				}
 				, scope: this
 			});

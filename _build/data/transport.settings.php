@@ -18,6 +18,11 @@ $tmp = array(
 		'value' => true,
 		'area' => 'admintools_main',
 	),
+    'enable_elements_log' => array(
+		'xtype' => 'combo-boolean',
+		'value' => true,
+		'area' => 'admintools_main',
+	),
 );
 
 foreach ($tmp as $k => $v) {
