@@ -46,7 +46,7 @@ class AdminTools {
                     if (empty($_SESSION['admintools']['favoriteElements']['states'])) {
                         $states = $this->getFromCache('states');
                         if (empty($states)) {
-                            $_SESSION['admintools']['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
+                            $_SESSION['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
                             $this->saveToCache('states');
                         } else {
                             $_SESSION['admintools']['favoriteElements']['states'] = $states;
@@ -116,7 +116,6 @@ class AdminTools {
     }
 
     public function updateElementLog(array $object){
-//$this->modx->log(modX::LOG_LEVEL_ERROR, print_r($object,1));
         $type = explode('/',$object['action']);
         $elementData = array(
             'type'=>$type[1],

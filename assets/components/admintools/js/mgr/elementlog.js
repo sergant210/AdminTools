@@ -265,9 +265,6 @@ Ext.onReady(function () {
 		});
 		w.show(Ext.EventObject.target);
 	};
-	tree.quickUpdate = function(){
-		alert("Stop");
-	};
 	var arr = [];
 	//arr.push('->');
 	arr.push({

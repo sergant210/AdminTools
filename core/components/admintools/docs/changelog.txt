@@ -1,5 +1,9 @@
 Changelog for AdminTools.
 
+1.2.1-pl
+==============
+- Fixed bug with favotites elements.
+
 1.2.0-pl
 ==============
 - Added a log of recently edited elements to the tree toolbar.
