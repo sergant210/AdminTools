@@ -141,11 +141,6 @@ class AdminTools {
     }
 
     public function getElementLog() {
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/elementlog/',
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        return $this->modx->cacheManager->get('element_log', $cacheOptions);
+        return $this->getFromCache('element_log', 'elementlog/');
     }
 }
