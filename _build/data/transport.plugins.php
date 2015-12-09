@@ -7,7 +7,12 @@ $tmp = array(
 		'file' => 'admintools',
 		'description' => '',
 		'events' => array(
-			'OnManagerPageBeforeRender' => array()
+			'OnManagerPageBeforeRender' => array(),
+			'OnChunkFormSave' => array(),
+			'OnSnipFormSave' => array(),
+			'OnTempFormSave' => array(),
+			'OnPluginFormSave' => array(),
+			'OnTVFormSave' => array(),
 		)
 	)
 );
