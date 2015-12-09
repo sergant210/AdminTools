@@ -8,32 +8,32 @@ class AdminTools {
     public $modx;
     public $initialized = array();
 
-	/**
-	 * @param modX $modx
-	 * @param array $config
-	 */
-	function __construct(modX &$modx, array $config = array()) {
-		$this->modx =& $modx;
+    /**
+     * @param modX $modx
+     * @param array $config
+     */
+    function __construct(modX &$modx, array $config = array()) {
+        $this->modx =& $modx;
 
-		$corePath = $this->modx->getOption('admintools_core_path', $config, $this->modx->getOption('core_path') . 'components/admintools/');
-		$assetsUrl = $this->modx->getOption('admintools_assets_url', $config, $this->modx->getOption('assets_url') . 'components/admintools/');
-		$connectorUrl = $assetsUrl . 'connector.php';
+        $corePath = $this->modx->getOption('admintools_core_path', $config, $this->modx->getOption('core_path') . 'components/admintools/');
+        $assetsUrl = $this->modx->getOption('admintools_assets_url', $config, $this->modx->getOption('assets_url') . 'components/admintools/');
+        $connectorUrl = $assetsUrl . 'connector.php';
 
-		$this->config = array_merge(array(
-			'assetsUrl' => $assetsUrl,
-			'cssUrl' => $assetsUrl . 'css/',
-			'jsUrl' => $assetsUrl . 'js/',
-			'connectorUrl' => $connectorUrl,
+        $this->config = array_merge(array(
+            'assetsUrl' => $assetsUrl,
+            'cssUrl' => $assetsUrl . 'css/',
+            'jsUrl' => $assetsUrl . 'js/',
+            'connectorUrl' => $connectorUrl,
 
-			'corePath' => $corePath,
-			'modelPath' => $corePath . 'model/',
-			'templatesPath' => $corePath . 'elements/templates/',
-			'processorsPath' => $corePath . 'processors/'
-		), $config);
+            'corePath' => $corePath,
+            'modelPath' => $corePath . 'model/',
+            'templatesPath' => $corePath . 'elements/templates/',
+            'processorsPath' => $corePath . 'processors/'
+        ), $config);
 
-		//$this->modx->addPackage('admintools', $this->config['modelPath']);
-		//$this->modx->lexicon->load('admintools:default');
-	}
+        //$this->modx->addPackage('admintools', $this->config['modelPath']);
+        //$this->modx->lexicon->load('admintools:default');
+    }
 
     public function initialize($ctx = 'mgr') {
         switch ($ctx) {
@@ -44,19 +44,19 @@ class AdminTools {
                     $this->modx->controller->addJavascript($this->config['jsUrl'] . 'mgr/admintools.js');
                     $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/favorites.js');
                     if (empty($_SESSION['admintools']['favoriteElements']['states'])) {
-                        $states = $this->getFromCache('states');
+                        $states = $this->getFromCache('states', 'favorite_elements/' . $this->modx->user->id);
                         if (empty($states)) {
                             $_SESSION['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
-                            $this->saveToCache('states');
+                            $this->saveToCache($_SESSION['admintools']['favoriteElements']['states'], 'states', 'favorite_elements/' . $this->modx->user->id);
                         } else {
                             $_SESSION['admintools']['favoriteElements']['states'] = $states;
                         }
                     }
                     if (empty($_SESSION['admintools']['favoriteElements']['elements'])) {
-                        $elements = $this->getFromCache('elements');
+                        $elements = $this->getFromCache('elements', 'favorite_elements/' . $this->modx->user->id);
                         if (empty($elements)) {
                             $_SESSION['admintools']['favoriteElements']['elements'] = array('templates'=>array(),'tvs'=>array(),'chunks'=>array(),'plugins'=>array(),'snippets'=>array());
-                            $this->saveToCache('elements');
+                            $this->saveToCache($_SESSION['admintools']['favoriteElements']['elements'], 'elements', 'favorite_elements/' . $this->modx->user->id);
                         } else {
                             $_SESSION['admintools']['favoriteElements']['elements'] = $elements;
                         }
@@ -67,10 +67,10 @@ class AdminTools {
                     if ($this->modx->getOption('admintools_remember_system_settings',null,true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/systemsettings.js');
                         if (empty($_SESSION['admintools']['systemSettings'])) {
-                            $settings = $this->getFromCache('systemSettings');
+                            $settings = $this->getFromCache('systemSettings', 'favorite_elements/' . $this->modx->user->id);
                             if (empty($settings)) {
                                 $_SESSION['admintools']['systemSettings'] = array('namespace'=>'core','area'=>'');
-                                $this->saveToCache('systemSettings');
+                                $this->saveToCache($_SESSION['admintools']['favoriteElements']['systemSettings'], 'favorite_elements/' . $this->modx->user->id);
                             } else {
                                 $_SESSION['admintools']['systemSettings'] = $settings;
                             }
@@ -97,25 +97,25 @@ class AdminTools {
         return true;
     }
 
-    public function getFromCache($cacheElementKey){
+    public function getFromCache($cacheElementKey, $cacheFolder) {
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
+            xPDO::OPT_CACHE_KEY => 'admintools/' . $cacheFolder,
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
         return $this->modx->cacheManager->get($cacheElementKey, $cacheOptions);
     }
 
-    public function saveToCache($cacheElementKey){
+    public function saveToCache($data, $cacheElementKey, $cacheFolder) {
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
+            xPDO::OPT_CACHE_KEY => 'admintools/' . $cacheFolder,
             xPDO::OPT_CACHE_HANDLER => $cacheHandler,
         );
-        $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['admintools']['favoriteElements'][$cacheElementKey], 0, $cacheOptions);
+        $this->modx->cacheManager->set($cacheElementKey, $data, 0, $cacheOptions);
     }
 
-    public function updateElementLog(array $object){
+    public function updateElementLog(array $object) {
         $type = explode('/',$object['action']);
         $elementData = array(
             'type'=>$type[1],
@@ -124,24 +124,23 @@ class AdminTools {
             'editedon' => date('Y-m-d H:i:s'),
             'user' => $this->modx->user->get('username'),
         );
+
         $key = $elementData['type'].'-'.$elementData['eid'];
         $data[$key] = $elementData;
 
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/elementlog/',
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        $elements = $this->modx->cacheManager->get('element_log', $cacheOptions);
+        $elements = $this->getFromCache('element_log', 'elementlog/');
+
         if (is_array($elements)) {
             if (isset($elements[$key])) unset($elements[$key]);
             $elements = array_merge($data,$elements);
+        } else {
+            $elements = $data;
         }
 
-        $this->modx->cacheManager->set('element_log',  $elements, 0, $cacheOptions);
+        $this->saveToCache($elements, 'element_log', 'elementlog/');
     }
 
-    public function getElementLog(){
+    public function getElementLog() {
         $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
         $cacheOptions = array(
             xPDO::OPT_CACHE_KEY => 'admintools/elementlog/',
