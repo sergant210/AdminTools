@@ -26,6 +26,10 @@ if ($AdminTools instanceof AdminTools) {
             $elementType = 'plugin';
 
             break;
+        case 'OnTVFormSave':
+            $elementType = 'tv';
+
+            break;
     }
 
     if (!empty($elementType)) {
