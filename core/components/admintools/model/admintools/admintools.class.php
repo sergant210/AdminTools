@@ -70,7 +70,7 @@ class AdminTools {
                             $settings = $this->getFromCache('systemSettings', 'favorite_elements/' . $this->modx->user->id);
                             if (empty($settings)) {
                                 $_SESSION['admintools']['systemSettings'] = array('namespace'=>'core','area'=>'');
-                                $this->saveToCache($_SESSION['admintools']['favoriteElements']['systemSettings'], 'favorite_elements/' . $this->modx->user->id);
+                                $this->saveToCache($_SESSION['admintools']['favoriteElements']['systemSettings'], 'systemSettings', 'favorite_elements/' . $this->modx->user->id);
                             } else {
                                 $_SESSION['admintools']['systemSettings'] = $settings;
                             }
