@@ -4,30 +4,37 @@
  * Add element to favorite list
  */
 class atFavoritesAddElementProcessor extends modProcessor {
-	public $objectType = 'admintools';
-//	public $classKey = '';
-	public $languageTopics = array('admintools:default');
-	//public $permission = 'view';
+    public $objectType = 'admintools';
+//  public $classKey = '';
+    public $languageTopics = array('admintools:default');
+    //public $permission = 'view';
 
+    /**
+     * @return boolean
+     */
+    public function initialize() {
+        $path = $this->modx->getOption('admintools_core_path', null, $this->modx->getOption('core_path') . 'components/admintools/') . 'model/admintools/';
+        $this->modx->getService('admintools', 'AdminTools', $path, array());
 
-	/**
-	 * @return mixed
-	 */
-	public function process() {
+        return ($this->modx->admintools instanceof AdminTools);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function process() {
         $id = (int) $this->getProperty('id');
-        $type = $this->getProperty('type').'s';
-        if (!in_array($id,$_SESSION['admintools']['favoriteElements']['elements'][$type])) $_SESSION['admintools']['favoriteElements']['elements'][$type][] = $id;
+        $type = $this->getProperty('type') . 's';
+        if (!in_array($id, $_SESSION['admintools']['favoriteElements']['elements'][$type])) {
+            $_SESSION['admintools']['favoriteElements']['elements'][$type][] = $id;
+        }
 
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheElementKey = 'elements';
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        $this->modx->cacheManager->set($cacheElementKey,  $_SESSION['admintools']['favoriteElements']['elements'], 0, $cacheOptions);
+        $this->modx->admintools->saveToCache($_SESSION['admintools']['favoriteElements']['elements'], 'elements', 'favorite_elements/' . $this->modx->user->id);
+
         @session_write_close();
-        return $this->success('',$_SESSION['admintools']['favoriteElements']['elements']);
-	}
+
+        return $this->success('', $_SESSION['admintools']['favoriteElements']['elements']);
+    }
 
 }
 
