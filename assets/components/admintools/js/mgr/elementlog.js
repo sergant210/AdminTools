@@ -4,6 +4,7 @@ AdminTools.window.lastEditedElements = function (config) {
 		config.id = 'admintools-led-window';
 	}
 	Ext.applyIf(config, {
+		url: adminToolsSettings.config.connector_url,
 		title: _('admintools_last_edited'),
 		width: 1000,
 		maxHeight: 800,
@@ -47,7 +48,8 @@ Ext.extend(AdminTools.window.lastEditedElements, MODx.Window, {
 			listeners: {
 				success: {
 					fn: function (r) {
-						this.refresh();
+						// we have to access the grid from the window object this.refresh() won't work
+						this.items.items[0].refresh();
 					}, scope: this
 				}
 			}
