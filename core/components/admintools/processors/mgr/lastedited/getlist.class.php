@@ -9,6 +9,15 @@ class LastEditedElementGetListProcessor extends modProcessor {
 	public $languageTopics = array('admintools:default');
 	//public $permission = 'view';
 
+    /**
+     * @return boolean
+     */
+    public function initialize() {
+        $path = $this->modx->getOption('admintools_core_path', null, $this->modx->getOption('core_path') . 'components/admintools/') . 'model/admintools/';
+        $this->modx->getService('admintools', 'AdminTools', $path, array());
+
+        return ($this->modx->admintools instanceof AdminTools);
+    }
 
 	/**
 	 * @return mixed
@@ -25,17 +34,14 @@ class LastEditedElementGetListProcessor extends modProcessor {
             }
         }
 
-        $sort = $this->getProperty('sort','');
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/elementlog/',
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        $elements = $this->modx->cacheManager->get('element_log', $cacheOptions);
+        $sort = $this->getProperty('sort', '');
+
+        $elements = $this->modx->admintools->getFromCache('element_log', 'elementlog/');
 
         if ($sort) {
             uasort($elements, 'sortEditedElements');
         }
+        
         $data = array();
         if (is_array($elements)) {
             foreach ($elements as $key=>$element) {
