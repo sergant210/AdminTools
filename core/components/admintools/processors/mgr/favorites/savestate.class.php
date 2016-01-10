@@ -1,30 +1,29 @@
 <?php
-
 /**
  * Save the state of Favorite Elements
  */
 class atFavoritesSaveStateProcessor extends modProcessor {
-	public $objectType = 'admintools';
+    public $objectType = 'admintools';
     public $languageTopics = array('admintools:default');
 //	public $classKey = '';
-	//public $permission = '';
-
-    public function process()
-    {
+    //public $permission = '';
+    /**
+     * @return boolean
+     */
+    public function initialize() {
+        $path = $this->modx->getOption('admintools_core_path', null, $this->modx->getOption('core_path') . 'components/admintools/') . 'model/admintools/';
+        $this->modx->getService('admintools', 'AdminTools', $path, array());
+        return ($this->modx->admintools instanceof AdminTools);
+    }
+    public function process() {
         $state = $this->getProperty('state') == 'true' ? true : false;
         $type = $this->getProperty('type');
         $_SESSION['admintools']['favoriteElements']['states'][$type] = $state;
+        //$this->modx->admintools->saveToCache($_SESSION['admintools']['favoriteElements']['states'], 'states', 'favorite_elements/' . $this->modx->user->id);
+        $this->modx->admintools->saveToProfile($_SESSION['admintools']['favoriteElements']['states'],'adminToolsStates');
 
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheElementKey = 'states';
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/favorite_elements/'.$this->modx->user->id,
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        $this->modx->cacheManager->set($cacheElementKey, $_SESSION['admintools']['favoriteElements']['states'], 0, $cacheOptions);
         @session_write_close();
-        return $this->success('',$_SESSION['admintools']['favoriteElements']['states']);
+        return $this->success('', $_SESSION['admintools']['favoriteElements']['states']);
     }
 }
-
 return 'atFavoritesSaveStateProcessor';

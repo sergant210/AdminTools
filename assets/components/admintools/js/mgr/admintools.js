@@ -94,3 +94,5 @@ AdminTools.utils.renderActions = function (value, props, row) {
 		res.join('')
 	);
 };
+
+

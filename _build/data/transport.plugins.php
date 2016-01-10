@@ -7,13 +7,20 @@ $tmp = array(
 		'file' => 'admintools',
 		'description' => '',
 		'events' => array(
-			'OnManagerPageBeforeRender' => array()
+			'OnManagerPageBeforeRender' => array(),
+            'OnChunkFormSave' => array(),
+            'OnSnipFormSave' => array(),
+            'OnTempFormSave' => array(),
+            'OnPluginFormSave' => array(),
+            'OnTVFormSave' => array(),
+            'OnDocFormRender' => array(),
+            'OnDocFormSave' => array(),
 		)
 	)
 );
 
 foreach ($tmp as $k => $v) {
-	/* @avr modplugin $plugin */
+	/* @var modplugin $plugin */
 	$plugin = $modx->newObject('modPlugin');
 	$plugin->fromArray(array(
 		'name' => $k,

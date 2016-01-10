@@ -78,17 +78,19 @@ a.x-menu-item .x-menu-item-text .icon {
 	padding: 0 14px;
 }
 #admintools-panel-link.opened a{
-	background-color: #333;
+	background-color: #282b34;
 }
-#admintools-panel {
-	background-color: #000;
-	height: 100%;
-	opacity: 0.8;
+.admintools-panel {
+	background-color: #282b34;
+	left: 0;
+	opacity: 0.9;
 	position: absolute;
-	right: 0;
-	top: 55px;
-	width: 39px;
-	z-index: 50;
+	top: 57px;
+	width: 100%;
+	z-index: 5;
+}
+.admintools-panel .active {
+
 }
 #modx-user-menu {
 	margin-right: 0;
@@ -106,6 +108,129 @@ a.x-menu-item .x-menu-item-text .icon {
 .tree-last-edited > em > button:hover {
 	color:inherit;
 }
+
+/** ******************Task panel**************************** **/
+/*#modx-leftbar {
+	top: 100px !important;
+}
+#modx-content {
+	top: 100px !important;
+}
+#modx-action-buttons {
+	top: 100px !important;
+}
+.admintools-panel .x-btn {
+	margin-right: 1px !important;
+	padding: 10px !important;
+	text-align: left !important;
+}*/
+.task-button-active {
+	text-decoration: none;
+	text-align: center;
+	padding: 10px 32px;
+	border: solid 1px #030017;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	font: 18px Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #E5FFFF;
+	background-color: #99cdde;
+	background-image: -moz-linear-gradient(top, #99cdde 0%, #324966 100%);
+	background-image: -webkit-linear-gradient(top, #99cdde 0%, #324966 100%);
+	background-image: -o-linear-gradient(top, #99cdde 0%, #324966 100%);
+	background-image: -ms-linear-gradient(top, #99cdde 0%, #324966 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#324966', endColorstr='#324966', GradientType=0);
+	background-image: linear-gradient(top, #99cdde 0%, #324966 100%);
+	-webkit-box-shadow: 0 0 2px #bababa, inset 0 0 1px #ffffff;
+	-moz-box-shadow: 0 0 2px #bababa, inset 0 0 1px #ffffff;
+	box-shadow: 0 0 2px #bababa, inset 0 0 1px #ffffff;
+
+	text-shadow: 1px 1px 0px #373738;
+	filter: dropshadow(color=#373738, offx=1, offy=1);
+	-webkit-transition: all 0.24s linear;
+	-moz-transition: all 0.24s linear;
+	-o-transition: all 0.24s linear;
+	transition: all 0.24s linear;
+}
+.task-button-active:hover,
+.task-button-active:active
+{
+	padding: 10px 32px;
+	border: solid 1px #004F72;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #E5FFFF;
+	background-color: #6a9bab;
+	background-image: -moz-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	background-image: -webkit-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	background-image: -o-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	background-image: -ms-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#405a63', endColorstr='#405a63', GradientType=0);
+	background-image: linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	-webkit-box-shadow: 0 0 2px #bababa, inset 0 0 1px #ffffff;
+	-moz-box-shadow: 0 0 2px #bababa, inset 0 0 1px #ffffff;
+	box-shadow: 0 0 2px #bababa, inset 0 0 1px #ffffff;
+
+	text-shadow: 1px 1px 0px #2b333d;
+	filter: dropshadow(color=#2b333d, offx=1, offy=1);
+}
+
+.task-button {
+	text-decoration: none;
+	text-align: center;
+	padding: 11px 32px;
+	border: solid 1px #0a001f;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	font: 18px Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #E5FFFF;
+	background-color: #9babb0;
+	background-image: -moz-linear-gradient(top, #9babb0 0%, #464b52 100%);
+	background-image: -webkit-linear-gradient(top, #9babb0 0%, #464b52 100%);
+	background-image: -o-linear-gradient(top, #9babb0 0%, #464b52 100%);
+	background-image: -ms-linear-gradient(top, #9babb0 0%, #464b52 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#464b52', endColorstr='#464b52', GradientType=0);
+	background-image: linear-gradient(top, #9babb0 0%, #464b52 100%);
+	-webkit-box-shadow:inset 0 0 1px #ffffff;
+	-moz-box-shadow: inset 0 0 1px #ffffff;
+	box-shadow: inset 0 0 1px #ffffff;
+
+	text-shadow: 1px 1px 0 #373738;
+	filter: dropshadow(color=#373738, offx=1, offy=1);
+	-webkit-transition: all 0.24s linear;
+	-moz-transition: all 0.24s linear;
+	-o-transition: all 0.24s linear;
+	transition: all 0.24s linear;
+}
+
+.task-button:hover,
+.task-button:active
+{
+	padding: 11px 32px;
+	border: solid 1px #004F72;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #E5FFFF;
+	background-color: #6a9bab;
+	background-image: -moz-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	background-image: -webkit-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	background-image: -o-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	background-image: -ms-linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#405a63', endColorstr='#405a63', GradientType=0);
+	background-image: linear-gradient(top, #6a9bab 0%, #405a63 100%);
+	-webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+	-moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+	box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+
+	text-shadow: 1px 1px 0px #2b333d;
+	filter: dropshadow(color=#2b333d, offx=1, offy=1);
+}
+
 /*
 ul.admintools-row-actions .actions-menu {width: 40px;}
 ul.admintools-row-actions .actions-menu:after {content: " \f107";}

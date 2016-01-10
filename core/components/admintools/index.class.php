@@ -2,6 +2,7 @@
 
 /**
  * Class AdminToolsMainController
+ * Not used. May be in the future.
  */
 abstract class AdminToolsMainController extends modExtraManagerController {
 	/** @var AdminTools $AdminTools */

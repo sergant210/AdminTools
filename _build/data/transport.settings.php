@@ -23,6 +23,21 @@ $tmp = array(
 		'value' => true,
 		'area' => 'admintools_main',
 	),
+    'enable_favorite_elements' => array(
+		'xtype' => 'combo-boolean',
+		'value' => true,
+		'area' => 'admintools_main',
+	),
+    'clear_only resource_cache' => array(
+		'xtype' => 'combo-boolean',
+		'value' => false,
+		'area' => 'admintools_main',
+	),
+    'hide_component_description' => array(
+		'xtype' => 'combo-boolean',
+		'value' => true,
+		'area' => 'admintools_main',
+	),
 );
 
 foreach ($tmp as $k => $v) {

@@ -9,7 +9,6 @@ if (typeof MODx.grid.SystemSettings != 'undefined') {
 			this.getStore().baseParams['area'] = area;
 			this.getBottomToolbar().changePage(1);
 			//this.refresh();
-
 			var acb = Ext.getCmp('modx-filter-area');
 			if (acb) {
 				var s = acb.store;

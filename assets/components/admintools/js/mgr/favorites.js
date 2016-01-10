@@ -179,7 +179,7 @@ if (typeof MODx.tree.Element != 'undefined') {
 					var res = Ext.decode(r.responseText);
 					adminToolsSettings.favoriteElements.elements = res.object;
 					node.ui.addClass('x-element-favorite');
-					if (adminToolsSettings.favoriteElements.icon) node.ui.iconNode.className = 'icon ' + adminToolsSettings.favoriteElements.icon;
+					if (adminToolsSettings.favoriteElements.icon) node.ui.iconNode.className = adminToolsSettings.favoriteElements.icon;
 				}
 				, scope: this
 			});
@@ -203,7 +203,13 @@ if (typeof MODx.tree.Element != 'undefined') {
 					var res = Ext.decode(r.responseText);
 					adminToolsSettings.favoriteElements.elements = res.object;
 					node.getUI().removeClass('x-element-favorite');
-					node.ui.iconNode.className = node.attributes.iconCls;
+					//node.ui.iconNode.className = node.attributes.iconCls;
+					if ( /\bstatic\b/.test(node.attributes.cls) ) {
+						node.ui.iconNode.className = 'icon icon-file-text-o';
+					} else {
+						node.ui.iconNode.className = 'icon icon-file-o';
+						//node.setIconCls('icon icon-file-o');
+					}
 				}
 				, scope: this
 			});

@@ -1,78 +1,99 @@
 <?php
-
 /**
- * Get last edited elements list
+ * Get list of edited elements
  */
-class LastEditedElementGetListProcessor extends modProcessor {
-	public $objectType = 'admintools';
-//	public $classKey = '';
-	public $languageTopics = array('admintools:default');
-	//public $permission = 'view';
+class EditedElementGetListProcessor extends modObjectGetListProcessor {
+    public $objectType = 'modManagerLog';
+	public $classKey = 'modManagerLog';
+    public $languageTopics = array('modmanagerlog:default');
+    public $defaultSortField = 'modManagerLog.occurred';
+    public $defaultSortDirection = 'DESC';
+    //public $permission = 'view';
 
-
-	/**
-	 * @return mixed
-	 */
-	public function process() {
-        function sortEditedElements ($a, $b) {
-            global $sort;
-            global $dir;
-
-            if ($dir == 'ASC') {
-                return strcmp($a[$sort],$b[$sort]);
-            } else {
-                return strcmp($b[$sort],$a[$sort]);
-            }
+    /**
+     * @return mixed
+     */
+    public function prepareQueryBeforeCount(xPDOQuery $c) {
+        $c->select($this->modx->getSelectColumns('modManagerLog','modManagerLog','',array('action'),true));
+//        $c->select($this->modx->getSelectColumns('modManagerLog','modManagerLog'));
+        $c->select(array('User.username','Template.templatename','Chunk.name as chunkname','Snippet.name as snippetname','Plugin.name as pluginname','TV.name as tvname'));
+        $c->innerJoin('modUser','User');
+        $c->leftJoin('modTemplate','Template', '`modManagerLog`.item = `Template`.`id` AND `modManagerLog`.`classKey` = "modTemplate"');
+        $c->leftJoin('modChunk','Chunk', '`modManagerLog`.item = `Chunk`.`id` AND `modManagerLog`.`classKey` = "modChunk"');
+        $c->leftJoin('modSnippet','Snippet', '`modManagerLog`.item = `Snippet`.`id` AND `modManagerLog`.`classKey` = "modSnippet"');
+        $c->leftJoin('modPlugin','Plugin', '`modManagerLog`.item = `Plugin`.`id` AND `modManagerLog`.`classKey` = "modPlugin"');
+        $c->leftJoin('modTemplateVar','TV', '`modManagerLog`.item = `TV`.`id` AND `modManagerLog`.`classKey` = "modTemplateVar"');
+        $query = trim($this->getProperty('query'));
+        if ($query) {
+            $c->where(
+                '(Template.templatename LIKE "%'.$query.'%" OR Chunk.name LIKE "%'.$query.'%" OR Snippet.name LIKE "%'.$query.'%" OR Plugin.name LIKE "%'.$query.'%" OR TV.name LIKE "%'.$query.'%")'
+            );
+        } else {
+            $c->where(
+                '(modManagerLog.action LIKE "template_%" OR modManagerLog.action LIKE "chunk_%" OR modManagerLog.action LIKE "snippet_%" OR modManagerLog.action LIKE "plugin_%" OR modManagerLog.action LIKE "tv_%")'
+            );
+        }
+        $user = intval($this->getProperty('user'));
+        if ($user) {
+            $c->andCondition(array('modManagerLog.user'=>$user));
+        }
+        $dateStart = trim($this->getProperty('datestart'));
+        if ($dateStart) {
+            $dateStart = date('Y-m-d',strtotime($dateStart));
+            $c->andCondition(array('modManagerLog.occurred:>='=>$dateStart));
+        }
+        $dateEnd = trim($this->getProperty('dateend'));
+        if ($dateEnd) {
+            $dateEnd = date('Y-m-d 23:59:59',strtotime($dateEnd));
+            $c->andCondition(array('modManagerLog.occurred:<='=>$dateEnd));
         }
 
-        $sort = $this->getProperty('sort','');
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/elementlog/',
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
+        return $c;
+    }
+
+    public function prepareQueryAfterCountCount(xPDOQuery $c) {
+        $c->prepare();
+        $this->modx->log(modX::LOG_LEVEL_ERROR, $c->toSql());
+    }
+    /**
+     * @param xPDOObject $object
+     *
+     * @return array
+     */
+    public function prepareRow(xPDOObject $object) {
+        $array = $object->toArray();
+        $array['key'] = $array['classKey'].'-'.$array['item'];
+        switch ($array['classKey']) {
+            case 'modTemplate':
+                $array['name'] = $array['templatename'];
+                break;
+            case 'modChunk':
+                $array['name'] = $array['chunkname'];
+                break;
+            case 'modSnippet':
+                $array['name'] = $array['snippetname'];
+                break;
+            case 'modPlugin':
+                $array['name'] = $array['pluginname'];
+                break;
+            case 'modTemplateVar':
+                $array['name'] = $array['tvname'];
+                break;
+        }
+        if (!isset($array['name'])) $array['name'] = '('.$this->modx->lexicon('deleted').')';
+
+        unset($array['templatename'],$array['chunkname'],$array['snippetname'],$array['pluginname'],$array['id']);
+        $array['actions'][] = array(
+            'cls' => '',
+            'icon' => 'icon icon-pencil-square-o ',
+            'title' => $this->modx->lexicon('admintools_open'),
+            //'multiple' => $this->modx->lexicon('fullcalendar_items_update'),
+            'action' => 'openElement',
+            'button' => true,
+            'menu' => true,
         );
-        $elements = $this->modx->cacheManager->get('element_log', $cacheOptions);
 
-        if ($sort) {
-            uasort($elements, 'sortEditedElements');
-        }
-        $data = array();
-        if (is_array($elements)) {
-            foreach ($elements as $key=>$element) {
-                $element['key'] = $key;
-                $element['actions'] = array();
-                // Open
-                $element['actions'][] = array(
-                    'cls' => '',
-                    'icon' => 'icon icon-link',
-                    'title' => $this->modx->lexicon('admintools_open'),
-                    //'multiple' => $this->modx->lexicon('fullcalendar_items_update'),
-                    'action' => 'openElement',
-                    'button' => true,
-                    'menu' => true,
-                );
-                // Remove
-                $element['actions'][] = array(
-                    'cls' => '',
-                    'icon' => 'icon icon-trash-o action-red',
-                    'title' => $this->modx->lexicon('admintools_item_remove'),
-                    'multiple' => $this->modx->lexicon('admintools_items_remove'),
-                    'action' => 'removeItem',
-                    'button' => true,
-                    'menu' => true,
-                );
-
-                $data[] = $element;
-            }
-        }
-
-        return $this->outputArray($data,count($data));
-	}
-
-    public function outputArray(array $array,$count = false) {
-        if ($count === false) { $count = count($array); }
-        return '{"success":true,"total":"'.$count.'","results":'.$this->modx->toJSON($array).'}';
+        return $array;
     }
 }
-
-return 'LastEditedElementGetListProcessor';
+return 'EditedElementGetListProcessor';

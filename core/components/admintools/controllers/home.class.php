@@ -2,6 +2,7 @@
 
 /**
  * The home manager controller for AdminTools.
+ * Not used.
  *
  */
 class AdminToolsHomeManagerController extends AdminToolsMainController {
