@@ -10,5 +10,4 @@ A basic Extra for MODx Revolution Administrators. It adds some features:
 
 All these features can be switched off by the corresponding system setting.
 
-All features data are stored in cache folder (/core/cache/admintools/).  
 To be continued.
