@@ -218,9 +218,9 @@ class atCacheManager extends modCacheManager
     {
         if ($this->modx->getOption('admintools_clear_only resource_cache',null,false) && !empty($this->modx->_clearResourceCache)) {
             $this->modx->_clearResourceCache = false;
+            unset($providers['resource']);
             $this->modx->cacheManager = null;
             $this->modx->getCacheManager();
-            return false;
         }
         return parent::refresh($providers, $results);
     }
