@@ -3,7 +3,7 @@ Changelog for AdminTools.
 1.3.0-pl
 ==============
 - Added system setting for switching on/off the favorite elements function.
-- Added ability to clear only the saved resource cache (system setting "clear_cache_only_resource").
+- Added ability to clear only the saved resource cache (system setting "clear_only resource_cache").
 - Added system setting for hiding component description at menu "Extras".
 - The list of the edited elements is getting from the system 'manager_log' table.
 - Added filter to the last edited elements grid.
