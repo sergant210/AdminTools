@@ -31,7 +31,9 @@ if ($AdminTools instanceof AdminTools) {
                 if ($modx->event->params['mode'] != 'upd') {
                     return;
                 }
-                $modx->cacheManager = $AdminTools->clearResourceCache($resource);
+                if ($resource->get('syncsite')) {
+                    $AdminTools->clearResourceCache($resource);
+                }
             }
             break;
     }
