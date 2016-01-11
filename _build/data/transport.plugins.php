@@ -13,7 +13,6 @@ $tmp = array(
             'OnTempFormSave' => array(),
             'OnPluginFormSave' => array(),
             'OnTVFormSave' => array(),
-            'OnDocFormRender' => array(),
             'OnDocFormSave' => array(),
 		)
 	)

@@ -190,4 +190,39 @@ class AdminTools {
     public function getElementLog() {
         return $this->getFromCache('element_log', 'elementlog/');
     }
+
+    /**
+     * @param modResource $resource
+     * @return modCacheManager
+     */
+    public function clearResourceCache(&$resource) {
+        $this->modx->_clearResourceCache = true;
+        $this->modx->cacheManager = new atCacheManager ($this->modx);
+        $resource->_contextKey = $resource->context_key;
+        /** @var modCacheManager $cache */
+        $cache = $this->modx->cacheManager->getCacheProvider($this->modx->getOption('cache_resource_key', null, 'resource'));
+        $key = $resource->getCacheKey();
+        $cache->delete($key, array('deleteTop' => true));
+        $cache->delete($key);
+
+        return $this->modx->cacheManager;
+    }
+}
+
+/**
+ * Cache manager class for adminTools.
+ */
+require_once MODX_CORE_PATH.'model/modx/modcachemanager.class.php';
+class atCacheManager extends modCacheManager
+{
+    public function refresh(array $providers = array(), array &$results = array())
+    {
+        if ($this->modx->getOption('admintools_clear_only resource_cache',null,false) && $this->modx->_clearResourceCache) {
+            $this->modx->_clearResourceCache = false;
+            $this->modx->cacheManager = null;
+            $this->modx->getCacheManager();
+            return false;
+        }
+        return parent::refresh($providers, $results);
+    }
 }

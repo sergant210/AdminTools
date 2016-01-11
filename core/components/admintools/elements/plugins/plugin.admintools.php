@@ -3,7 +3,7 @@ if (!$modx->user->id) return;
 /** @var array $scriptProperties */
 $path = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/').'model/admintools/';
 /** @var AdminTools $AdminTools */
-$AdminTools = $modx->getService('admintools','AdminTools',$path, $scriptProperties);
+$AdminTools = $modx->getService('admintools','AdminTools',$path);
 $elementType = null;
 if ($AdminTools instanceof AdminTools) {
     switch ($modx->event->name) {
@@ -26,22 +26,12 @@ if ($AdminTools instanceof AdminTools) {
         case 'OnTVFormSave':
             $elementType = 'tv';
             break;
-        case 'OnDocFormRender':
-            if ($modx->getOption('admintools_clear_only resource_cache',null,false)) {
-                $resource->set('syncsite', 0);
-            }
-            break;
         case 'OnDocFormSave':
             if ($modx->getOption('admintools_clear_only resource_cache',null,false)) {
                 if ($modx->event->params['mode'] != 'upd') {
                     return;
                 }
-                $resource->_contextKey = $resource->context_key;
-                /** @var modCacheManager $cache */
-                $cache = $modx->cacheManager->getCacheProvider($modx->getOption('cache_resource_key', null, 'resource'));
-                $key = $resource->getCacheKey();
-                $cache->delete($key, array('deleteTop' => true));
-                $cache->delete($key);
+                $modx->cacheManager = $AdminTools->clearResourceCache($resource);
             }
             break;
     }
