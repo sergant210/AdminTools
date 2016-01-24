@@ -8,12 +8,9 @@ $tmp = array(
 		'description' => '',
 		'events' => array(
 			'OnManagerPageBeforeRender' => array(),
-            'OnChunkFormSave' => array(),
-            'OnSnipFormSave' => array(),
-            'OnTempFormSave' => array(),
-            'OnPluginFormSave' => array(),
-            'OnTVFormSave' => array(),
             'OnDocFormSave' => array(),
+            'OnManagerPageInit' => array(),
+            'OnManagerAuthentication' => array(),
 		)
 	)
 );

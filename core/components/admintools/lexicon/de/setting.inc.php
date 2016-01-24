@@ -1,6 +1,7 @@
 <?php
 
 $_lang['area_admintools_main'] = 'Einstellungen';
+$_lang['area_admintools_authorization'] = 'Autorisation';
 $_lang['setting_admintools_favorites_icon'] = 'Favoriten Elemente Icon';
 $_lang['setting_admintools_favorites_icon_desc'] = 'Ein hier eingetragener Icon ersetzt den Standardicon. Zum Beispiel: "icon-star".';
 $_lang['setting_admintools_remember_system_settings'] = 'Filtereinstellungen speichern.';
@@ -14,3 +15,9 @@ $_lang['setting_admintools_clear_only resource_cache'] = 'Clear only resource ca
 $_lang['setting_admintools_clear_only resource_cache_desc'] = 'Only the resource cache is clearing on saving resource to DB, not the site cache.';
 $_lang['setting_admintools_hide_component_description'] = 'Hide component description';
 $_lang['setting_admintools_hide_component_description_desc'] = 'Hide component description at menu "Extras".';
+$_lang['setting_admintools_email_authorization'] = 'Backend authorization via email';
+$_lang['setting_admintools_email_authorization_desc'] = 'Send the authotization link on user email.';
+$_lang['setting_admintools_authorization_ttl'] = 'Authorization link TTL';
+$_lang['setting_admintools_authorization_ttl_desc'] = 'Authorization link TTL.';
+$_lang['setting_admintools_loginform_resource'] = 'ID of the authorization page';
+$_lang['setting_admintools_loginform_resource_desc'] = 'ID of the authorization page.';

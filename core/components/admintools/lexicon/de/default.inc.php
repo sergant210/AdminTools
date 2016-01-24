@@ -16,4 +16,14 @@ $_lang['admintools_name'] = 'Name';
 $_lang['admintools_type'] = 'Element Typ';
 $_lang['admintools_date'] = 'Geändert am';
 $_lang['admintools_user'] = 'Benutzer';
+$_lang['admintools_authorization_email_subject'] = 'Authorization link';
+$_lang['admintools_authorization_email_body'] = 'Um auf der Site-Manager, klicken Sie autorisieren [[+url]].';
+$_lang['admintools_username_email'] = 'Benutzername oder E-Mail-Adresse';
+$_lang['admintools_send_authorization_link'] = 'Senden authorization link';
+$_lang['admintools_link_already_sent'] = 'Link zu bereits gesandt ermächtigen';
+$_lang['admintools_link_is_sent'] = ' Authorization Link per E-Mail gesendet. Bitte überprüfen Sie Ihren Posteingang.';
+$_lang['admintools_enter_username_or_email'] = 'eben Sie Ihren Benutzernamen oder E-Mail.';
+
+$_lang['admintools_user_not_found'] = 'Benutzer nicht gefunden';
+$_lang['admintools_plugin_not_found'] = 'Plugin "Admin Tools" nicht gefunden';
 $_lang['admintools_element_nf'] = 'Element nicht gefunden!';

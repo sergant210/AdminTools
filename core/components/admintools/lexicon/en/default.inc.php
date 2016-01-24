@@ -1,11 +1,9 @@
 <?php
-
 $_lang['admintools'] = 'AdminTools';
 $_lang['admintools_show_favorites'] = 'Show favorites';
 $_lang['admintools_show_all'] = 'Show all';
 $_lang['admintools_add_to_favorites'] = 'Add to favorites';
 $_lang['admintools_remove_from_favorites'] = 'Remove from favorites';
-
 $_lang['admintools_open'] = 'Go to element page';
 $_lang['admintools_close'] = 'Close';
 $_lang['admintools_clear'] = 'Remove all';
@@ -18,5 +16,14 @@ $_lang['admintools_name'] = 'Name';
 $_lang['admintools_type'] = 'Element type';
 $_lang['admintools_date'] = 'Changed on';
 $_lang['admintools_user'] = 'User';
+$_lang['admintools_authorization_email_subject'] = 'Authorization link';
+$_lang['admintools_authorization_email_body'] = 'To authorize on the site manager click [[+url]].';
+$_lang['admintools_username_email'] = 'Username or email';
+$_lang['admintools_send_authorization_link'] = 'Send authorization link';
+$_lang['admintools_link_already_sent'] = 'Authorization link is already sent';
+$_lang['admintools_link_is_sent'] = 'Authorization link email sent. Please check your inbox.';
+$_lang['admintools_enter_username_or_email'] = 'Enter your username or email.';
 
+$_lang['admintools_user_not_found'] = 'User not found';
+$_lang['admintools_plugin_not_found'] = 'Plugin "AdminTools" not found';
 $_lang['admintools_element_nf'] = 'Element not found!';

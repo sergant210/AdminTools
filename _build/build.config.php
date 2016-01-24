@@ -4,8 +4,8 @@
 define('PKG_NAME', 'AdminTools');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-define('PKG_VERSION', '1.3.0');
-define('PKG_RELEASE', 'pl');
+define('PKG_VERSION', '1.4.0');
+define('PKG_RELEASE', 'beta');
 define('PKG_AUTO_INSTALL', false);
 define('PKG_NAMESPACE_PATH', '{core_path}components/' . PKG_NAME_LOWER . '/');
 
@@ -34,10 +34,10 @@ define('MODX_ASSETS_URL', MODX_BASE_URL . 'assets/');
 /* define build options */
 define('BUILD_MENU_UPDATE', false);
 define('BUILD_ACTION_UPDATE', false);
-define('BUILD_SETTING_UPDATE', true);
+define('BUILD_SETTING_UPDATE', false);
 define('BUILD_CHUNK_UPDATE', false);
 
-define('BUILD_SNIPPET_UPDATE', false);
+define('BUILD_SNIPPET_UPDATE', true);
 define('BUILD_PLUGIN_UPDATE', true);
 //define('BUILD_EVENT_UPDATE', true);
 //define('BUILD_POLICY_UPDATE', true);

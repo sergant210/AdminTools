@@ -1,6 +1,7 @@
 <?php
 
 $_lang['area_admintools_main'] = 'Основные';
+$_lang['area_admintools_authorization'] = 'Авторизация';
 $_lang['setting_admintools_favorites_icon'] = 'Иконка избранного элемента';
 $_lang['setting_admintools_favorites_icon_desc'] = 'Иконка, которая заменит стандартную иконку элемента, например, "icon-star".';
 $_lang['setting_admintools_remember_system_settings'] = 'Запомнить состояние системных настроек';
@@ -15,3 +16,9 @@ $_lang['setting_admintools_clear_only resource_cache'] = 'Удалять тол�
 $_lang['setting_admintools_clear_only resource_cache_desc'] = 'При сохранении ресурса удаляет только его кеш, а не всего сайта. При этом сбрасывает чекбокс "Очистить кэш" у ресурса.';
 $_lang['setting_admintools_hide_component_description'] = 'Скрыть описание компонента';
 $_lang['setting_admintools_hide_component_description_desc'] = 'Скрывает описание компонента в меню "Приложения".';
+$_lang['setting_admintools_email_authorization'] = 'Включить авторизацию через email';
+$_lang['setting_admintools_email_authorization_desc'] = 'Высылает на почту ссылку для авторизации.';
+$_lang['setting_admintools_authorization_ttl'] = 'Время доступа по высланной ссылке';
+$_lang['setting_admintools_authorization_ttl_desc'] = 'Время, в течение которого можно авторизоавться по высланной ссылке.';
+$_lang['setting_admintools_loginform_resource'] = 'Ресурс для авторизации';
+$_lang['setting_admintools_loginform_resource_desc'] = 'Укажите id ресурса для авторизации в менеджере сайта.';

@@ -2,7 +2,12 @@
 
 $snippets = array();
 
-$tmp = array();
+$tmp = array(
+    'adminLogin' => array(
+        'file' => 'adminlogin',
+        'description' => '',
+    ),
+);
 
 foreach ($tmp as $k => $v) {
 	/* @avr modSnippet $snippet */

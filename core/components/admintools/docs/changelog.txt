@@ -1,4 +1,7 @@
-Changelog for AdminTools.
+1.4.0-beta
+==============
+- Backend users can authorize via email.
+- Some code optimization.
 
 1.3.0-pl
 ==============

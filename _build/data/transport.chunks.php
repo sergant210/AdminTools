@@ -2,7 +2,12 @@
 
 $chunks = array();
 
-$tmp = array();
+$tmp = array(
+    'tpl.login.form' => array(
+        'file' => 'login.form',
+        'description' => '',
+    ),
+);
 
 // Save chunks for setup options
 $BUILD_CHUNKS = array();

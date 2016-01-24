@@ -1,11 +1,9 @@
 <?php
-
 $_lang['admintools'] = 'AdminTools';
 $_lang['admintools_show_favorites'] = 'Показать избранное';
 $_lang['admintools_show_all'] = 'Показать все';
 $_lang['admintools_add_to_favorites'] = 'Добавить в избранное';
 $_lang['admintools_remove_from_favorites'] = 'Удалить из избранного';
-
 $_lang['admintools_open'] = 'Открыть элемент';
 $_lang['admintools_close'] = 'Закрыть';
 $_lang['admintools_clear'] = 'Очистить список';
@@ -18,5 +16,14 @@ $_lang['admintools_name'] = 'Наименование';
 $_lang['admintools_type'] = 'Тип элемента';
 $_lang['admintools_date'] = 'Дата изменения';
 $_lang['admintools_user'] = 'Пользователь';
+$_lang['admintools_authorization_email_subject'] = 'Ссылка для авторизации';
+$_lang['admintools_authorization_email_body'] = 'Для авторизации в менеджере сайта перейдите по ссылке [[+url]].';
+$_lang['admintools_username_email'] = 'Имя пользователя или электронная почта';
+$_lang['admintools_send_authorization_link'] = 'Выслать письмо для авторизации';
+$_lang['admintools_link_already_sent'] = 'Ссылка для авторизации уже выслана';
+$_lang['admintools_link_is_sent'] = 'Ссылка для авторизации выслана на почту.';
+$_lang['admintools_enter_username_or_email'] = 'Введите имя пользователя или email.';
 
+$_lang['admintools_user_not_found'] = 'Пользователь не найден';
+$_lang['admintools_plugin_not_found'] = 'Плагин "AdminTools" не найден';
 $_lang['admintools_element_nf'] = 'Элемент не найден!';

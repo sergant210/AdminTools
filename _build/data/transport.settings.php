@@ -38,6 +38,21 @@ $tmp = array(
 		'value' => true,
 		'area' => 'admintools_main',
 	),
+    'email_authorization' => array(
+        'xtype' => 'combo-boolean',
+        'value' => false,
+        'area' => 'admintools_authorization',
+    ),
+    'authorization_ttl' => array(
+        'xtype' => 'numberfield',
+        'value' => '600',
+        'area' => 'admintools_authorization',
+    ),
+    'loginform_resource' => array(
+        'xtype' => 'numberfield',
+        'value' => '',
+        'area' => 'admintools_authorization',
+    ),
 );
 
 foreach ($tmp as $k => $v) {
