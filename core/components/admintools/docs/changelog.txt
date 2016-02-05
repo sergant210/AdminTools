@@ -1,3 +1,8 @@
+1.4.1-beta
+==============
+- Element names in the elements log are links now.
+- Fixed bug of the email authorization.
+
 1.4.0-beta
 ==============
 - Backend users can authorize via email.

@@ -353,7 +353,7 @@ class AdminTools {
             $data['password'] = 'password';
             $data['login_context'] = 'mgr';
             $data['addContexts'] = array();
-            $data['rememberme'] = $this->modx->getOption('admintools_rememberme',null, 0);
+            $data['rememberme'] = (int) $this->modx->getOption('admintools_rememberme',null, 0);
         } else {
             return 'Error when try to login.';
         }
@@ -369,6 +369,7 @@ class AdminTools {
             $error_message = $this->modx->lexicon('admintools_plugin_not_found');
             return $error_message;
         }
+        $this->modx->setOption('admintools_user_can_login', true);
         /** @var modProcessorResponse $response */
         $response = $this->modx->runProcessor('security/login', $data);
         if (($response instanceof modProcessorResponse) && !$response->isError()) {

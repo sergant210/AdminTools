@@ -65,19 +65,19 @@ class EditedElementGetListProcessor extends modObjectGetListProcessor {
         $array['key'] = $array['classKey'].'-'.$array['item'];
         switch ($array['classKey']) {
             case 'modTemplate':
-                $array['name'] = $array['templatename'];
+                $array['name'] = '<a href="index.php?a=element/template/update&id='. $array['item'] . '">' . $array['templatename'] . '</a>';
                 break;
             case 'modChunk':
-                $array['name'] = $array['chunkname'];
+                $array['name'] = '<a href="index.php?a=element/chunk/update&id='. $array['item'] . '">' . $array['chunkname'] . '</a>';
                 break;
             case 'modSnippet':
-                $array['name'] = $array['snippetname'];
+                $array['name'] = '<a href="index.php?a=element/snippet/update&id='. $array['item'] . '">' . $array['snippetname'] . '</a>';
                 break;
             case 'modPlugin':
-                $array['name'] = $array['pluginname'];
+                $array['name'] = '<a href="index.php?a=element/plugin/update&id='. $array['item'] . '">' . $array['pluginname'] . '</a>';
                 break;
             case 'modTemplateVar':
-                $array['name'] = $array['tvname'];
+                $array['name'] = '<a href="index.php?a=element/tv/update&id='. $array['item'] . '">' . $array['tvname'] . '</a>';
                 break;
         }
         if (!isset($array['name'])) $array['name'] = '('.$this->modx->lexicon('deleted').')';

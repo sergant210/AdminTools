@@ -1,6 +1,7 @@
 <?php
 /**
  * Remove element from the last edited list
+ * @deprecated Not use
  */
 class lastEditedElemntsRemoveProcessor extends modProcessor {
     public $objectType = 'admintools';
