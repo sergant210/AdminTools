@@ -9,8 +9,8 @@ A basic Extra for MODx Revolution Administrators. It adds some features:
 - added a system setting for hiding component description at "Extras" menu;
 - backend users can be authorized via email. Need to do some manipulations. 
 
-#### Setting the email authentication
-* Create new document with blank template.
+#### Setting the email authentication in the backend
+* Create a new document with blank template.
 ```
 <!DOCTYPE html>
 <html lang="en">
