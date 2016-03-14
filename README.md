@@ -9,8 +9,8 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - added a system setting for hiding component description at "Extras" menu;
 - backend users can be authorized via email. Need to do some manipulations. 
 
-#### Setting the email authentication
-* Create a new document with blank template and call in it the snippet adminTools. For example
+#### Setting the email authentication in the backend
+* Create a new document with blank template and call the snippet "adminTools" in it. For example
 ```
 <!DOCTYPE html>
 <html lang="[[++cultureKey]]">
@@ -26,7 +26,8 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 </html>
 ```
 * Write the id of this document to the system setting **admintools_loginform_resource**.
-* Switch the system setting **admintools_email_authorization** to TRUE.
+* Switch the system setting **admintools_email_authorization** to TRUE.  
+
 Now you can log in to the manager via email if you have the corresponding permission.
 
 #### Remark
