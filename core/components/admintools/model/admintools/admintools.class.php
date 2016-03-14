@@ -39,49 +39,42 @@ class AdminTools {
                     // favorite elements
                     if ($this->modx->getOption('admintools_enable_favorite_elements',null,true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/favorites.js');
-                        if (empty($_SESSION['admintools']['favoriteElements']['states'])) {
-//                            $states = $this->getFromCache('states', 'favorite_elements/' . $this->modx->user->id);
-                            $states = $this->getFromProfile('adminToolsStates');
-                            if (empty($states)) {
-                                $_SESSION['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
-                                $this->saveToProfile($_SESSION['admintools']['favoriteElements']['states'],'adminToolsStates');
-                                //$this->saveToCache($_SESSION['admintools']['favoriteElements']['states'], 'states', 'favorite_elements/' . $this->modx->user->id);
-                            } else {
-                                $_SESSION['admintools']['favoriteElements']['states'] = $states;
-                            }
+                        // View "All/Favorites"
+                        $states = $this->getFromProfile('adminToolsStates');
+                        if (empty($states)) {
+                            $_SESSION['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
+                            $this->saveToProfile($_SESSION['admintools']['favoriteElements']['states'], 'adminToolsStates');
+                            //$this->saveToCache($_SESSION['admintools']['favoriteElements']['states'], 'states', 'favorite_elements/' . $this->modx->user->id);
+                        } else {
+                            $_SESSION['admintools']['favoriteElements']['states'] = $states;
                         }
-                        if (empty($_SESSION['admintools']['favoriteElements']['elements'])) {
-//                            $elements = $this->getFromCache('elements', 'favorite_elements/' . $this->modx->user->id);
-                            $elements = $this->getFromProfile('adminToolsElements');
-                            if (empty($elements)) {
-                                $_SESSION['admintools']['favoriteElements']['elements'] = array(
-                                    'templates' => array(),
-                                    'tvs' => array(),
-                                    'chunks' => array(),
-                                    'plugins' => array(),
-                                    'snippets' => array()
-                                );
+                        // Get favorites elements
+                        $elements = $this->getFromProfile('adminToolsElements');
+                        if (empty($elements)) {
+                            $_SESSION['admintools']['favoriteElements']['elements'] = array(
+                                'templates' => array(),
+                                'tvs' => array(),
+                                'chunks' => array(),
+                                'plugins' => array(),
+                                'snippets' => array()
+                            );
 //                                $this->saveToCache($_SESSION['admintools']['favoriteElements']['elements'], 'elements', 'favorite_elements/' . $this->modx->user->id);
-                                $this->saveToProfile($_SESSION['admintools']['favoriteElements']['elements'],'adminToolsElements');
-                            } else {
-                                $_SESSION['admintools']['favoriteElements']['elements'] = $elements;
-                            }
+                            $this->saveToProfile($_SESSION['admintools']['favoriteElements']['elements'], 'adminToolsElements');
+                        } else {
+                            $_SESSION['admintools']['favoriteElements']['elements'] = $elements;
                         }
                         $_SESSION['admintools']['favoriteElements']['icon'] = $this->modx->getOption('admintools_favorites_icon') ? 'icon '. $this->modx->getOption('admintools_favorites_icon') : '';
                     }
                     // system settings
                     if ($this->modx->getOption('admintools_remember_system_settings',null,true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/systemsettings.js');
-                        if (empty($_SESSION['admintools']['systemSettings'])) {
-//                            $settings = $this->getFromCache('systemSettings', 'favorite_elements/' . $this->modx->user->id);
-                            $settings = $this->getFromProfile('systemSettings');
-                            if (empty($settings)) {
-                                $_SESSION['admintools']['systemSettings'] = array('namespace'=>'core','area'=>'');
+                        $settings = $this->getFromProfile('systemSettings');
+                        if (empty($settings)) {
+                            $_SESSION['admintools']['systemSettings'] = array('namespace' => 'core', 'area' => '');
 //                                $this->saveToCache($_SESSION['admintools']['systemSettings'], 'systemSettings', 'favorite_elements/' . $this->modx->user->id);
-                                $this->saveToProfile($_SESSION['admintools']['systemSettings'],'systemSettings');
-                            } else {
-                                $_SESSION['admintools']['systemSettings'] = $settings;
-                            }
+                            $this->saveToProfile($_SESSION['admintools']['systemSettings'], 'systemSettings');
+                        } else {
+                            $_SESSION['admintools']['systemSettings'] = $settings;
                         }
                         if (empty($_SESSION['admintools']['systemSettings']['namespace'])) $_SESSION['admintools']['systemSettings']['namespace'] = 'core';
                     }
@@ -222,6 +215,7 @@ class AdminTools {
      * @return modCacheManager
      */
     public function clearResourceCache(&$resource) {
+//        $resource->clearCache();
         $resource->_contextKey = $resource->context_key;
         /** @var modCacheManager $cache */
         $cache = $this->modx->cacheManager->getCacheProvider($this->modx->getOption('cache_resource_key', null, 'resource'));

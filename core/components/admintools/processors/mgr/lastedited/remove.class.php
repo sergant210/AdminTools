@@ -1,9 +1,9 @@
 <?php
 /**
  * Remove element from the last edited list
- * @deprecated Not use
+ * @deprecated Not used
  */
-class lastEditedElemntsRemoveProcessor extends modProcessor {
+class ElementLogRemoveProcessor extends modProcessor {
     public $objectType = 'admintools';
 //	public $classKey = '';
     public $languageTopics = array('admintools:default');
@@ -32,4 +32,4 @@ class lastEditedElemntsRemoveProcessor extends modProcessor {
         return $this->success();
     }
 }
-return 'lastEditedElemntsRemoveProcessor';
+return 'ElementLogRemoveProcessor';
