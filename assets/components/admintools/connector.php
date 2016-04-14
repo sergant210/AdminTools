@@ -16,7 +16,7 @@ $modx->lexicon->load('admintools:default');
 
 // handle request
 $corePath = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/');
-$path = $modx->getOption('processorsPath', $AdminTools->config, $corePath . 'processors/');
+$path = $modx->getOption('processorsPath', $AdminTools->getOptions(), $corePath . 'processors/');
 /** @noinspection PhpMethodParametersCountMismatchInspection */
 $modx->request->handleRequest(array(
 	'processors_path' => $path,

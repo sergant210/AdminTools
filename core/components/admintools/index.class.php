@@ -17,12 +17,12 @@ abstract class AdminToolsMainController extends modExtraManagerController {
 		require_once $corePath . 'model/admintools/admintools.class.php';
 
 		$this->AdminTools = new AdminTools($this->modx);
-		//$this->addCss($this->AdminTools->config['cssUrl'] . 'mgr/main.css');
-		$this->addJavascript($this->AdminTools->config['jsUrl'] . 'mgr/admintools.js');
+		//$this->addCss($this->AdminTools->getOption('cssUrl') . 'mgr/main.css');
+		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/admintools.js');
 		$this->addHtml('
 		<script type="text/javascript">
-			AdminTools.config = ' . $this->modx->toJSON($this->AdminTools->config) . ';
-			AdminTools.config.connector_url = "' . $this->AdminTools->config['connectorUrl'] . '";
+			AdminTools.config = ' . $this->modx->toJSON($this->AdminTools->getOptions()) . ';
+			AdminTools.config.connector_url = "' . $this->AdminTools->getOption('connectorUrl') . '";
 		</script>
 		');
 

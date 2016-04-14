@@ -35,5 +35,10 @@ if ($AdminTools instanceof AdminTools) {
                 $modx->event->output(array('true'));
             }
             break;
+        case 'OnLoadWebDocument':
+            if ($modx->user->isAuthenticated($modx->context->get('key')) && (!$modx->user->active || $modx->user->Profile->blocked)) {
+                $modx->runProcessor('security/logout');
+                $modx->sendRedirect($modx->makeUrl($modx->resource->get('id'),'','','full'));
+            }
     }
 }

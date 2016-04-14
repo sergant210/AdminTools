@@ -1,3 +1,8 @@
+1.4.1-pl
+==============
+- Made the alternate login interface in pure javascript. Remove the jQuery from the AdminLogin snippet.
+- Automatic logout inactive or blocked user if he is logged in.
+
 1.4.1-beta
 ==============
 - Element names in the elements log are links now.

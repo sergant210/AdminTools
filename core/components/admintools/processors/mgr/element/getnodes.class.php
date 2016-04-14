@@ -190,6 +190,7 @@ class modElementGetNodesProcessor extends modProcessor {
         $defaults = array(
             'template' => 'icon icon-columns',
             'chunk' => 'icon icon-th-large',
+            'tv' => 'icon icon-list-alt',
             'snippet' => 'icon icon-code',
             'plugin' => 'icon icon-cogs',
             'category' => 'icon icon-folder'

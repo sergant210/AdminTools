@@ -1,12 +1,24 @@
-$('#send-email-btn').on('click',function(e){
-	$('#errormsg').text('');
-	$(this).attr('disabled', 'disabled');
-	$.post(document.location.href, {action: "login", userdata: $('#userdata').val()}, function(res) {
-		if (res.success) {
-			$('.panel-body').text(res.message);
+var  btn = document.getElementById('send-email-btn');
+btn.addEventListener('click', function(e){
+	document.getElementById('errormsg').innerText='';
+	btn.disabled = true;
+
+	var request = new XMLHttpRequest();
+	request.open('GET', location.href+'?'+'action=login&userdata='+document.getElementById('userdata').value);
+	request.onload = function(){
+		if (request.status == 200){
+			var response = {};
+			if (request.responseText) response = JSON.parse(request.responseText);
+			if (response.success) {
+				document.getElementsByClassName('panel-body')[0].innerText =  response.message;
+			} else {
+				document.getElementById('errormsg').innerText = response.message;
+			}
 		} else {
-			$('#errormsg').text(res.message);
+			document.getElementById('errormsg').innerText = 'Error: ' + (request.status ? request.statusText : 'request is failed');
 		}
-	}, 'json');
-	$(this).removeAttr("disabled");
+		btn.disabled = false;
+	};
+	request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+	request.send();
 });

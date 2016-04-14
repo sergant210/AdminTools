@@ -29,13 +29,13 @@ class AdminToolsHomeManagerController extends AdminToolsMainController {
 	 * @return void
 	 */
 	public function loadCustomCssJs() {
-		$this->addCss($this->AdminTools->config['cssUrl'] . 'mgr/main.css');
-		$this->addCss($this->AdminTools->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
-		$this->addJavascript($this->AdminTools->config['jsUrl'] . 'mgr/misc/utils.js');
-		$this->addJavascript($this->AdminTools->config['jsUrl'] . 'mgr/widgets/items.grid.js');
-		$this->addJavascript($this->AdminTools->config['jsUrl'] . 'mgr/widgets/items.windows.js');
-		$this->addJavascript($this->AdminTools->config['jsUrl'] . 'mgr/widgets/home.panel.js');
-		$this->addJavascript($this->AdminTools->config['jsUrl'] . 'mgr/sections/home.js');
+		$this->addCss($this->AdminTools->getOption('cssUrl') . 'mgr/main.css');
+		$this->addCss($this->AdminTools->getOption('cssUrl') . 'mgr/bootstrap.buttons.css');
+		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/misc/utils.js');
+		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/widgets/items.grid.js');
+		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/widgets/items.windows.js');
+		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/widgets/home.panel.js');
+		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/sections/home.js');
 		$this->addHtml('<script type="text/javascript">
 		Ext.onReady(function() {
 			MODx.load({ xtype: "admintools-page-home"});
@@ -48,6 +48,6 @@ class AdminToolsHomeManagerController extends AdminToolsMainController {
 	 * @return string
 	 */
 	public function getTemplateFile() {
-		return $this->AdminTools->config['templatesPath'] . 'home.tpl';
+		return $this->AdminTools->getOption('templatesPath') . 'home.tpl';
 	}
 }

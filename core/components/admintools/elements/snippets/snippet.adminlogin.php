@@ -1,21 +1,21 @@
 <?php
 $path = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/').'model/admintools/';
 /** @var AdminTools $AdminTools */
-$AdminTools = $modx->getService('admintools','AdminTools',$path);
+$AdminTools = $modx->getService('admintools','AdminTools',$path, $scriptProperties);
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-    $post = $modx->sanitize($_POST, $modx->sanitizePatterns);
-    $post = array_map('trim',$post);
+    $get = $modx->sanitize($_GET, $modx->sanitizePatterns);
+    $get = array_map('trim',$get);
     $success = true;
     $message = $modx->lexicon('admintools_link_is_sent');
-    if (empty($post['action']) || $post['action'] != 'login') {
+    if (empty($get['action']) || $get['action'] != 'login') {
         $message = 'Access is denied';
         $success = false;
-    } elseif (empty($post['userdata'])) {
+    } elseif (empty($get['userdata'])) {
         $message =  $modx->lexicon('admintools_enter_username_or_email');
         $success = false;
     }
     if ($success) {
-        if ($msg = $AdminTools->sendLoginLink($post)){
+        if ($msg = $AdminTools->sendLoginLink($get)){
             $success = false;
             $message = $msg;
         };
@@ -40,12 +40,8 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
         }
     }
     /** @var array $scriptProperties */
-    $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.login.form');
-    $modx->sjscripts = array();
-    $modx->jscripts = array();
-    $admintools_assets_path = $modx->getOption('admintools_assets_url', NULL, $modx->getOption('assets_url').'components/admintools/');
-    $modx->regClientCss($admintools_assets_path . 'css/mgr/login.css');
-    $modx->regClientScript("http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js");
-    $modx->regClientScript($admintools_assets_path . 'js/mgr/login.js');
+    $assetsUrl = $AdminTools->getOption('assetsUrl');
+    $modx->regClientCss($assetsUrl . 'css/mgr/login.css');
+    $modx->regClientScript($assetsUrl . 'js/mgr/login.js');
     return $modx->getChunk($tpl,array('errormsg'=>$errormsg));
 }

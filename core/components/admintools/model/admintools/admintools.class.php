@@ -6,6 +6,7 @@ class AdminTools {
     /* @var modX $modx */
     public $modx;
     public $initialized = array();
+    protected $config = array();
     /**
      * @param modX $modx
      * @param array $config
@@ -113,6 +114,33 @@ class AdminTools {
         return true;
     }
 
+    /**
+     * @param $key
+     * @param mixed $value
+     * @internal param $property
+     */
+    public function setOption($key, $value)
+    {
+        if (!empty($key)) {
+            $this->config[$key] = $value;
+        }
+    }
+    /**
+     * @param $property
+     * @param string $default
+     * @return mixed
+     */
+    public function getOption($property, $default = '')
+    {
+        return isset($this->config[$property]) ? $this->config[$property] : $default;
+    }
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->config;
+    }
     /**
      * TODO Remove after test
      * @param $cacheElementKey
@@ -321,10 +349,11 @@ class AdminTools {
         /** @var modPHPMailer $mail */
         $mail = $this->modx->getService('mail', 'mail.modPHPMailer');
 
+        $mail->set(modMail::MAIL_SUBJECT, $this->modx->getOption('email_subject', $options, $this->modx->lexicon('admintools_authorization_email_subject')));
         $mail->set(modMail::MAIL_BODY, $this->modx->getOption('email_body', $options, ''));
+        $mail->set(modMail::MAIL_SENDER, $this->modx->getOption('email_from', $options, $this->modx->getOption('emailsender'), true));
         $mail->set(modMail::MAIL_FROM, $this->modx->getOption('email_from', $options, $this->modx->getOption('emailsender'), true));
         $mail->set(modMail::MAIL_FROM_NAME, $this->modx->getOption('email_from_name', $options, $this->modx->getOption('site_name'), true));
-        $mail->set(modMail::MAIL_SUBJECT, $this->modx->getOption('email_subject', $options, $this->modx->lexicon('admintools_authorization_email_subject'), true));
 
         $mail->address('to', $email);
         $mail->address('reply-to', $this->modx->getOption('email_from', $options, $this->modx->getOption('emailsender'), true));
