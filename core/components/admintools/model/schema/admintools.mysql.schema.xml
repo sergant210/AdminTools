@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="admintools" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="admintools" version="1.1">
+
+	<object class="adminNotes" table="admintools_notes" extends="xPDOSimpleObject">
+		<field key="title" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="text" dbtype="text" phptype="test" null="false" default="" />
+		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="tags" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="private" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="createdon" dbtype="int" precision="20" attributes="unsigned" phptype="timestamp" null="false" default="0" />
+		<field key="editedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" />
+		<field key="editedon" dbtype="int" precision="20" attributes="unsigned" phptype="timestamp" null="true" />
+
+		<index alias="private" name="private" primary="false" unique="false" type="BTREE" >
+			<column key="private" length="" collation="A" null="false" />
+		</index>
+		<index alias="createdby" name="createdby" primary="false" unique="false" type="BTREE" >
+			<column key="createdby" length="" collation="A" null="false" />
+		</index>
+		<index alias="createdon" name="createdon" primary="false" unique="false" type="BTREE" >
+			<column key="createdon" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="UserCreate" class="modUser" local="createdby" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="UserUpdate" class="modUser" local="editedby" foreign="id" cardinality="one" owner="foreign" />
+	</object>
+
+</model>

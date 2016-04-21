@@ -26,7 +26,7 @@ class AdminTools {
             'templatesPath' => $corePath . 'elements/templates/',
             'processorsPath' => $corePath . 'processors/'
         ), $config);
-        //$this->modx->addPackage('admintools', $this->config['modelPath']);
+        if (!$this->modx->addPackage('admintools', $this->config['modelPath'])) $this->modx->log(modX::LOG_LEVEL_ERROR, '[adminTools] Can\'t load the package.' );
         $this->modx->lexicon->load('admintools:default');
     }
 
@@ -85,6 +85,11 @@ class AdminTools {
                         $this->modx->controller->addLexiconTopic('manager_log');
 
                     }
+                    // admin notes
+                    if ($this->modx->getOption('admintools_enable_notes',null,true)) {
+                        $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/notes.js');
+
+                    }
                     // taskpanel
                     /*
                     if ($this->modx->getOption('admintools_enable_taskpanel',null,false)) {
@@ -96,7 +101,7 @@ class AdminTools {
                         'connector_url' => $this->config['assetsUrl'].'connector.php',
                     );
                     $_html = "<script type=\"text/javascript\">\n";
-                    $_html .= "\tvar adminToolsSettings = ".$this->modx->toJSON($_SESSION['admintools'])."\n";
+                    $_html .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id)))."\n";
                     // Hide description of components at the menu Components
                     if ($this->modx->getOption('admintools_hide_component_description',null,true)) {
                         $_html .= "\tExt.onReady(function() {\n";

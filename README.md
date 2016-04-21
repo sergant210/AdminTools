@@ -8,6 +8,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - added a system setting that switches off clearing the site cache when any resource is saving. MODX clears only the saved resource cache; 
 - added a system setting for hiding component description at "Extras" menu;
 - backend users can be authorized via email. Need to do some manipulations. 
+- added user notes functionality. You can find it in the user menu next to other items (messages, logout). 
 
 #### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example

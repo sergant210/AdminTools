@@ -231,6 +231,13 @@ a.x-menu-item .x-menu-item-text .icon {
 	filter: dropshadow(color=#2b333d, offx=1, offy=1);
 }
 
+/****************** Notes ***********************/
+.x-layout-split {
+	background-color: #EBEBEB;
+}
+#admintools-notes-panel2-xcollapsed {
+	display: none !important;
+}
 /*
 ul.admintools-row-actions .actions-menu {width: 40px;}
 ul.admintools-row-actions .actions-menu:after {content: " \f107";}

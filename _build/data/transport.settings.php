@@ -53,6 +53,11 @@ $tmp = array(
         'value' => '',
         'area' => 'admintools_authorization',
     ),
+    'enable_notes' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'admintools_main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

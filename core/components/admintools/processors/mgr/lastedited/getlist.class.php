@@ -51,10 +51,6 @@ class EditedElementGetListProcessor extends modObjectGetListProcessor {
         return $c;
     }
 
-    public function prepareQueryAfterCountCount(xPDOQuery $c) {
-        $c->prepare();
-        $this->modx->log(modX::LOG_LEVEL_ERROR, $c->toSql());
-    }
     /**
      * @param xPDOObject $object
      *

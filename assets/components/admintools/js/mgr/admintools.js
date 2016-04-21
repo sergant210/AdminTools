@@ -3,7 +3,7 @@ var AdminTools = function (config) {
 	AdminTools.superclass.constructor.call(this, config);
 };
 Ext.extend(AdminTools, Ext.Component, {
-	page: {}, window: {}, grid: {}, tree: {}, panel: {}, combo: {}, config: {}, view: {}, utils: {}
+	page: {}, window: {}, grid: {}, tree: {}, panel: {}, combo: {}, config: {}, view: {}, utils: {}, toolbar: {}
 });
 Ext.reg('admintools', AdminTools);
 
@@ -95,4 +95,21 @@ AdminTools.utils.renderActions = function (value, props, row) {
 	);
 };
 
-
+// Status
+AdminTools.combo.SearchTypes = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		triggerAction: 'all',
+		typeAhead: true,
+		mode: 'local',
+		hideMode: 'offsets',
+		autoScroll: true,
+		maxHeight: 200,
+		store: [[1,_('admintools_search_everywhere')],[2,_('admintools_search_in_titles')],[3,_('admintools_search_in_text')],[4,_('admintools_search_in_tags')]],
+		hiddenName: 'wheresearch',
+		editable: true
+	});
+	AdminTools.combo.SearchTypes.superclass.constructor.call(this,config);
+};
+Ext.extend(AdminTools.combo.SearchTypes,MODx.combo.ComboBox);
+Ext.reg('admintools-combo-wheresearch',AdminTools.combo.SearchTypes);
