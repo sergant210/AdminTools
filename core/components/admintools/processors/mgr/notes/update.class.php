@@ -23,11 +23,11 @@ class adminToolsNoteUpdateProcessor extends modObjectUpdateProcessor {
 		if (empty($id)) {
 			return $this->modx->lexicon('admintools_note_err_ns');
 		}
-
 		if (empty($title)) {
 			$this->modx->error->addField('title', $this->modx->lexicon('admintools_note_err_title'));
 		}
-
+        $url = trim($this->getProperty('url'));
+        if ($url == 'http://') $this->setProperty('url', '');
         $this->setProperty('editedon', time());
         $this->setProperty('editedby', $this->modx->user->get('id'));
 		return parent::beforeSet();

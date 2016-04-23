@@ -636,6 +636,7 @@ Ext.reg('admintools-note-update-window', AdminTools.window.UpdateNote);
 
 
 /** ******************* Buttons ******************** **/
+/*
 AdminTools.toolbar.NoteButtons = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
@@ -653,7 +654,7 @@ Ext.extend(AdminTools.toolbar.NoteButtons,Ext.Toolbar,{
 
 });
 Ext.reg('admintools-notes-buttons',AdminTools.toolbar.NoteButtons);
-
+*/
 
 /** ************************************************* **/
 Ext.onReady(function() {

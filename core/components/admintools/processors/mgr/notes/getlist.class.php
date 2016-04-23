@@ -57,7 +57,9 @@ class NotesGetListProcessor extends modObjectGetListProcessor {
      */
     public function prepareRow(xPDOObject $object) {
         $array = $object->toArray();
-        if (!empty($array['url'])) $array['url'] = '<a href="'.$array['url'].'" target="_blank">'.$array['url'].'</a>';
+        if (!empty($array['url'])) {
+            $array['url'] = '<a href="' . $array['url'] . '" target="_blank">' . $array['url'] . '</a>';
+        }
         // Edit note
         $array['actions'][] = array(
             'cls' => '',
