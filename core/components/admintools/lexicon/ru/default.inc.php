@@ -47,6 +47,13 @@ $_lang['admintools_search_everywhere'] = 'Везде';
 $_lang['admintools_search_in_titles'] = 'В названии';
 $_lang['admintools_search_in_text'] = 'В содержании';
 $_lang['admintools_search_in_tags'] = 'В тегах';
+$_lang['admintools_description'] = 'Описание';
+$_lang['admintools_resources'] = 'Ресурсы';
+$_lang['admintools_title'] = 'Заголовок';
+$_lang['admintools_published'] = 'Опубликован';
+$_lang['admintools_deleted'] = 'Удалён';
+$_lang['admintools_context'] = 'Контекст';
+$_lang['admintools_create'] = 'Создать';
 
 $_lang['admintools_user_not_found'] = 'Пользователь не найден';
 $_lang['admintools_plugin_not_found'] = 'Плагин "AdminTools" не найден';

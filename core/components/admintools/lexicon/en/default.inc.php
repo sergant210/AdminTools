@@ -47,6 +47,7 @@ $_lang['admintools_search_everywhere'] = 'Everywhere';
 $_lang['admintools_search_in_titles'] = 'In titles';
 $_lang['admintools_search_in_text'] = 'In texts';
 $_lang['admintools_search_in_tags'] = 'In tags';
+$_lang['admintools_description'] = 'Description';
 
 $_lang['admintools_user_not_found'] = 'User not found';
 $_lang['admintools_plugin_not_found'] = 'Plugin "AdminTools" not found';

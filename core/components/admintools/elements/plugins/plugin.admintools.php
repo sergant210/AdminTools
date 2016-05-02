@@ -39,5 +39,20 @@ if ($AdminTools instanceof AdminTools) {
             if ($modx->user->isAuthenticated($modx->context->get('key')) && (!$modx->user->active || $modx->user->Profile->blocked)) {
                 $modx->runProcessor('security/logout');
             }
+            break;
+        case 'OnTempFormPrerender':
+            $modx->controller->addLastJavascript($AdminTools->getOption('jsUrl') . 'mgr/templates.js');
+            break;
+        case 'OnDocFormPrerender':
+            $_html = '<script>
+	Ext.onReady(function() {
+        setTimeout(function(){
+            var tmpl = Ext.getCmp("modx-resource-template");
+            tmpl.label.update(" <a href=\"?a=element/template/update&id=" + tmpl.getValue() + "\">" + tmpl.label.dom.innerText + "</a>");
+        }, 200);
+    });
+</script>';
+            $modx->controller->addHtml($_html);
+            break;
     }
 }

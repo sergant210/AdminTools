@@ -11,8 +11,6 @@ AdminTools.showNotes = function() {
 				xtype: 'panel',
 				id: 'admintools-notes-panel',
 				height: 548,
-				//width: '100%',
-				//height: 400,
 				autoWidth: true,
 				layout: 'border',
 				items: [{
@@ -22,7 +20,6 @@ AdminTools.showNotes = function() {
 					autoScroll: true,
 					unstyled: true,
 					layout: 'anchor',
-					//anchor: '80%',
 					bodyStyle: 'background-color:#fff;',
 					height: 250,
 					items: [{
@@ -34,19 +31,14 @@ AdminTools.showNotes = function() {
 				}, {
 					region: 'south',
 					id: 'admintools-notes-panel2',
-					//title: 'Содержание',
 					split: true,
 					forceLayout: true,
 					autoScroll: true,
 					header: false,
-					//collapseMode: 'mini',
 					useSplitTips: true,
 					unstyled: true,
 					collapsed: false,
 					collapsible: false,   // make collapsible
-					//titleCollapse: true,
-					//minSize: 75,         // defaults to 50
-					//maxSize: 150,
 					padding: '5px',
 					layout: 'anchor',
 					bodyStyle: 'background-color:#fafafa;',
@@ -178,7 +170,7 @@ AdminTools.grid.Notes = function (config) {
 				}
 				var row = grid.store.getAt(rowIndex),
 					editor = AdminTools.readPanel.getEditor();
-				AdminTools.currentNote.set(row.data.text, row.data.id, rowIndex, row.data.createdby);
+				AdminTools.currentNote.set({title: row.data.title, text: row.data.text, id: row.data.id, rowIndex: rowIndex, user: row.data.createdby});
 				editor.setValue(row.data.text);
 				editor.setReadOnly(false);
 
@@ -270,9 +262,8 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 		}
 		var id = this.menu.record.id,
 			editor = AdminTools.readPanel.getEditor();
-//console.log(Ext.getCmp('admintools-notes-grid').selModel.getSelected());
-//console.log(this.menu.record);
-		AdminTools.currentNote.set(this.menu.record.text, id, undefined, this.menu.record.createdby);
+		//TODO Отражать в заголовке окна title заметки
+		AdminTools.currentNote.set({title: this.menu.record.title, text: this.menu.record.text, id: id, user: this.menu.record.createdby});
 		editor.setValue(this.menu.record.text);
 		editor.setReadOnly(false);
 
@@ -661,14 +652,16 @@ Ext.onReady(function() {
 	AdminTools.currentNote = {
 		id: 0,
 		text: '',
+		title: '',
 		isDirty: false,
 		rowIndex: null,
 		user: 0,
-		set: function (text, id, rowIndex, user) {
-			this.text = text;
-			if (id) { this.id = id; }
-			if (user) { this.user = user; }
-			if (typeof rowIndex != undefined) this.rowIndex = rowIndex;
+		set: function (data) { //text, id, rowIndex, user
+			this.text = data.text ? data.text : '';
+			this.title = data.title ? data.title : '';
+			this.id = data.id ? data.id : 0;
+			this.user = data.user ? data.user : 0;
+			this.rowIndex = data.rowIndex ? data.rowIndex : null;
 		},
 		setDirty: function () {
 			this.isDirty = true;

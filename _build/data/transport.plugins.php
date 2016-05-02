@@ -11,6 +11,8 @@ $tmp = array(
             'OnDocFormSave' => array(),
             'OnManagerPageInit' => array(),
             'OnManagerAuthentication' => array(),
+            'OnTempFormPrerender' => array(),
+            'OnDocFormPrerender' => array(),
 		)
 	)
 );

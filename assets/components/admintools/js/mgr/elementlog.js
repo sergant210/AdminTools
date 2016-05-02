@@ -206,7 +206,6 @@ Ext.extend(AdminTools.grid.lastEditedElements, MODx.grid.Grid, {
 			listeners: {
 				success: {
 					fn: function(r) {
-						//location.href = 'index.php?a=element/'+type+'/update&id=' + this.menu.record.item;
 						MODx.loadPage('element/'+ type +'/update', 'id='+ this.menu.record.item);
 					}
 					,scope: this

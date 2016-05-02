@@ -113,3 +113,15 @@ AdminTools.combo.SearchTypes = function(config) {
 };
 Ext.extend(AdminTools.combo.SearchTypes,MODx.combo.ComboBox);
 Ext.reg('admintools-combo-wheresearch',AdminTools.combo.SearchTypes);
+
+/** ***************************************** **/
+/*
+
+Ext.onReady(function () {
+	setTimeout(function(){
+		var tmpl = Ext.getCmp('modx-resource-template');
+		tmpl.label.update(' <a href="#">' + tmpl.label.dom.innerText + '</a>');
+console.log(tmpl.label);
+	}, 200);
+});
+*/
