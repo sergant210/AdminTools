@@ -9,7 +9,8 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - added a system setting for hiding component description at "Extras" menu;
 - backend users can be authorized via email. Need to do some manipulations. 
 - automatic log out the user if he is blocked or inactive.
-- added user notes functionality. You can find it in the user menu next to other items (messages, logout). Take a [look](http://modzone.ru/blog/2016/04/21/admintools-user-notes/).
+- user notes. You can find it in the user menu next to other items (profile, messages, logout). Take a [look](http://modzone.ru/blog/2016/04/21/admintools-user-notes/).
+- a tab "Resources" to the template form and a link to the template to the resource form.
 
 #### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example
@@ -33,6 +34,6 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 Now you can log in to the manager via email if you have the corresponding permission.
 
 #### Remark
-All these features can be switched off by the corresponding system setting. Some features are OFF by default.
+All these features can be switched off by the corresponding system setting. Some features are disabled by default.
 
 To be continued.

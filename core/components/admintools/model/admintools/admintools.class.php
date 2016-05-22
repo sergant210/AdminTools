@@ -260,7 +260,6 @@ class AdminTools {
         $this->modx->cacheManager = new atCacheManager($this->modx);
     }
 
-
     public function sendLoginLink($data){
         $c = $this->modx->newQuery('modUser');
         $c->select(array('modUser.*','Profile.email','Profile.fullname'));
