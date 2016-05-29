@@ -24,3 +24,7 @@ $_lang['setting_admintools_authorization_ttl'] = 'Время доступа по
 $_lang['setting_admintools_authorization_ttl_desc'] = 'Время, в течение которого можно авторизоавться по высланной ссылке.';
 $_lang['setting_admintools_loginform_resource'] = 'Ресурс для авторизации';
 $_lang['setting_admintools_loginform_resource_desc'] = 'Укажите id ресурса для авторизации в менеджере сайта.';
+$_lang['setting_admintools_animate_menu'] = 'Анимация главного меню';
+$_lang['setting_admintools_animate_menu_desc'] = 'Включает анимацию главного меню.';
+$_lang['setting_admintools_template_resource_relationship'] = 'Связь шаблонов и ресурсов';
+$_lang['setting_admintools_template_resource_relationship_desc'] = 'Добавляет шаблону вкладку с ресурсами, а ресурсу ссылку на шаблон.';

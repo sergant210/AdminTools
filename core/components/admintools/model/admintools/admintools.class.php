@@ -38,7 +38,7 @@ class AdminTools {
                     $this->modx->controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
                     $this->modx->controller->addJavascript($this->config['jsUrl'] . 'mgr/admintools.js');
                     // favorite elements
-                    if ($this->modx->getOption('admintools_enable_favorite_elements',null,true)) {
+                    if ($this->modx->getOption('admintools_enable_favorite_elements', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/favorites.js');
                         // View "All/Favorites"
                         $states = $this->getFromProfile('adminToolsStates');
@@ -67,7 +67,7 @@ class AdminTools {
                         $_SESSION['admintools']['favoriteElements']['icon'] = $this->modx->getOption('admintools_favorites_icon') ? 'icon '. $this->modx->getOption('admintools_favorites_icon') : '';
                     }
                     // system settings
-                    if ($this->modx->getOption('admintools_remember_system_settings',null,true)) {
+                    if ($this->modx->getOption('admintools_remember_system_settings', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/systemsettings.js');
                         $settings = $this->getFromProfile('systemSettings');
                         if (empty($settings)) {
@@ -80,16 +80,28 @@ class AdminTools {
                         if (empty($_SESSION['admintools']['systemSettings']['namespace'])) $_SESSION['admintools']['systemSettings']['namespace'] = 'core';
                     }
                     // edited elements log
-                    if ($this->modx->getOption('admintools_enable_elements_log',null,true)) {
+                    if ($this->modx->getOption('admintools_enable_elements_log', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/elementlog.js');
                         $this->modx->controller->addLexiconTopic('manager_log');
 
                     }
                     // admin notes
-                    if ($this->modx->getOption('admintools_enable_notes',null,true)) {
+                    if ($this->modx->getOption('admintools_enable_notes', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/notes.js');
 
                     }
+                    // Hide components description
+                    $_css = '';
+                    if ($this->modx->getOption('admintools_hide_component_description', null, true)) {
+                        $_css .= "\t#limenu-components ul.modx-subnav li a span.description {display: none;}\n";
+                    }
+                    // Animate the main menu
+                    if ($this->modx->getOption('admintools_animate_menu', null, true)) {
+                        $_css .= "\t#modx-navbar ul.modx-subnav,  #modx-navbar ul.modx-subsubnav {transition: all .2s ease-in .2s;} \n";
+                        $_css .= "\t#modx-navbar ul.modx-subsubnav {display:block !important;opacity: 0; visibility: hidden;} \n";
+                        $_css .= "\t#modx-navbar ul.modx-subnav li:hover ul.modx-subsubnav {opacity: 1; visibility: visible;} \n";
+                    }
+                    if ($_css) $this->modx->controller->addHtml("<style type=\"text/css\">\n". $_css ."</style>");
                     // taskpanel
                     /*
                     if ($this->modx->getOption('admintools_enable_taskpanel',null,false)) {
@@ -102,12 +114,6 @@ class AdminTools {
                     );
                     $_html = "<script type=\"text/javascript\">\n";
                     $_html .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id)))."\n";
-                    // Hide description of components at the menu Components
-                    if ($this->modx->getOption('admintools_hide_component_description',null,true)) {
-                        $_html .= "\tExt.onReady(function() {\n";
-                        $_html .= "\t\tliComponents = Ext.get('limenu-components');\n\t\tliComponents.select('span.description').setVisibilityMode(Ext.Element.DISPLAY).hide();\n";
-                        $_html .= "\t});\n";
-                    }
                     $_html .= "</script>";
                     $this->modx->controller->addHtml($_html);
                     $this->initialized[$ctx] = true;
@@ -239,6 +245,10 @@ class AdminTools {
         $this->saveToCache($elements, 'element_log', 'elementlog/');
     }
 
+    /**
+     * @deprecated
+     * @return mixed
+     */
     public function getElementLog() {
         return $this->getFromCache('element_log', 'elementlog/');
     }

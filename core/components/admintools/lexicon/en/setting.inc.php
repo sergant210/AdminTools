@@ -24,3 +24,7 @@ $_lang['setting_admintools_loginform_resource'] = 'ID of the authorization page'
 $_lang['setting_admintools_loginform_resource_desc'] = 'ID of the authorization page.';
 $_lang['setting_admintools_enable_notes'] = 'Enable the notes';
 $_lang['setting_admintools_enable_notes_desc'] = 'Enable the notes.';
+$_lang['setting_admintools_animate_menu'] = 'Menu animation';
+$_lang['setting_admintools_animate_menu_desc'] = 'Animates the main menu.';
+$_lang['setting_admintools_template_resource_relationship'] = 'Template and resources relationship';
+$_lang['setting_admintools_template_resource_relationship_desc'] = 'Adds a resources tab to the template form and a link to the template to the resource form.';

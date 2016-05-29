@@ -23,3 +23,7 @@ $_lang['setting_admintools_loginform_resource'] = 'ID der Autorisierungsseite';
 $_lang['setting_admintools_loginform_resource_desc'] = 'ID der Autorisierungsseite.';
 $_lang['setting_admintools_enable_notes'] = 'Aktivieren Sie die Noten';
 $_lang['setting_admintools_enable_notes_desc'] = 'Aktivieren Sie die Noten.';
+$_lang['setting_admintools_animate_menu'] = 'Menü Animation';
+$_lang['setting_admintools_animate_menu_desc'] = 'Animiert Tkhe Menü Fahrspuren.';
+$_lang['setting_admintools_template_resource_relationship'] = 'Vorlage und Ressourcen Beziehung';
+$_lang['setting_admintools_template_resource_relationship_desc'] = 'Fügt eine Registerkarte Ressourcen auf die Schablonenform und einen Link zu der Vorlage in die Ressource Form.';

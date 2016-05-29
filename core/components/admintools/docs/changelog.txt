@@ -1,6 +1,11 @@
+1.7.0-pl
+==============
+- Added animation for the main menu.
+- Added system setting to disable templates and resources relationship.
+
 1.6.0-pl
 ==============
-- Added templates and resources relations.
+- Added templates and resources relationship.
 
 1.5.0-pl
 ==============

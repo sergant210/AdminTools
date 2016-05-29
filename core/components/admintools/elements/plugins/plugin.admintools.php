@@ -8,7 +8,6 @@ if ($AdminTools instanceof AdminTools) {
     switch ($modx->event->name) {
         case 'OnManagerPageBeforeRender':
             if ($modx->user->id) $AdminTools->initialize();
-            //$modx->controller->addHtml('<style type="text/css">#modx-navbar li.active  ul.modx-subnav {opacity: 1 !important;visibility: visible !important;} </style>');
             break;
         case 'OnDocFormSave':
             if ($modx->getOption('admintools_clear_only resource_cache',null,false)) {
@@ -41,10 +40,13 @@ if ($AdminTools instanceof AdminTools) {
             }
             break;
         case 'OnTempFormPrerender':
-            $modx->controller->addLastJavascript($AdminTools->getOption('jsUrl') . 'mgr/templates.js');
+            if ($modx->getOption('admintools_template_resource_relationship', null, true)) {
+                $modx->controller->addLastJavascript($AdminTools->getOption('jsUrl') . 'mgr/templates.js');
+            }
             break;
         case 'OnDocFormPrerender':
-            $_html = '<script>
+            if ($modx->getOption('admintools_template_resource_relationship', null, true)) {
+                $_html = '<script>
 	Ext.onReady(function() {
         setTimeout(function(){
             var tmpl = Ext.getCmp("modx-resource-template");
@@ -52,7 +54,8 @@ if ($AdminTools instanceof AdminTools) {
         }, 200);
     });
 </script>';
-            $modx->controller->addHtml($_html);
+                $modx->controller->addHtml($_html);
+            }
             break;
     }
 }

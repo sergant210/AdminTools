@@ -58,6 +58,16 @@ $tmp = array(
         'value' => true,
         'area' => 'admintools_main',
     ),
+    'template_resource_relationship' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'admintools_main',
+    ),
+    'animate_menu' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'admintools_main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {
