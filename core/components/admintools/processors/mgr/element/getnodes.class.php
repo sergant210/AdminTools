@@ -520,6 +520,10 @@ class modElementGetNodesProcessor extends modProcessor {
             } else {
                 $name = $elementClassKey == 'modTemplate' ? $element['templatename'] : $element['name'];
             }
+            // Fix missing icon field into some elements (like modTemplateVar, modChunk)
+            if (!isset($element['icon'])) {
+                $element['icon'] = '';
+            }
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
             if ($this->checkPermission) {
@@ -694,6 +698,10 @@ class modElementGetNodesProcessor extends modProcessor {
                 $name = $elementClassKey == 'modTemplate' ? $element->get('templatename') : $element->get('name');
             } else {
                 $name = $elementClassKey == 'modTemplate' ? $element['templatename'] : $element['name'];
+            }
+            // Fix missing icon field into some elements (like modTemplateVar, modChunk)
+            if (!isset($element['icon'])) {
+                $element['icon'] = '';
             }
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
