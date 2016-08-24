@@ -13,6 +13,7 @@ $tmp = array(
             'OnManagerAuthentication' => array(),
             'OnTempFormPrerender' => array(),
             'OnDocFormPrerender' => array(),
+            'OnLoadWebDocument' => array(),
 		)
 	)
 );

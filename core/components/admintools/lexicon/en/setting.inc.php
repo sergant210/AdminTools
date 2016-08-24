@@ -2,6 +2,7 @@
 
 $_lang['area_admintools_main'] = 'Main';
 $_lang['area_admintools_authorization'] = 'Authorization';
+$_lang['area_admintools_permissions'] = 'Permissions';
 $_lang['setting_admintools_favorites_icon'] = 'Favorite element icon';
 $_lang['setting_admintools_favorites_icon_desc'] = 'An icon to replace standart icon. For example, "icon-star".';
 $_lang['setting_admintools_remember_system_settings'] = 'Remember system settings filters';
@@ -28,3 +29,5 @@ $_lang['setting_admintools_animate_menu'] = 'Menu animation';
 $_lang['setting_admintools_animate_menu_desc'] = 'Animates the main menu.';
 $_lang['setting_admintools_template_resource_relationship'] = 'Template and resources relationship';
 $_lang['setting_admintools_template_resource_relationship_desc'] = 'Adds a resources tab to the template form and a link to the template to the resource form.';
+$_lang['setting_admintools_alternative_permissions'] = 'Alternate permissions';
+$_lang['setting_admintools_alternative_permissions_desc'] = 'Alternate resource permissions for frontend users.';

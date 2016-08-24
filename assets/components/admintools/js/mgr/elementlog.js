@@ -144,7 +144,7 @@ AdminTools.grid.lastEditedElements = function (config) {
 			name: 'query',
 			width: 200,
 			id: 'log-filter-query-field',
-			emptyText: 'Element name',
+			emptyText: _('admintools_element_name'),
 			listeners: {
 				'render': {
 					fn: function (tf) {

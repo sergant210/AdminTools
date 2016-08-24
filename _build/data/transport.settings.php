@@ -35,7 +35,7 @@ $tmp = array(
 	),
     'hide_component_description' => array(
 		'xtype' => 'combo-boolean',
-		'value' => true,
+		'value' => false,
 		'area' => 'admintools_main',
 	),
     'email_authorization' => array(
@@ -67,6 +67,11 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'value' => true,
         'area' => 'admintools_main',
+    ),
+    'alternative_permissions' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'admintools_permissions',
     ),
 );
 

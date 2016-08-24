@@ -400,8 +400,10 @@ class AdminTools {
         $query->select('id');
         $id = $this->modx->getValue($query->prepare());
         if (!empty($id)) {
-            $this->modx->eventMap['OnManagerPageBeforeRender'][$id] = $id;
-            $this->modx->eventMap['OnManagerAuthentication'][$id] = $id;
+            $this->modx->addEventListener('OnManagerPageBeforeRender', $id);
+            $this->modx->addEventListener('OnManagerAuthentication', $id);
+//            $this->modx->eventMap['OnManagerPageBeforeRender'][$id] = $id;
+//            $this->modx->eventMap['OnManagerAuthentication'][$id] = $id;
         } else {
             $error_message = $this->modx->lexicon('admintools_plugin_not_found');
             return $error_message;
@@ -421,6 +423,54 @@ class AdminTools {
         }
 
         return $error_message;
+    }
+
+    public function hasPermissions() {
+        $resource = $this->modx->resource->get('id');
+        $user = $this->modx->user;
+        $userId = $this->modx->user->get('id');
+        $q = $this->modx->newQuery('adminToolsPermissions');
+        $q->setClassAlias('Permissions');
+//        $q->leftJoin('modUserProfile','User', 'Permissions.principal = User.internalKey AND Permissions.principal_type = "usr"');
+        $q->leftJoin('modUserGroup','Group', 'Permissions.principal = Group.id AND Permissions.principal_type = "grp"');
+        $q->select('Permissions.*, Group.name as groupname');
+        $q->where(array(
+            'Permissions.rid' => $resource,
+        ));
+        $q->sortby('Permissions.weight', 'ASC');
+        $q->sortby('Permissions.priority', 'ASC');
+        $tstart = microtime(true);
+        if ($q->prepare() && $q->stmt->execute()) {
+        	$this->modx->queryTime += microtime(true) - $tstart;
+        	$this->modx->executedQueries++;
+            $permissions = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        $allow = true;
+        if (!empty($permissions)) {
+            foreach ($permissions as $permission) {
+                switch ($permission['principal_type']) {
+                    case 'all':
+                        $allow = (bool) $permission['status'];
+                        break;
+                    case 'gst':
+                        if ($userId == 0){
+                            $allow = (bool) $permission['status'];
+                        }
+                        break;
+                    case 'grp':
+                        if ($userId && $user->isMember($permission['groupname'])){
+                            $allow = (bool) $permission['status'];
+                        }
+                        break;
+                    case 'usr':
+                        if ($userId  == $permission['principal']){
+                            $allow = (bool) $permission['status'];
+                        }
+                        break;
+                }
+            }
+        }
+        return $allow;
     }
 }
 

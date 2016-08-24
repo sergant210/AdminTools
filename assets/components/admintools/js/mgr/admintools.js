@@ -11,10 +11,25 @@ AdminTools = new AdminTools();
 
 
 AdminTools.utils.renderBoolean = function (value, props, row) {
-
 	return value
 		? String.format('<span class="green">{0}</span>', _('yes'))
 		: String.format('<span class="red">{0}</span>', _('no'));
+};
+
+AdminTools.utils.renderPrincipalType = function (value, props, row) {
+	var output;
+	switch (value) {
+		case 'grp':
+			output = '<i class="icon icon-group"></i>';
+			break;
+		case 'usr':
+			output = '<i class="icon icon-user"></i>';
+			break;
+		default:
+			output = '';
+			break;
+	}
+	return output;
 };
 
 AdminTools.utils.getMenu = function (actions, grid, selected) {
@@ -114,14 +129,3 @@ AdminTools.combo.SearchTypes = function(config) {
 Ext.extend(AdminTools.combo.SearchTypes,MODx.combo.ComboBox);
 Ext.reg('admintools-combo-wheresearch',AdminTools.combo.SearchTypes);
 
-/** ***************************************** **/
-/*
-
-Ext.onReady(function () {
-	setTimeout(function(){
-		var tmpl = Ext.getCmp('modx-resource-template');
-		tmpl.label.update(' <a href="#">' + tmpl.label.dom.innerText + '</a>');
-console.log(tmpl.label);
-	}, 200);
-});
-*/

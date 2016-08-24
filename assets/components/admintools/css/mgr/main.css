@@ -108,7 +108,14 @@ a.x-menu-item .x-menu-item-text .icon {
 .tree-last-edited > em > button:hover {
 	color:inherit;
 }
-
+/*
+#modx-resource-description {
+	resize: vertical;
+}
+#modx-resource-introtext {
+	resize: vertical;
+}
+*/
 /** ******************Task panel**************************** **/
 /*#modx-leftbar {
 	top: 100px !important;
@@ -238,7 +245,11 @@ a.x-menu-item .x-menu-item-text .icon {
 #admintools-notes-panel2-xcollapsed {
 	display: none !important;
 }
-/*
-ul.admintools-row-actions .actions-menu {width: 40px;}
-ul.admintools-row-actions .actions-menu:after {content: " \f107";}
-*/
+/*************** Permissions *******************/
+.permissions-panel-desc {
+	margin: 15px;
+}
+.at-principal-group {
+	font-weight: bold;
+}
+.at-principal-user {}

@@ -12,6 +12,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - user notes. You can find it in the user menu next to other items (profile, messages, logout). Take a [look](http://modzone.ru/blog/2016/04/21/admintools-user-notes/).
 - a tab "Resources" to the template form and a link to the template to the resource form.
 - animation of the manager menu.
+- alternative permissions for resources (added "Permissions" tab to the resource form).
 
 #### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example

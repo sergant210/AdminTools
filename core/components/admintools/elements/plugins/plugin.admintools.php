@@ -38,6 +38,9 @@ if ($AdminTools instanceof AdminTools) {
             if ($modx->user->isAuthenticated($modx->context->get('key')) && (!$modx->user->active || $modx->user->Profile->blocked)) {
                 $modx->runProcessor('security/logout');
             }
+            if ($modx->getOption('admintools_alternative_permissions', null, false) && !$AdminTools->hasPermissions()){
+                $modx->sendUnauthorizedPage();
+            }
             break;
         case 'OnTempFormPrerender':
             if ($modx->getOption('admintools_template_resource_relationship', null, true)) {
@@ -45,17 +48,45 @@ if ($AdminTools instanceof AdminTools) {
             }
             break;
         case 'OnDocFormPrerender':
+            $_html = '';
+            if ($modx->getOption('admintools_alternative_permissions', null, true)) {
+                $modx->controller->addLastJavascript($AdminTools->getOption('jsUrl') . 'mgr/permissions.js');
+                $_html .= '
+    Ext.ComponentMgr.onAvailable("modx-resource-tabs", function() {
+		this.on("beforerender", function() {
+			this.add({
+				title: _("admintools_permissions"),
+				border: false,
+				items: [{
+					layout: "anchor",
+					border: false,
+					items: [{
+						html: _("admintools_permissions_desc"),
+						border: false,
+						bodyCssClass: "panel-desc"
+					}, {
+						xtype: "admintools-grid-permissions",
+						anchor: "100%",
+						cls: "main-wrapper",
+						resource: ' . $id . '
+					}]
+				}]
+			});
+		});
+	});
+';
+            }
             if ($modx->getOption('admintools_template_resource_relationship', null, true)) {
-                $_html = '<script>
+                $_html .= '
 	Ext.onReady(function() {
         setTimeout(function(){
             var tmpl = Ext.getCmp("modx-resource-template");
-            tmpl.label.update(" <a href=\"?a=element/template/update&id=" + tmpl.getValue() + "\">" + tmpl.label.dom.innerText + "</a>");
+            if (tmpl.getValue()) tmpl.label.update(tmpl.label.dom.innerText + "&nbsp;&nbsp;<a href=\"?a=element/template/update&id=" + tmpl.getValue() + "\"><i class=\"icon icon-external-link\"></i></a>");
         }, 200);
     });
-</script>';
-                $modx->controller->addHtml($_html);
+';
             }
+            if (!empty($_html)) $modx->controller->addHtml('<script type="text/javascript">' . $_html . '</script>');
             break;
     }
 }

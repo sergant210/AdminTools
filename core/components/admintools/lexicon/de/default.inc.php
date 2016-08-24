@@ -48,6 +48,25 @@ $_lang['admintools_search_in_titles'] = 'in Titel';
 $_lang['admintools_search_in_text'] = 'in den Texten';
 $_lang['admintools_search_in_tags'] = 'in Tags';
 $_lang['admintools_description'] = 'Description';
+$_lang['admintools_element_name'] = 'Elementname';
+
+$_lang['admintools_permissions'] = 'Berechtigungen';
+$_lang['admintools_permissions_desc'] = 'Wenn die Berechtigung nicht gesetzt ist, dann wird der Zugriff auf alle nicht gestattet.';
+$_lang['admintools_principal_name'] = 'Gruppe/User';
+$_lang['admintools_priority'] = 'Priorität';
+$_lang['admintools_permissions_status'] = 'Status';
+$_lang['admintools_permissions_status_column'] = 'Dürfen';
+$_lang['admintools_permissions_choose_action'] = 'Aktion wählen';
+$_lang['admintools_choose_principal'] = 'Gewählte Gruppe oder einen Benutzer';
+$_lang['admintools_edit'] = 'Bearbeiten';
+$_lang['admintools_remove'] = 'Entfernen';
+$_lang['admintools_permission_remove'] = 'Entfernen';
+$_lang['admintools_permission_remove_confirm'] = 'Wollen Sie die ausgewählten Berechtigungen zu entfernen?';
+$_lang['admintools_add_permission'] = 'Hinzufügen';
+$_lang['admintools_permissions_allow'] = 'Zulassen';
+$_lang['admintools_permissions_deny'] = 'Verweigern';
+$_lang['admintools_permissions_all'] = 'Alle';
+$_lang['admintools_permissions_guest'] = 'Anonym';
 
 $_lang['admintools_user_not_found'] = 'Benutzer nicht gefunden';
 $_lang['admintools_plugin_not_found'] = 'Plugin "Admin Tools" nicht gefunden';
@@ -56,3 +75,7 @@ $_lang['admintools_note_err_title'] = 'Title can\'t be empty!';
 $_lang['admintools_notes_err_ns'] = 'Keine Hinweise wurden ausgewählt!';
 $_lang['admintools_notes_err_nf'] = 'Die Note wird nicht gefunden!';
 $_lang['admintools_note_is_dirty'] = 'Speichern oder abbrechen Änderungen!';
+
+$_lang['admintools_permissions_err_ae'] = 'Der Datensatz existiert bereits!';
+$_lang['admintools_permissions_err_ns'] = 'Es sind keine Berechtigungen ausgewählt!';
+$_lang['admintools_permissions_err_nf'] = 'Die Berechtigungen werden nicht gefunden!';
