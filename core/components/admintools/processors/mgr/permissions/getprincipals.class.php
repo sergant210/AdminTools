@@ -7,11 +7,13 @@ class PrincipalsGetListProcessor extends modProcessor {
     //public $permission = '';
 
     public function initList($query) {
-        $query = mb_strtolower($query);
+        $query = function_exists('mb_strtolower') ? mb_strtolower($query) : strtolower($query);
         $list = array();
         $all = $this->modx->lexicon('admintools_permissions_all');
+        $_all = function_exists('mb_strtolower') ? mb_strtolower($all) : strtolower($all);
         $guest = $this->modx->lexicon('admintools_permissions_guest');
-        if (empty($query) || ($query && strpos(mb_strtolower($all), $query) !== false)){
+        $_guest = function_exists('mb_strtolower') ? mb_strtolower($guest) : strtolower($guest);
+        if (empty($query) || ($query && strpos($_all, $query) !== false)){
             $list[] = array(
                 'id' => 'all-0',
                 'name' => $all,
@@ -19,7 +21,7 @@ class PrincipalsGetListProcessor extends modProcessor {
                 'icon' => '',
             );
         }
-        if (empty($query) || ($query && strpos(mb_strtolower($guest), $query) !== false)){
+        if (empty($query) || ($query && strpos($_guest, $query) !== false)){
             $list[] = array(
                 'id' => 'gst-0',
                 'name' => $guest,
