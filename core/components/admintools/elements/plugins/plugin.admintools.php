@@ -57,7 +57,7 @@ if ($AdminTools instanceof AdminTools) {
             var tmpl = Ext.getCmp("modx-resource-template");
             if (tmpl.getValue()) tmpl.label.update(tmpl.label.dom.innerText + "&nbsp;&nbsp;<a href=\"?a=element/template/update&id=" + tmpl.getValue() + "\"><i class=\"icon icon-external-link\"></i></a>");';
             }
-            if ($modx->getOption('admintools_clear_only_resource_cache', null, true)) {
+            if ($modx->getOption('admintools_clear_only_resource_cache', null, true) && $resource instanceof modResource) {
                 $_html['create_resource_cache'] = '
             var cb = Ext.create({
                 xtype: "xcheckbox",
