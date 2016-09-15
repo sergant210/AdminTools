@@ -61,8 +61,8 @@ AdminTools.window.Permissions = function (config) {
 				name: 'status',
 				boxLabel: _('admintools_permissions_deny'),
 				xtype: 'radio',
-				value: '0',
-				inputValue: '0',
+				value: 0,
+				inputValue: 0,
 				checked: !config.status
 			}]
 		}]

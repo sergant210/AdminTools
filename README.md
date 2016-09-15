@@ -4,8 +4,9 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - favorites elements to the elements tree (for each user individually);
 - edited elements log (add a button to the topbar of the elements tree);
 - ability to remember the last system settings filter parameters - namespace and area (for each user individually);
-- ability to switch off check the permissions for users with sudo while building the tree. It reduces building time from 0,43s to 0,03s and amount of used memory from 6.5Mb to 5.2Mb (on my test site);
-- added a system setting that switches off clearing the site cache when any resource is saving. MODX clears only the saved resource cache; 
+- ability to switch off check the permissions for users while building the tree. It reduces building time from 0,43s to 0,03s and amount of used memory from 6.5Mb to 5.2Mb (on my test site);
+- added a system setting which disables clearing the site cache while saving the resource, MODX clears only the current resource cache; 
+- added a checkbox "Create cache" to the resource form which allows to save the resource to the cache when you save it.
 - added a system setting for hiding component description at "Extras" menu;
 - backend users can be authorized via email. Need to do some manipulations. 
 - automatic log out the user if he is blocked or inactive.
@@ -34,6 +35,13 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 * Switch the system setting **admintools_email_authorization** to TRUE.  
 
 Now you can log in to the manager via email if you have the corresponding permission.
+
+#### Alternative permissions for resources
+Use it to restrict access to the pages of the site following the rules: 
+* Permissions for everyone have the lowest priority.
+* Permissions for user groups have a higher priority. This permissions are applied are from top to bottom. To change the order of application use the priority field. 
+* User permissions have the highest priority.  
+
 
 #### Remark
 All these features can be switched off by the corresponding system setting. Some features are disabled by default.

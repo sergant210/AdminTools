@@ -11,7 +11,7 @@ $xpdo_meta_map['adminToolsPermissions']= array (
     'principal_type' => NULL,
     'priority' => 1,
     'weight' => NULL,
-    'status' => NULL,
+    'status' => 1,
   ),
   'fieldMeta' => 
   array (
@@ -60,8 +60,9 @@ $xpdo_meta_map['adminToolsPermissions']= array (
       'dbtype' => 'int',
       'precision' => '1',
       'attributes' => 'unsigned',
-      'phptype' => 'integer',
+      'phptype' => 'boolean',
       'null' => false,
+      'default' => 1,
     ),
   ),
   'indexes' => 

@@ -1,6 +1,9 @@
 .x-grid3-col-actions {
 	padding: 3px 0 3px 5px;
 }
+.x-grid3-row-selected {
+	background-color: #fffede;
+}
 ul.admintools-row-actions {
 	margin: 0;
 	padding: 0;
@@ -108,14 +111,12 @@ a.x-menu-item .x-menu-item-text .icon {
 .tree-last-edited > em > button:hover {
 	color:inherit;
 }
-/*
-#modx-resource-description {
-	resize: vertical;
-}
+
+#modx-resource-description,
 #modx-resource-introtext {
 	resize: vertical;
 }
-*/
+
 /** ******************Task panel**************************** **/
 /*#modx-leftbar {
 	top: 100px !important;

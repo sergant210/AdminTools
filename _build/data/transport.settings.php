@@ -11,7 +11,7 @@ $tmp = array(
     'check_elements_permissions' => array(
 		'xtype' => 'combo-boolean',
 		'value' => true,
-		'area' => 'admintools_main',
+		'area' => 'admintools_permissions',
 	),
     'remember_system_settings' => array(
 		'xtype' => 'combo-boolean',
@@ -28,7 +28,7 @@ $tmp = array(
 		'value' => true,
 		'area' => 'admintools_main',
 	),
-    'clear_only resource_cache' => array(
+    'clear_only_resource_cache' => array(
 		'xtype' => 'combo-boolean',
 		'value' => false,
 		'area' => 'admintools_main',

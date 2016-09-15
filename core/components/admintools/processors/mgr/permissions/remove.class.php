@@ -13,10 +13,6 @@ class resourcePermissionsRemoveProcessor extends modObjectProcessor {
 	 * @return array|string
 	 */
 	public function process() {
-		if (!$this->checkPermissions()) {
-			return $this->failure($this->modx->lexicon('access_denied'));
-		}
-
 		$ids = $this->modx->fromJSON($this->getProperty('ids'));
 		if (empty($ids)) {
 			return $this->failure($this->modx->lexicon('admintools_permissions_err_ns'));

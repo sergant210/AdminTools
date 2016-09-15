@@ -45,8 +45,8 @@ if (typeof MODx.tree.Element != 'undefined') {
 								listeners: {
 									mouseover: function (button, e) {
 										button.tooltip.onTargetOver(e);
-									}
-									, mouseout: function (button, e) {
+									},
+									mouseout: function (button, e) {
 										button.tooltip.onTargetOut(e);
 									}
 								}
@@ -57,8 +57,8 @@ if (typeof MODx.tree.Element != 'undefined') {
 							text: '',
 							scope: this,
 							tooltip: new Ext.ToolTip({
-								title: inlineButtonsLang.add
-								, target: this
+								title: inlineButtonsLang.add,
+								target: this
 							}),
 							node: node,
 							handler: function (btn, evt) {
@@ -70,8 +70,8 @@ if (typeof MODx.tree.Element != 'undefined') {
 							listeners: {
 								mouseover: function (button, e) {
 									button.tooltip.onTargetOver(e);
-								}
-								, mouseout: function (button, e) {
+								},
+								mouseout: function (button, e) {
 									button.tooltip.onTargetOut(e);
 								}
 							}
@@ -81,8 +81,8 @@ if (typeof MODx.tree.Element != 'undefined') {
 							text: '',
 							scope: this,
 							tooltip: new Ext.ToolTip({
-								title: inlineButtonsLang.refresh
-								, target: this
+								title: inlineButtonsLang.refresh,
+								target: this
 							}),
 							node: node,
 							handler: function (btn, evt) {
@@ -94,8 +94,8 @@ if (typeof MODx.tree.Element != 'undefined') {
 							listeners: {
 								mouseover: function (button, e) {
 									button.tooltip.onTargetOver(e);
-								}
-								, mouseout: function (button, e) {
+								},
+								mouseout: function (button, e) {
 									button.tooltip.onTargetOut(e);
 								}
 							}
@@ -249,17 +249,17 @@ if (typeof MODx.tree.Element != 'undefined') {
 			var oar = id.split('_');
 
 			MODx.msg.confirm({
-				title: _('warning')
-				, text: _('remove_this_confirm', {
-					type: oar[0]
-					, name: this.cm.activeNode.attributes.name
-				})
-				, url: MODx.config.connector_url
-				, params: {
-					action: 'element/' + oar[0] + '/remove'
-					, id: oar[2]
-				}
-				, listeners: {
+				title: _('warning'),
+				text: _('remove_this_confirm', {
+					type: oar[0],
+					name: this.cm.activeNode.attributes.name
+				}),
+				url: MODx.config.connector_url,
+				params: {
+					action: 'element/' + oar[0] + '/remove',
+					id: oar[2]
+				},
+				listeners: {
 					'success': {
 						fn: function () {
 							tree.cm.activeNode.remove();

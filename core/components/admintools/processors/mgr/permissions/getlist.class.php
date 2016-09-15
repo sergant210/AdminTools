@@ -8,7 +8,7 @@ class ResourcePermissionsGetListProcessor extends modObjectGetListProcessor {
     //public $languageTopics = array('admintools:default');
     public $defaultSortField = 'Permissions.weight';
     public $defaultSortDirection = 'ASC';
-    //public $permission = '';
+    public $permission = 'access_permissions';
 
     /**
      * @return mixed

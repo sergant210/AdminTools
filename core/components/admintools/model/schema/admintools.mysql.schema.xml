@@ -32,7 +32,7 @@
 		<field key="principal_type" dbtype="varchar" precision="5" phptype="string" null="false" />
 		<field key="priority" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="1"/>
 		<field key="weight" dbtype="int" precision="3" attributes="unsigned" phptype="integer" null="false" />
-		<field key="status" dbtype="int" precision="1" attributes="unsigned" phptype="integer" null="false" />
+		<field key="status" dbtype="int" precision="1" attributes="unsigned" phptype="boolean" null="false" default="1"/>
 
 		<index alias="rid" name="rid" primary="false" unique="false" type="BTREE" >
 			<column key="rid" length="" collation="A" null="false" />

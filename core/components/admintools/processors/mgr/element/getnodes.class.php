@@ -1,11 +1,10 @@
 <?php
 /**
- * Grabs all elements for element tree
+ * Grabs all elements for element tree. Used instead the original MODX processor.
  *
  * @param string $id (optional) Parent ID of object to grab from. Defaults to 0.
  *
- * @package modx
- * @subpackage processors.layout.tree.element
+ * @package AdminTools
  */
 class modElementGetNodesProcessor extends modProcessor {
     public $typeMap = array(
@@ -129,13 +128,17 @@ class modElementGetNodesProcessor extends modProcessor {
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
             if ($this->checkPermission) {
-                if ($canEditElement && $element->checkPolicy(array('save' => true, 'view' => true))) $class[] = 'pedit';
-                if ($canDeleteElement && $element->checkPolicy('remove')) $class[] = 'pdelete';
+                if ($canEditElement && $element->checkPolicy(array('save' => true, 'view' => true))) {
+                    $class[] = 'pedit';
+                }
+                if ($canDeleteElement && $element->checkPolicy('remove')) {
+                    $class[] = 'pdelete';
+                }
                 $element = $element->toArray();
-        } else {
-            $class[] = 'pedit';
-            $class[] = 'pdelete';
-        }
+            } else {
+                $class[] = 'pedit';
+                $class[] = 'pdelete';
+            }
             if ($canNewCategory) $class[] = 'pnewcat';
             if ($element['locked']) $class[] = 'element-node-locked';
             if ($elementClassKey == 'modPlugin' && $element['disabled']) {

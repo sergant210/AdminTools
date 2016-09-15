@@ -255,7 +255,6 @@ class AdminTools {
 
     /**
      * @param modResource $resource
-     * @return modCacheManager
      */
     public function clearResourceCache(&$resource) {
 //        $resource->clearCache();
@@ -400,10 +399,10 @@ class AdminTools {
         $query->select('id');
         $id = $this->modx->getValue($query->prepare());
         if (!empty($id)) {
-            $this->modx->addEventListener('OnManagerPageBeforeRender', $id);
-            $this->modx->addEventListener('OnManagerAuthentication', $id);
-//            $this->modx->eventMap['OnManagerPageBeforeRender'][$id] = $id;
-//            $this->modx->eventMap['OnManagerAuthentication'][$id] = $id;
+//            $this->modx->addEventListener('OnManagerPageBeforeRender', $id);
+//            $this->modx->addEventListener('OnManagerAuthentication', $id);
+            $this->modx->eventMap['OnManagerPageBeforeRender'][$id] = $id;
+            $this->modx->eventMap['OnManagerAuthentication'][$id] = $id;
         } else {
             $error_message = $this->modx->lexicon('admintools_plugin_not_found');
             return $error_message;
@@ -425,8 +424,13 @@ class AdminTools {
         return $error_message;
     }
 
-    public function hasPermissions() {
-        $resource = $this->modx->resource->get('id');
+    /**
+     * @param int $rid Resource id
+     * @return bool
+     */
+    public function hasPermissions($rid = 0) {
+        //TODO-sergant  Сделать map файл.
+        if ($rid == 0) $rid = $this->modx->resource->get('id');
         $user = $this->modx->user;
         $userId = $this->modx->user->get('id');
         $q = $this->modx->newQuery('adminToolsPermissions');
@@ -435,7 +439,7 @@ class AdminTools {
         $q->leftJoin('modUserGroup','Group', 'Permissions.principal = Group.id AND Permissions.principal_type = "grp"');
         $q->select('Permissions.*, Group.name as groupname');
         $q->where(array(
-            'Permissions.rid' => $resource,
+            'Permissions.rid' => $rid,
         ));
         $q->sortby('Permissions.weight', 'ASC');
         $q->sortby('Permissions.priority', 'ASC');
@@ -472,6 +476,12 @@ class AdminTools {
         }
         return $allow;
     }
+    public function createResourceCache($uri = '/') {
+        $siteUrl = $this->modx->getOption('site_url');
+        /** @var modRestCurlClient $client */
+        $client = $this->modx->getService('rest.modRestCurlClient');
+        $result = $client->request($siteUrl, $uri, 'POST');
+    }
 }
 
 /**
@@ -482,7 +492,7 @@ class atCacheManager extends modCacheManager
 {
     public function refresh(array $providers = array(), array &$results = array())
     {
-        if ($this->modx->getOption('admintools_clear_only resource_cache',null,false) && !empty($this->modx->_clearResourceCache)) {
+        if ($this->modx->getOption('admintools_clear_only_resource_cache',null,false) && !empty($this->modx->_clearResourceCache)) {
             $this->modx->_clearResourceCache = false;
             unset($providers['resource']);
             $this->modx->cacheManager = null;

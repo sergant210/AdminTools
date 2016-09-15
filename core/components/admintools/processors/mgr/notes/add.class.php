@@ -6,7 +6,7 @@
 class adminToolsNoteCreateProcessor extends modObjectCreateProcessor {
 	public $objectType = 'admintools_notes';
 	public $classKey = 'adminNotes';
-	//public $languageTopics = array('modextra');
+	//public $languageTopics = array('admintools');
 	//public $permission = 'create_notes';
 
 

@@ -15,7 +15,7 @@ AdminTools.showNotes = function() {
 				layout: 'border',
 				items: [{
 					region: 'center',
-					//title: 'Левая панель',
+					//title: 'Центральная панель',
 					id: 'admintools-notes-panel1',
 					autoScroll: true,
 					unstyled: true,
@@ -223,7 +223,6 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 
 		this.addContextMenuItem(menu);
 	},
-
 	createNote: function (btn, e) {
 		var w = MODx.load({
 			xtype: 'admintools-note-create-window',
@@ -248,7 +247,6 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 		w.setValues({private: false});
 		w.show(e.target);
 	},
-
 	updateNote: function (btn, e, row) {
 		if (AdminTools.currentNote.isDirty) {
 			Ext.MessageBox.alert(_('admintools_attention'), _("admintools_note_is_dirty"));
@@ -320,7 +318,6 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 			}
 		});
 	},
-
 	removeNote: function (act, btn, e) {
 		var ids = this._getSelectedIds();
 		if (!ids.length) {
@@ -348,7 +345,68 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 		});
 		return true;
 	},
-
+	download:function(){
+		MODx.Ajax.request({
+			url: adminToolsSettings.config.connector_url,
+			params: {
+				action: 'mgr/notes/export'
+			},
+			listeners: {
+				success: {
+					fn: function (result) {
+						location.href = adminToolsSettings.config.connector_url+"?action=mgr/notes/download&HTTP_MODAUTH="+MODx.siteId;
+					}, scope: this
+				},
+				failure: {
+					fn: function (result) {
+						//panel.el.unmask();
+						MODx.msg.alert(_('_error'), result.message);
+					}, scope: this
+				}
+			}
+		});
+	},
+	upload:function(){
+		var input = document.getElementById('admintool_upload_notes');
+		if (!input) {
+			input = document.createElement('input');
+			input.type = 'file';
+			input.id = 'admintool_upload_notes';
+			input.style = 'display:none';
+			document.body.appendChild(input);
+			input.addEventListener('change', this.handleFile, false);
+		}
+		input.click();
+	},
+	handleFile: function(e) {
+		var grid = this;
+		var file = e.target.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var content = e.target.result;
+			MODx.Ajax.request({
+				url: adminToolsSettings.config.connector_url,
+				params: {
+					action: 'mgr/notes/upload',
+					content: content
+				},
+				listeners: {
+					success: {
+						fn: function () {
+							Ext.getCmp('admintools-notes-grid').refresh();
+						}, scope: this
+					},
+					failure: {
+						fn: function (result) {
+							//panel.el.unmask();
+							MODx.msg.alert(_('_error'), result.message);
+						}, scope: this
+					}
+				}
+			});
+		};
+		reader.readAsText(file);
+	},
 	getColumns: function (config) {
 		return [{
 			header: 'ID',
@@ -415,13 +473,29 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 
 	getTopBar: function (config) {
 		return [{
-			text: '<i class="icon icon-plus"></i>',
-			handler: this.createNote,
-			style: {
-				marginLeft: '1px',
-				marginRight: '2px'
-			},
-			scope: this
+			xtype: 'buttongroup',
+			columns: 3,
+			items: [{
+				text: '<i class="icon icon-plus"></i>',
+				handler: this.createNote,
+				// style: {marginRight: '5px'},
+				tooltip: _('admintools_create_note'),
+				tooltipType: 'title',
+				scope: this
+			}, {
+				text: '<i class="icon icon-download"></i>',
+				handler: this.download,
+				tooltip: _('admintools_export_notes'),
+				tooltipType: 'title',
+				// style: {marginRight: '5px'},
+				scope: this
+			}, {
+				text: '<i class="icon icon-upload"></i>',
+				handler: this.upload,
+				tooltip: _('admintools_import_notes'),
+				tooltipType: 'title',
+				scope: this
+			}]
 		}, '->', {
 			xtype: 'admintools-combo-wheresearch',
 			name: 'wheresearch',
@@ -523,7 +597,7 @@ AdminTools.window.CreateNote = function (config) {
 		config.id = 'admintools-note-create-window';
 	}
 	Ext.applyIf(config, {
-		title: _('admintools_note_add'),
+		title: _('admintools_create_note'),
 		width: 900,
 		modal: true,
 		maximizable: false,
