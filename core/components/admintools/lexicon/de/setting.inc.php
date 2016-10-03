@@ -30,3 +30,5 @@ $_lang['setting_admintools_template_resource_relationship'] = 'Vorlage und Resso
 $_lang['setting_admintools_template_resource_relationship_desc'] = 'Fügt eine Registerkarte Ressourcen auf die Schablonenform und einen Link zu der Vorlage in die Ressource Form.';
 $_lang['setting_admintools_alternative_permissions'] = 'Alternative Berechtigungen';
 $_lang['setting_admintools_alternative_permissions_desc'] = 'Alternative Ressourcenberechtigungen für Front-End-Benutzer.';
+$_lang['setting_admintools_plugins_events'] = 'Aktivieren Plugin-Schnittstelle';
+$_lang['setting_admintools_plugins_events_desc'] = 'Es wurde eine Schaltfläche, um die Plug-Tabelle zu zeigen.';

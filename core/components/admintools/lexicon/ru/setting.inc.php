@@ -31,3 +31,5 @@ $_lang['setting_admintools_template_resource_relationship'] = 'Связь шаб
 $_lang['setting_admintools_template_resource_relationship_desc'] = 'Добавляет шаблону вкладку с ресурсами, а ресурсу ссылку на шаблон.';
 $_lang['setting_admintools_alternative_permissions'] = 'Альтернативные права доступа';
 $_lang['setting_admintools_alternative_permissions_desc'] = 'Включает альтернативный механизм проверки прав доступа к ресурсу на сайте.';
+$_lang['setting_admintools_plugins_events'] = 'Включить интерфейс плагинов';
+$_lang['setting_admintools_plugins_events_desc'] = 'Добавляет кнопку для вызова таблицы плагинов.';

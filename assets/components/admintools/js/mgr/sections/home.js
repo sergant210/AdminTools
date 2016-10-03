@@ -9,3 +9,7 @@ AdminTools.page.Home = function (config) {
 };
 Ext.extend(AdminTools.page.Home, MODx.Component);
 Ext.reg('admintools-page-home', AdminTools.page.Home);
+
+Ext.onReady(function() {
+	MODx.load({ xtype: "admintools-page-home"});
+});

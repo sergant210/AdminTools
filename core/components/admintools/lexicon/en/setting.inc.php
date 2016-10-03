@@ -31,3 +31,5 @@ $_lang['setting_admintools_template_resource_relationship'] = 'Template and reso
 $_lang['setting_admintools_template_resource_relationship_desc'] = 'Adds a resources tab to the template form and a link to the template to the resource form.';
 $_lang['setting_admintools_alternative_permissions'] = 'Alternate permissions';
 $_lang['setting_admintools_alternative_permissions_desc'] = 'Alternate resource permissions for frontend users.';
+$_lang['setting_admintools_plugins_events'] = 'Enable plugin interface';
+$_lang['setting_admintools_plugins_events_desc'] = 'Added a button to show the plugin table.';

@@ -109,7 +109,6 @@ AdminTools.utils.renderActions = function (value, props, row) {
 		res.join('')
 	);
 };
-
 // Status
 AdminTools.combo.SearchTypes = function(config) {
 	config = config || {};

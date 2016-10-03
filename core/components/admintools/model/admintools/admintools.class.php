@@ -102,6 +102,10 @@ class AdminTools {
                         $_css .= "\t#modx-navbar ul.modx-subnav li:hover ul.modx-subsubnav {opacity: 1; visibility: visible;} \n";
                     }
                     if ($_css) $this->modx->controller->addHtml("<style type=\"text/css\">\n". $_css ."</style>");
+                    // Plugins
+                    if ($this->modx->getOption('admintools_plugins_events', null, true)) {
+                        $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/plugins.js');
+                    }
                     // taskpanel
                     /*
                     if ($this->modx->getOption('admintools_enable_taskpanel',null,false)) {

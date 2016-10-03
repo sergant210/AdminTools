@@ -44,7 +44,7 @@ AdminTools.utils.getMenu = function (actions, grid, selected) {
 			text: String.format(
 				'<span class="{0}"><i class="x-menu-item-icon {1}"></i>{2}</span>',
 				cls, icon, title
-			),
+			)
 		});
 	}
 

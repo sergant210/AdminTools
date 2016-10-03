@@ -36,11 +36,11 @@ class AdminToolsHomeManagerController extends AdminToolsMainController {
 		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/widgets/items.windows.js');
 		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/widgets/home.panel.js');
 		$this->addJavascript($this->AdminTools->getOption('jsUrl') . 'mgr/sections/home.js');
-		$this->addHtml('<script type="text/javascript">
+		/*$this->addHtml('<script type="text/javascript">
 		Ext.onReady(function() {
 			MODx.load({ xtype: "admintools-page-home"});
 		});
-		</script>');
+		</script>');*/
 	}
 
 

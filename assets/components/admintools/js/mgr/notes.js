@@ -38,7 +38,7 @@ AdminTools.showNotes = function() {
 					useSplitTips: true,
 					unstyled: true,
 					collapsed: false,
-					collapsible: false,   // make collapsible
+					collapsible: false,
 					padding: '5px',
 					layout: 'anchor',
 					bodyStyle: 'background-color:#fafafa;',
@@ -698,28 +698,6 @@ AdminTools.window.UpdateNote = function (config) {
 };
 Ext.extend(AdminTools.window.UpdateNote, AdminTools.window.CreateNote);
 Ext.reg('admintools-note-update-window', AdminTools.window.UpdateNote);
-
-
-/** ******************* Buttons ******************** **/
-/*
-AdminTools.toolbar.NoteButtons = function(config) {
-	config = config || {};
-	Ext.applyIf(config,{
-		id: 'admintools-notes-buttons',
-		items: [{
-			text: 'Сохранить'
-		}, {
-			text: 'Отмена'
-		}]
-	});
-	AdminTools.toolbar.NoteButtons.superclass.constructor.call(this,config);
-	this.config = config;
-};
-Ext.extend(AdminTools.toolbar.NoteButtons,Ext.Toolbar,{
-
-});
-Ext.reg('admintools-notes-buttons',AdminTools.toolbar.NoteButtons);
-*/
 
 /** ************************************************* **/
 Ext.onReady(function() {

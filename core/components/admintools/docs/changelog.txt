@@ -1,3 +1,7 @@
+1.9.0-pl
+==============
+- Added plugin interface with bound events.
+
 1.8.2-pl
 ==============
 - Added a checkbox "Create cache" to the resource form which allows to save the resource to the cache when you save it.

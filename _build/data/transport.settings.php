@@ -73,6 +73,11 @@ $tmp = array(
         'value' => true,
         'area' => 'admintools_permissions',
     ),
+    'plugins_events' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'admintools_permissions',
+    ),
 );
 
 foreach ($tmp as $k => $v) {
