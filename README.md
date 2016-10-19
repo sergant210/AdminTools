@@ -15,6 +15,8 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - animation of the manager menu to prevent misclick.
 - alternative permissions for resources (added "Permissions" tab to the resource form).
 - plugin table with bound events.
+- the resource tree can displayed on the left side or on the right side.
+- color themes with ability customize them.
 
 #### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example

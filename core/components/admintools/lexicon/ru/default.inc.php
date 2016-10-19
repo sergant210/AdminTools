@@ -103,6 +103,7 @@ $_lang['admintools_create_plugin_note'] = 'Выберите событие и н
 $_lang['admintools_plugin_remove_confirm'] = 'Вы уверены, что хотите удалить плагин?';
 $_lang['admintools_plugin_form_code'] = 'Сформировать код плагина';
 $_lang['admintools_plugin_form_code_desc'] = 'Формирует код плагина для выбранных событий. При этом старый код будет удален.';
+$_lang['plugin_desc_category'] = 'Категория, к которой принадлежит этот плагин.';
 
 $_lang['admintools_permissions_err_ae'] = 'Запись уже существует!';
 $_lang['admintools_permissions_err_ns'] = 'Не выбрано ни одной записи!';

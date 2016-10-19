@@ -128,3 +128,14 @@ AdminTools.combo.SearchTypes = function(config) {
 Ext.extend(AdminTools.combo.SearchTypes,MODx.combo.ComboBox);
 Ext.reg('admintools-combo-wheresearch',AdminTools.combo.SearchTypes);
 
+Ext.onReady(function () {
+	var theme = adminToolsSettings.config.theme;
+	if (theme) Ext.getBody().addClass(theme);
+	if (adminToolsSettings.config.region == 'east') {
+		Ext.getBody().addClass('right-side-tree');
+		var contentNode = Ext.get('modx-content'),
+			actionButtonsNode = Ext.get('modx-action-buttons-container');
+		actionButtonsNode.appendTo(contentNode);
+	}
+
+});

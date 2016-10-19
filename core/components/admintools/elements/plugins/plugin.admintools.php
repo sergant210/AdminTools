@@ -113,5 +113,10 @@ if ($AdminTools instanceof AdminTools) {
             }
             if (!empty($output)) $modx->controller->addHtml('<script type="text/javascript">' . $output . '</script>');
             break;
+        /*case 'OnWebPagePrerender':
+            $output = &$modx->resource->_output;
+            $replace = "";
+            preg_replace('/</script>/', $replace, $output, 1);
+            break;*/
     }
 }

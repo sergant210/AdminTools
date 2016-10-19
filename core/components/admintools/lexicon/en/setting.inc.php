@@ -33,3 +33,7 @@ $_lang['setting_admintools_alternative_permissions'] = 'Alternate permissions';
 $_lang['setting_admintools_alternative_permissions_desc'] = 'Alternate resource permissions for frontend users.';
 $_lang['setting_admintools_plugins_events'] = 'Enable plugin interface';
 $_lang['setting_admintools_plugins_events_desc'] = 'Added a button to show the plugin table.';
+$_lang['setting_admintools_theme'] = 'Theme';
+$_lang['setting_admintools_theme_desc'] = "Available themes: 'default', 'dark' or leave it empty.";
+$_lang['setting_admintools_modx_tree_position'] = 'Tree position';
+$_lang['setting_admintools_modx_tree_position_desc'] = "'left' - on the left side (as usual), 'right' - on the right side";

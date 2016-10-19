@@ -629,11 +629,11 @@ AdminTools.window.QuickCreatePlugin = function(config) {
 							{tag: 'div', cls: 'x-form-trigger x-field-combo-event-add'}
 						]
 					},
-					onTriggerClick: function(event, el){
-						if (!el || el.className.indexOf('x-field-combo-events') > 0) {
-							AdminTools.combo.Events.superclass.onTriggerClick.call(this);
-						} else {
+					onTriggerClick: function(event, btn){
+						if (btn && Ext.get(btn).hasClass('x-field-combo-event-add')) {
 							this.addEventElement();
+						} else {
+							AdminTools.combo.Events.superclass.onTriggerClick.call(this);
 						}
 					},
 					addEventElement: function (event) {

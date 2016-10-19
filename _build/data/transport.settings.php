@@ -78,6 +78,16 @@ $tmp = array(
         'value' => true,
         'area' => 'admintools_permissions',
     ),
+    'theme' => array(
+        'xtype' => 'textfield',
+        'value' => '',
+        'area' => 'admintools_main',
+    ),
+    'modx_tree_position' => array(
+        'xtype' => 'textfield',
+        'value' => '',
+        'area' => 'admintools_main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

@@ -1,3 +1,8 @@
+1.10.0-pl
+==============
+- Added color themes.
+- The resource tree can be moved to the right side.
+
 1.9.0-pl
 ==============
 - Added plugin interface with bound events.

@@ -32,3 +32,7 @@ $_lang['setting_admintools_alternative_permissions'] = 'Alternative Berechtigung
 $_lang['setting_admintools_alternative_permissions_desc'] = 'Alternative Ressourcenberechtigungen für Front-End-Benutzer.';
 $_lang['setting_admintools_plugins_events'] = 'Aktivieren Plugin-Schnittstelle';
 $_lang['setting_admintools_plugins_events_desc'] = 'Es wurde eine Schaltfläche, um die Plug-Tabelle zu zeigen.';
+$_lang['setting_admintools_theme'] = 'Teme';
+$_lang['setting_admintools_theme_desc'] = "Verfügbare Themen: 'default', 'dark' or lava um empti.";
+$_lang['setting_admintools_modx_tree_position'] = 'Behälterposition';
+$_lang['setting_admintools_modx_tree_position_desc'] = "'left' - on the left side (as usual), 'right' - on the right side";

@@ -97,6 +97,7 @@ $_lang['admintools_create_plugin_note'] = 'Select an event and press ENTER';
 $_lang['admintools_plugin_remove_confirm'] = 'Are you sure you wand to delete the plugin?';
 $_lang['admintools_plugin_form_code'] = 'Form plugin code';
 $_lang['admintools_plugin_form_code_desc'] = 'Form plugin code for the selected events. Old code will be removed.';
+$_lang['plugin_desc_category'] = 'Die Kategorie, zu der dieses Plugin gehört.';
 
 $_lang['admintools_user_not_found'] = 'Benutzer nicht gefunden';
 $_lang['admintools_plugin_not_found'] = 'Plugin "Admin Tools" nicht gefunden';
