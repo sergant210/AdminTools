@@ -39,9 +39,9 @@ class AdminTools {
                     $theme = $this->modx->getOption('admintools_theme', null, '');
                     $theme = trim($theme) == 'default' ? '' : trim($theme);
                     if (!empty($theme)) {
-                        $themeCss = $this->modx->getOption('admintools_theme_file');
-                        $themeCss = (!empty($themeCss)) ? 'mgr/'.basename(trim($themeCss)) : "mgr/themes.css";
-                        $this->modx->controller->addCss($this->config['cssUrl'] . $themeCss);
+                        $themeCssFile = $this->modx->getOption('admintools_theme_file');
+                        $themeCssFile = (!empty($themeCssFile)) ? 'mgr/'.basename(trim($themeCssFile)) : "mgr/themes.css";
+                        $this->modx->controller->addCss($this->config['cssUrl'] . $themeCssFile);
                         $theme .= '-theme';
                     }
                     $this->modx->controller->addJavascript($this->config['jsUrl'] . 'mgr/admintools.js');

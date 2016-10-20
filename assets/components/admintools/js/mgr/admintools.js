@@ -135,7 +135,6 @@ Ext.onReady(function () {
 		Ext.getBody().addClass('right-side-tree');
 		var contentNode = Ext.get('modx-content'),
 			actionButtonsNode = Ext.get('modx-action-buttons-container');
-		actionButtonsNode.appendTo(contentNode);
+		if (actionButtonsNode) actionButtonsNode.appendTo(contentNode);
 	}
-
 });

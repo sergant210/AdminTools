@@ -298,7 +298,7 @@ ul.admintools-plugin-actions .btn {
 	min-width: 26px;
 	font-size: inherit;
 }
-/******************* Plugins/Events ********************/
+/******************* Events ********************/
 .x-field-combo-events,
 .x-field-combo-event-add {
 	border-left: 1px solid #e4e4e4 !important;
@@ -326,6 +326,7 @@ ul.admintools-plugin-actions .btn {
 	position: absolute;
 	top: 0;
 }
+
 #modx-leftbar-tabs-xsplit .x-layout-mini-east::after {
 	border-right: none;
 	border-left: 5px solid #556c88;

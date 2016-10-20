@@ -1,11 +1,23 @@
 /******************* Theme ********************/
-#modx-leftbar .x-tab-panel-noborder {margin: 0}
+/*menu*/
 .dark-theme #modx-navbar {
-	background-color: #272e3c !important;
-	background-image: none;
+	background: #272e3c none !important;
 	box-shadow: none;
 }
+.dark-theme #modx-navbar ul.modx-subnav li a:hover {
+	background: #1f2736;
+}
+/*tree*/
+#modx-leftbar .x-tab-panel-noborder {margin: 0}
+/*collapse button*/
 .dark-theme #modx-leftbar {background-color: #202735 !important;}
+.dark-theme  #modx-leftbar-tabs-xsplit .x-layout-mini-east {
+	left: -2px;
+}
+.dark-theme #modx-leftbar-tabs-xcollapsed .x-layout-mini,
+.dark-theme #modx-leftbar-tabs-xsplit .x-layout-mini {
+	top: 43px !important;
+}
 /*tabs*/
 .dark-theme #modx-leftbar .x-tab-panel-header {background: #202735 !important;}
 .dark-theme #modx-leftbar-tabpanel .x-tab-strip li {color: #a0a0a0;}
@@ -26,8 +38,11 @@
 	margin-right: 10px;
 	opacity: 0.6;
 }
+.dark-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-item-disabled {
+	opacity: 0.3;
+}
 .dark-theme #modx-leftbar-tabpanel .x-toolbar-cell .x-btn-noicon:hover,
-.dark-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-btn:hover {
+.dark-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-btn:not(.x-item-disabled):hover {
 	opacity: 0.9;
 }
 .dark-theme #modx-resource-tree-tbar,
@@ -52,15 +67,49 @@
 .dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el span,
 .dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el .icon {
 	background-color: #202735;
-	color: #bababa !important;
+	color: #d7d7d7;
 }
+/*hover nodes*/
 .dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over,
-.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over span {
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over .icon {
 	background-color: #111e2d;
 }
+/*hidden in menu*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .hidemenu,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .hidemenu span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .hidemenu .icon {
+	color: #d7d7d7 !important;
+	opacity: 0.7;
+	font-style: normal;
+}
+/*unpublished*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .unpublished ,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .unpublished  span {
+	font-style: italic;
+}
+/*disabled elements nodes*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled i.icon {
+	opacity: 0.7;
+}
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled span {
+	font-style: italic;
+}
+/*deleted resources nodes*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted i.icon,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted i.icon-large {
+	color: #ff675d !important;
+	opacity: 0.85;
+}
 /*favorites*/
-.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-element-favorite > a span {
-	color: #59E68F  !important;
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-element-favorite > a span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-element-favorite > .icon {
+	color: #85e6af !important;
 }
 /*root*/
 .dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el,
@@ -72,7 +121,8 @@
 	background-color: #111e2d;
 }
 .dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over,
-.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over span {
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over span,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over .icon {
 	background-color: #111222;
 }
 .dark-theme .tree-pseudoroot-node.x-tree-node-el.ec-over {
@@ -84,6 +134,7 @@
 .dark-theme #modx-leftbar-tabpanel .x-tree-arrows .x-tree-elbow-end-minus:hover {
 	background-color: #404952;
 }
+/*node toolbar*/
 .dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .modx-tree-node-tool-ct {
 	right: 16px;
 }
@@ -95,4 +146,5 @@
 .dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .modx-tree-node-tool-ct .x-btn-over {
 	color: #FFF !important;
 }
+/*mask*/
 .dark-theme #modx-leftbar-tabpanel .ext-el-mask {background-color: #111; }
