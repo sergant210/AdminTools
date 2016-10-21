@@ -85,7 +85,7 @@ $tmp = array(
     ),
     'modx_tree_position' => array(
         'xtype' => 'textfield',
-        'value' => '',
+        'value' => 'left',
         'area' => 'admintools_main',
     ),
 );

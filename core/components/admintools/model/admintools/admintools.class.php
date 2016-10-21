@@ -128,18 +128,13 @@ class AdminTools {
                         'theme' => $theme,
                         'region' => $region,
                     );
-                    $scripts = "<script type=\"text/javascript\">\n";
-                    $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id)))."\n";
-                    if ($region == 'east') {
-                        $scripts .= "\n".'Ext.onReady(function() {
-    
-    });';
-                    }
-                    $scripts .= "</script>";
+                    $scripts = "<script type=\"text/javascript\">var sideBarRegion = '{$region}'</script>\n";
                     $scripts .= $this->getBaseManagerPageScripts();
-                    //$this->modx->controller->addHtml($scripts);
                     $this->initialized[$ctx] = true;
                     $this->modx->smarty->assign('maincssjs',$scripts);
+                    $scripts = "<script type=\"text/javascript\">\n";
+                    $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n</script>";
+                    $this->modx->controller->addHtml($scripts);
                 }
                 break;
             case 'web':

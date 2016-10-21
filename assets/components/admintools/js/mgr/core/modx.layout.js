@@ -132,7 +132,7 @@ Ext.extend(MODx.Layout, Ext.Viewport, {
             config.showTree = true;
         }
         var activeTab = 0,
-			region = adminToolsSettings.config.region || 'west';
+			region = sideBarRegion || 'west';
 
         return {
             region: region

@@ -43,7 +43,8 @@ Now you can log in to the manager via email if you have the corresponding permis
 Use it to restrict access to the pages of the site following the rules: 
 * Permissions for everyone have the lowest priority.
 * Permissions for user groups have a higher priority. This permissions are applied from top to bottom of the group list. To change the order of application use the priority field. 
-* User permissions have the highest priority.  
+* User permissions have the highest priority. 
+To close pages from guests add the permission on the resource page for the guests with 'deny' value.
 
 
 #### Remark

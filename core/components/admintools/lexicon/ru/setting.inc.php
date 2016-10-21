@@ -34,6 +34,6 @@ $_lang['setting_admintools_alternative_permissions_desc'] = 'Включает а
 $_lang['setting_admintools_plugins_events'] = 'Включить интерфейс плагинов';
 $_lang['setting_admintools_plugins_events_desc'] = 'Добавляет кнопку для вызова таблицы плагинов.';
 $_lang['setting_admintools_theme'] = 'Тема';
-$_lang['setting_admintools_theme_desc'] = "Доступные значения: default,dark. Или оставьте строчку пустой.";
+$_lang['setting_admintools_theme_desc'] = "Доступные значения: default, dark, purple. Или оставьте строчку пустой.";
 $_lang['setting_admintools_modx_tree_position'] = 'Позиция дерева ресурсов';
 $_lang['setting_admintools_modx_tree_position_desc'] = "'left' - дерево будет слева, 'right' - дерево будет справа";

@@ -9,7 +9,6 @@ Ext.reg('admintools', AdminTools);
 
 AdminTools = new AdminTools();
 
-
 AdminTools.utils.renderBoolean = function (value, props, row) {
 	return value
 		? String.format('<span class="green">{0}</span>', _('yes'))
@@ -129,12 +128,21 @@ Ext.extend(AdminTools.combo.SearchTypes,MODx.combo.ComboBox);
 Ext.reg('admintools-combo-wheresearch',AdminTools.combo.SearchTypes);
 
 Ext.onReady(function () {
-	var theme = adminToolsSettings.config.theme;
+	var theme = '', region = '';
+	//var adminToolsSettings = adminToolsSettings || {config:{theme:'', region:'west'}};
+	if (adminToolsSettings) {
+		theme = adminToolsSettings.config.theme;
+		region = adminToolsSettings.config.region;
+	}
 	if (theme) Ext.getBody().addClass(theme);
-	if (adminToolsSettings.config.region == 'east') {
+	if (region == 'east') {
 		Ext.getBody().addClass('right-side-tree');
 		var contentNode = Ext.get('modx-content'),
 			actionButtonsNode = Ext.get('modx-action-buttons-container');
 		if (actionButtonsNode) actionButtonsNode.appendTo(contentNode);
+	}
+	var Items = Ext.query('ul.modx-subsubnav');
+	for (var i = 0; Items.length > i; i++) {
+		Items[i].parentNode.classList.add('has-subnav');
 	}
 });
