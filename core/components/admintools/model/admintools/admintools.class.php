@@ -36,11 +36,18 @@ class AdminTools {
                 if (empty($this->initialized[$ctx])) {
                     $this->modx->controller->addLexiconTopic('admintools:default');
                     $this->modx->controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
+                    // Custom style files
+                    if ($customCSS = $this->modx->getOption('admintools_custom_css')) {
+                        $customCSS = explode(',',$customCSS);
+                        foreach ($customCSS as $cssFile) {
+                            $cssFile = str_replace('{adminToolsCss}', $this->config['cssUrl'] . 'mgr/', $cssFile);
+                            $this->modx->controller->addCss($cssFile);
+                        }
+                    }
                     $theme = $this->modx->getOption('admintools_theme', null, '');
                     $theme = trim($theme) == 'default' ? '' : trim($theme);
                     if (!empty($theme)) {
-                        $themeCssFile = $this->modx->getOption('admintools_theme_file');
-                        $themeCssFile = (!empty($themeCssFile)) ? 'mgr/'.basename(trim($themeCssFile)) : "mgr/themes.css";
+                        $themeCssFile = 'mgr/themes/'.$theme.'.css';
                         $this->modx->controller->addCss($this->config['cssUrl'] . $themeCssFile);
                         $theme .= '-theme';
                     }
@@ -135,6 +142,14 @@ class AdminTools {
                     $scripts = "<script type=\"text/javascript\">\n";
                     $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n</script>";
                     $this->modx->controller->addHtml($scripts);
+                    // Custom javascript files
+                    if ($customJS = $this->modx->getOption('admintools_custom_js')) {
+                        $customJS = explode(',',$customJS);
+                        foreach ($customJS as $jsFile) {
+                            $jsFile = str_replace('{adminToolsJs}', $this->config['jsUrl'] . 'mgr/', $jsFile);
+                            $this->modx->controller->addLastJavascript($jsFile);
+                        }
+                    }
                 }
                 break;
             case 'web':
@@ -587,57 +602,5 @@ class atCacheManager extends modCacheManager
             $this->modx->getCacheManager();
         }
         return parent::refresh($providers, $results);
-    }
-}
-require_once MODX_CORE_PATH.'model/modx/modmanagercontroller.class.php';
-class AdminToolsMainManagerController extends modManagerController {
-
-    /**
-     * Do permission checking in this method. Returning false will present a "permission denied" message.
-     *
-     * @return boolean
-     */
-    public function checkPermissions()
-    {
-        // TODO: Implement checkPermissions() method.
-    }
-
-    /**
-     * Process the controller, returning an array of placeholders to set.
-     *
-     * @param array $scriptProperties A array of REQUEST parameters.
-     * @return mixed Either an error or output string, or an array of placeholders to set.
-     */
-    public function process(array $scriptProperties = array())
-    {
-        // TODO: Implement process() method.
-    }
-
-    /**
-     * Return a string to set as the controller's page title.
-     *
-     * @return string
-     */
-    public function getPageTitle()
-    {
-        // TODO: Implement getPageTitle() method.
-    }
-
-    /**
-     * Register any custom CSS or JS in this method.
-     * @return void
-     */
-    public function loadCustomCssJs()
-    {
-        // TODO: Implement loadCustomCssJs() method.
-    }
-
-    /**
-     * Return the relative path to the template file to load
-     * @return string
-     */
-    public function getTemplateFile()
-    {
-        // TODO: Implement getTemplateFile() method.
     }
 }

@@ -1,0 +1,182 @@
+/***************** Dark theme ******************/
+#modx-leftbar .x-tab-panel-noborder {margin: 0}
+/*menu*/
+.dark-theme #modx-navbar {
+	background: #272e3c none !important;
+	box-shadow: none;
+}
+.dark-theme #modx-navbar ul.modx-subnav li a {
+	background-color: #2b3948;
+}
+.dark-theme #modx-navbar ul.modx-subnav li a:hover {
+	background: #1f2736;
+}
+.dark-theme #modx-navbar ul.modx-subnav .has-subnav:after {
+	border: none;
+	color: #97aab4;
+	content: "";
+	font-family: FontAwesome;
+	position: absolute;
+	right: 10px;
+	top: 40%;
+}
+/*tree*/
+.dark-theme #modx-leftbar {background-color: #202735 !important;}
+.dark-theme #modx-leftbar-tabpanel .x-tab-panel-body-noborder,
+.dark-theme #modx-leftbar-tabpanel .x-tree .x-panel-body {
+	background-color: #202735;
+	border-radius: 0;
+}
+/*collapse button*/
+.dark-theme  #modx-leftbar-tabs-xsplit .x-layout-mini-east {left: -2px;}
+.dark-theme #modx-leftbar-tabs-xcollapsed .x-layout-mini,
+.dark-theme #modx-leftbar-tabs-xsplit .x-layout-mini {
+	top: 43px !important;
+}
+/*tabs*/
+.dark-theme #modx-leftbar .x-tab-panel-header {background: #202735 !important;}
+.dark-theme #modx-leftbar-tabpanel .x-tab-strip li {color: #a0a0a0;}
+.dark-theme #modx-leftbar-tabpanel .x-tab-strip li:hover {color: #dfdfdf;}
+
+.dark-theme #modx-leftbar-tabpanel .x-tab-strip li.x-tab-strip-active {
+	background-color: #323e4c; /*#219a8f*/
+	box-shadow: 0 -5px 0 #3A9ABA, -1px 0 0 transparent, 0 1px 2px #555, 0 0 7px #151515;
+	color: #fff;
+}
+.dark-theme #modx-leftbar-tabpanel .x-tab-strip li.x-tab-strip-active::before {background: transparent;}
+/*toolbar*/
+.dark-theme #modx-leftbar-tabpanel > .x-tab-panel-bwrap > .x-tab-panel-body {border-radius: 0;}
+.dark-theme #modx-leftbar-tabpanel .x-toolbar-cell .x-btn-noicon,
+.dark-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-btn {
+	background-color: transparent;
+	color: #FFF !important;
+	margin-right: 10px;
+	opacity: 0.6;
+}
+.dark-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-item-disabled {
+	opacity: 0.3;
+}
+.dark-theme #modx-leftbar-tabpanel .x-toolbar-cell .x-btn-noicon:hover,
+.dark-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-btn:not(.x-item-disabled):hover {
+	opacity: 0.9;
+}
+.dark-theme #modx-resource-tree-tbar,
+.dark-theme #modx-tree-element .x-panel-tbar {
+	background: #323e4c !important; /*26313E*/
+}
+.dark-theme #modx-resource-tree-tbar .x-toolbar-left .x-btn:first-child,
+.dark-theme #modx-tree-element .x-toolbar-left .x-btn:first-child {
+	margin-left: 5px !important;
+}
+/*tree nodes*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el .icon {
+	background-color: #202735;
+	color: #d7d7d7;
+}
+/*hover nodes*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over .icon {
+	background-color: #111e2d;
+}
+/*hidden in menu*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .hidemenu,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .hidemenu span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .hidemenu .icon {
+	color: #d7d7d7 !important;
+	opacity: 0.7;
+	font-style: normal;
+}
+/*unpublished*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .unpublished ,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .unpublished  span {
+	font-style: italic;
+}
+/*disabled elements nodes*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled i.icon {
+	opacity: 0.7;
+}
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .element-node-disabled span {
+	font-style: italic;
+}
+/*deleted resources nodes*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted i.icon,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .deleted i.icon-large {
+	color: #ff675d !important;
+	opacity: 0.85;
+}
+/*favorites*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-element-favorite > a span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-element-favorite > .icon {
+	color: #85e6af !important;
+}
+/*root*/
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el span,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .icon,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-expanded,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-expanded span,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-expanded .icon {
+	background-color: #111e2d;
+}
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over span,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el.x-tree-node-over .icon {
+	background-color: #111222;
+}
+.dark-theme .tree-pseudoroot-node.x-tree-node-el.ec-over {
+	background-color: transparent;
+}
+.dark-theme #modx-leftbar-tabpanel .x-tree-arrows .x-tree-elbow-plus:hover,
+.dark-theme #modx-leftbar-tabpanel .x-tree-arrows .x-tree-elbow-minus:hover,
+.dark-theme #modx-leftbar-tabpanel .x-tree-arrows .x-tree-elbow-end-plus:hover,
+.dark-theme #modx-leftbar-tabpanel .x-tree-arrows .x-tree-elbow-end-minus:hover {
+	background-color: #404952;
+}
+/*node toolbar*/
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .modx-tree-node-tool-ct {
+	right: 16px;
+}
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .modx-tree-node-tool-ct,
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .modx-tree-node-tool-ct .x-btn {
+	color: #a0a0a0 !important;
+	opacity: 0.8;
+}
+.dark-theme #modx-leftbar-tabpanel .tree-pseudoroot-node.x-tree-node-el .modx-tree-node-tool-ct .x-btn-over {
+	color: #FFF !important;
+}
+/*mask*/
+.dark-theme #modx-leftbar-tabpanel .ext-el-mask {background-color: #111;}
+/*horizontal scrollbar*/
+.tree-pseudoroot-node.x-tree-node-el + .x-tree-node-ct,
+.tree-pseudoroot-node.x-tree-node-el + div > .x-tree-node-ct {
+	overflow-x: hidden;
+}
+.dark-theme .primary-button.x-btn,
+.dark-theme .actions button.primary-button,
+.dark-theme .primary-button.inline-button,
+.dark-theme .primary-button.x-superboxselect-item,
+.dark-theme .primary-button.x-form-trigger,
+.dark-theme .primary-button.x-date-mp-ok,
+.dark-theme .primary-button.x-date-mp-cancel {
+	background-color: #3697CD;
+	background-image: linear-gradient(#3697cd, #306797);
+	color: #fff;
+}
+.dark-theme .primary-button.x-btn:hover,
+.dark-theme .actions button.primary-button:hover,
+.dark-theme .primary-button.inline-button:hover,
+.dark-theme .primary-button.x-superboxselect-item:hover,
+.dark-theme .primary-button.x-form-trigger:hover,
+.dark-theme .primary-button.x-date-mp-ok:hover,
+.dark-theme .primary-button.x-date-mp-cancel:hover {
+	background-color: #306797 !important;
+	background-image: linear-gradient(#306797, #305888);
+}

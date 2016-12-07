@@ -36,3 +36,7 @@ $_lang['setting_admintools_theme'] = 'Teme';
 $_lang['setting_admintools_theme_desc'] = "Verfügbare Themen: 'default', 'dark', 'purple' or lava um empti.";
 $_lang['setting_admintools_modx_tree_position'] = 'Behälterposition';
 $_lang['setting_admintools_modx_tree_position_desc'] = "'left' - on the left side (as usual), 'right' - on the right side";
+$_lang['setting_admintools_custom_css'] = 'Custom css files';
+$_lang['setting_admintools_custom_css_desc'] = "Comma separated user's js files. For example, assets/css/my.css,{adminToolsCss}style.css";
+$_lang['setting_admintools_custom_js'] = 'Custom js files';
+$_lang['setting_admintools_custom_js_desc'] = "Comma separated user's js files. For example, {adminToolsJs}my.js,//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js";

@@ -729,6 +729,20 @@ AdminTools.window.QuickCreatePlugin = function(config) {
 			labelStyle: 'padding-top:0;'
 			// ,grow: true
 			// ,growMax: 300
+		}],
+		keys: [{
+			key: Ext.EventObject.ENTER,
+			ctrl: true,
+			fn: function(keyCode, event) {
+				var elem = event.getTarget();
+				var component = Ext.getCmp(elem.id);
+				if (component instanceof Ext.form.TextArea) {
+					return component.append("\n");
+				} else {
+					this.submit();
+				}
+			}
+			,scope: this
 		}]
 	});
 	AdminTools.window.QuickCreatePlugin.superclass.constructor.call(this,config);

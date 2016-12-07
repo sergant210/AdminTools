@@ -37,3 +37,7 @@ $_lang['setting_admintools_theme'] = 'Тема';
 $_lang['setting_admintools_theme_desc'] = "Доступные значения: default, dark, purple. Или оставьте строчку пустой.";
 $_lang['setting_admintools_modx_tree_position'] = 'Позиция дерева ресурсов';
 $_lang['setting_admintools_modx_tree_position_desc'] = "'left' - дерево будет слева, 'right' - дерево будет справа";
+$_lang['setting_admintools_custom_css'] = 'Список файлов стилей';
+$_lang['setting_admintools_custom_css_desc'] = "Список файлов стилей через запятую. Указывать можно любой URL. Доступна маска {adminToolsCss}. ";
+$_lang['setting_admintools_custom_js'] = 'Список файлов скриптов';
+$_lang['setting_admintools_custom_js_desc'] = "Список файлов скриптов через запятую. Указывать можно любой URL. Доступна маска {adminToolsCss}. ";

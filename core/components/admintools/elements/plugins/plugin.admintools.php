@@ -68,13 +68,15 @@ if ($AdminTools instanceof AdminTools) {
                 id: "createCache",
                 checked: false
             });
-            Ext.getCmp("modx-page-settings-right-box-right").insert(2,cb);
-            Ext.getCmp("modx-page-settings-right-box-left").add(Ext.getCmp("modx-resource-uri-override"));
-            Ext.getCmp("modx-panel-resource").on("success", function(o){
-                if (o.result.object.createCache != 0) {
-                    cb.setValue(true);
-                }
-            });';
+            if (Ext.getCmp("modx-page-settings-right-box-right")) {
+                Ext.getCmp("modx-page-settings-right-box-right").insert(2,cb);
+                Ext.getCmp("modx-page-settings-right-box-left").add(Ext.getCmp("modx-resource-uri-override"));
+                Ext.getCmp("modx-panel-resource").on("success", function(o){
+                    if (o.result.object.createCache != 0) {
+                        cb.setValue(true);
+                    }
+                });
+            }';
             }
             $output = '';
             if (!empty($_html)) {

@@ -76,16 +76,26 @@ $tmp = array(
     'plugins_events' => array(
         'xtype' => 'combo-boolean',
         'value' => true,
-        'area' => 'admintools_permissions',
+        'area' => 'admintools_main',
     ),
     'theme' => array(
         'xtype' => 'textfield',
-        'value' => '',
+        'value' => 'default',
         'area' => 'admintools_main',
     ),
     'modx_tree_position' => array(
         'xtype' => 'textfield',
         'value' => 'left',
+        'area' => 'admintools_main',
+    ),
+    'admintools_custom_css' => array(
+        'xtype' => 'textfield',
+        'value' => '',
+        'area' => 'admintools_main',
+    ),
+    'admintools_custom_js' => array(
+        'xtype' => 'textfield',
+        'value' => '',
         'area' => 'admintools_main',
     ),
 );
