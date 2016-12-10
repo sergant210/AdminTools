@@ -19,7 +19,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - 2 color themes with ability to customize them.
 - ability to load custom style and javascript files in the manager.
 
-#### Setting the email authentication in the backend
+### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example
 ```
 <!DOCTYPE html>
@@ -40,18 +40,19 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 
 Now you can log in to the manager via email if you have the corresponding permission.
 
-#### Alternative permissions for resources
+### Alternative permissions for resources
 Use it to restrict access to the pages of the site following the rules: 
 * Permissions for everyone have the lowest priority.
 * Permissions for user groups have a higher priority. This permissions are applied from top to bottom of the group list. To change the order of application use the priority field. 
 * User permissions have the highest priority. 
 To close pages from guests add the permission on the resource page for the guests with 'deny' value.
 
-#### Color themes
+### Color themes
 By default available 2 themes - "dark" and "purple". But you can create your own. Copy the purple theme file - **assets/components/admintools/css/mgr/themes/purple.css** and give it the name of your theme. For example, green.css. Change the theme class '.purple-theme' on the '.green-theme' within. Tune it as needed. Set the system setting **admintools_theme** to "green".
 
-#### Custom style and javascript files
-For example, if you want to add nice scroll to the tree sidebar you need to add two js libraries - jquery and nicescroll. Download the [nicescroll](//code.google.com/archive/p/jquery-nicescroll/downloads) library and save it in the *assets/components/admintools/js/mgr/custom/* folder. Then open it and add to the end 
+### Custom style and javascript files
+This feature is designed to add custom style and js files to the manager interface. Use the corresponding system settings - **admintools_custom_css** and **admintools_custom_js**. if you want to add multiple files, separate them by commas.
+For example, if you want to add nice scroll to the tree sidebar you need to add two js libraries - jquery and nicescroll. Download the [nicescroll](//code.google.com/archive/p/jquery-nicescroll/downloads) library and save it in the *assets/components/admintools/js/mgr/custom/* folder. Then open it and add to the end next code
 ```
 Ext.onReady(
     function() {
