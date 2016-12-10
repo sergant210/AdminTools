@@ -1,3 +1,8 @@
+1.11.1-pl
+==============
+- Fixed error in the names of the two last added system settings.
+- Changed order of including css files.
+
 1.11.0-pl
 ==============
 - Added 2 system settings - "admintools_custom_css" and "admintools_custom_js" which allow to add to the manager interface custom style and javascript files.

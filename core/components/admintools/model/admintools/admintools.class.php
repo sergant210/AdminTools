@@ -36,6 +36,13 @@ class AdminTools {
                 if (empty($this->initialized[$ctx])) {
                     $this->modx->controller->addLexiconTopic('admintools:default');
                     $this->modx->controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
+                    $theme = $this->modx->getOption('admintools_theme', null, '');
+                    $theme = trim($theme) == 'default' ? '' : trim($theme);
+                    if (!empty($theme)) {
+                        $themeCssFile = 'mgr/themes/'.$theme.'.css';
+                        $this->modx->controller->addCss($this->config['cssUrl'] . $themeCssFile);
+                        $theme .= '-theme';
+                    }
                     // Custom style files
                     if ($customCSS = $this->modx->getOption('admintools_custom_css')) {
                         $customCSS = explode(',',$customCSS);
@@ -43,13 +50,6 @@ class AdminTools {
                             $cssFile = str_replace('{adminToolsCss}', $this->config['cssUrl'] . 'mgr/', $cssFile);
                             $this->modx->controller->addCss($cssFile);
                         }
-                    }
-                    $theme = $this->modx->getOption('admintools_theme', null, '');
-                    $theme = trim($theme) == 'default' ? '' : trim($theme);
-                    if (!empty($theme)) {
-                        $themeCssFile = 'mgr/themes/'.$theme.'.css';
-                        $this->modx->controller->addCss($this->config['cssUrl'] . $themeCssFile);
-                        $theme .= '-theme';
                     }
                     $this->modx->controller->addJavascript($this->config['jsUrl'] . 'mgr/admintools.js');
                     // favorite elements

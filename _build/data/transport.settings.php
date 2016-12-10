@@ -88,12 +88,12 @@ $tmp = array(
         'value' => 'left',
         'area' => 'admintools_main',
     ),
-    'admintools_custom_css' => array(
+    'custom_css' => array(
         'xtype' => 'textfield',
         'value' => '',
         'area' => 'admintools_main',
     ),
-    'admintools_custom_js' => array(
+    'custom_js' => array(
         'xtype' => 'textfield',
         'value' => '',
         'area' => 'admintools_main',
