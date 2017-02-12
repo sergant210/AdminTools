@@ -62,6 +62,7 @@ Ext.onReady(
 );
 ```  
 Now set the value `//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js,{adminToolsJs}custom/jquery.nicescroll.js` to the **admintools_custom_js** system setting. Enjoy.  
+![](https://file.modx.pro/files/b/2/b/b2bbc6344dabb41d546abf2486a066ae.png)
 \* Use `{adminToolsJs}` instead of *assets/components/admintools/js/mgr/*, `{adminToolsCss}` instead of *assets/components/admintools/css/mgr/*.
 
 #### Remark
