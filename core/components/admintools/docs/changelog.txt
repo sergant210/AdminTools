@@ -1,3 +1,7 @@
+1.11.2-pl
+==============
+- Some code optimization (special thanks to Fi1osof).
+
 1.11.1-pl
 ==============
 - Fixed error in the names of the two last added system settings.

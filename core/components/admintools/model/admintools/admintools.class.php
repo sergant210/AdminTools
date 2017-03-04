@@ -128,17 +128,20 @@ class AdminTools {
                     }
                     */
                     // config
-                    $region = $this->modx->getOption('admintools_modx_tree_position', null, 'left') == 'right' ? 'east' : 'west';
+                    $region = $this->modx->getOption('admintools_modx_tree_position', null, 'left', true) == 'right' ? 'east' : 'west';
 
                     $_SESSION['admintools']['config'] = array(
                         'connector_url' => $this->config['assetsUrl'].'connector.php',
                         'theme' => $theme,
                         'region' => $region,
                     );
-                    $scripts = "<script type=\"text/javascript\">var sideBarRegion = '{$region}'</script>\n";
-                    $scripts .= $this->getBaseManagerPageScripts();
-                    $this->initialized[$ctx] = true;
-                    $this->modx->smarty->assign('maincssjs',$scripts);
+                    if ($region == 'east') {
+                        $scripts = "<script type=\"text/javascript\">var sideBarRegion = '{$region}'</script>\n";
+                        $scripts .= $this->modx->smarty->get_template_vars('maincssjs');
+                        $layout_src = $this->getOption('jsUrl') . 'mgr/core/modx.layout.js';
+                        $scripts .= "<script type=\"text/javascript\" src=\"{$layout_src}\"></script>";
+                        $this->modx->smarty->assign('maincssjs', $scripts);
+                    }
                     $scripts = "<script type=\"text/javascript\">\n";
                     $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n</script>";
                     $this->modx->controller->addHtml($scripts);
@@ -150,6 +153,7 @@ class AdminTools {
                             $this->modx->controller->addLastJavascript($jsFile);
                         }
                     }
+                    $this->initialized[$ctx] = true;
                 }
                 break;
             case 'web':
@@ -157,77 +161,7 @@ class AdminTools {
         }
         return true;
     }
-    public function getBaseManagerPageScripts() {
-        $managerUrl = $this->modx->getOption('manager_url');
-        $externals = array();
-        $scripts = '';
 
-        if ($this->modx->controller->loadBaseJavascript) {
-            $compressJs = (boolean)$this->modx->getOption('compress_js',null,true);
-            $this->modx->setOption('compress_js',$compressJs);
-            if ($compressJs) {
-                $externals[] = $managerUrl . 'assets/modext/modx.jsgrps-min.js';
-            }
-            else {
-                $externals[] = $managerUrl . 'assets/modext/core/modx.localization.js';
-                $externals[] = $managerUrl . 'assets/modext/util/utilities.js';
-                $externals[] = $managerUrl . 'assets/modext/util/datetime.js';
-                $externals[] = $managerUrl . 'assets/modext/util/uploaddialog.js';
-                $externals[] = $managerUrl . 'assets/modext/util/fileupload.js';
-                $externals[] = $managerUrl . 'assets/modext/util/superboxselect.js';
-
-                $externals[] = $managerUrl . 'assets/modext/core/modx.component.js';
-                $externals[] = $managerUrl . 'assets/modext/core/modx.view.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.button.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.searchbar.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.panel.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.tabs.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.window.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.combo.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.grid.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.console.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.portal.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/windows.js';
-
-                $externals[] = $managerUrl . 'assets/fileapi/FileAPI.js';
-                $externals[] = $managerUrl . 'assets/modext/util/multiuploaddialog.js';
-
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/tree/modx.tree.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/tree/modx.tree.treeloader.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/modx.treedrop.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/core/modx.tree.asynctreenode.js';
-
-                $externals[] = $managerUrl . 'assets/modext/widgets/resource/modx.tree.resource.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/element/modx.tree.element.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/system/modx.tree.directory.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/system/modx.panel.filetree.js';
-                $externals[] = $managerUrl . 'assets/modext/widgets/media/modx.browser.js';
-//                $externals[] = $managerUrl .'assets/modext/core/modx.layout.js';
-                $externals[] = $this->getOption('jsUrl') .'mgr/core/modx.layout.js';
-            }
-
-            $this->modx->controller->loadLayout($externals);
-
-            if ($this->modx->getOption('compress_css',null,true)) {
-                $this->modx->setOption('compress_css',true);
-            }
-
-            // Add script tags for the required javascript
-            foreach ($externals as $js) {
-                $scripts .= '<script type="text/javascript" src="'.$js.'"></script>'."\n";
-            }
-            $state = $this->modx->controller->getDefaultState();
-            $siteId = $this->modx->user->getUserToken('mgr');
-            if (!empty($state)) {
-                $state = 'MODx.defaultState = '.$this->modx->toJSON($state).';';
-            } else { $state = ''; }
-            $scripts .= '<script type="text/javascript">Ext.onReady(function() {
-                '.$state.'
-    MODx.load({xtype: "modx-layout",accordionPanels: MODx.accordionPanels || [],auth: "'.$siteId.'"});
-});</script>';
-        }
-        return $scripts;
-    }
     /**
      * @param $key
      * @param mixed $value
@@ -255,42 +189,7 @@ class AdminTools {
     {
         return $this->config;
     }
-    /**
-     * TODO Remove after test
-     * @param $cacheElementKey
-     * @param $cacheFolder
-     * @return mixed
-     * @deprecated
-     */
-    public function getFromCache($cacheElementKey, $cacheFolder) {
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/' . $cacheFolder,
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        return $this->modx->cacheManager->get($cacheElementKey, $cacheOptions);
-    }
 
-    /**
-     * TODO Remove after test
-     * @param $data
-     * @param $cacheElementKey
-     * @param $cacheFolder
-     * @deprecated
-     */
-    public function saveToCache($data, $cacheElementKey, $cacheFolder) {
-        $cacheHandler = $this->modx->getOption(xPDO::OPT_CACHE_HANDLER, null, 'xPDOFileCache');
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY => 'admintools/' . $cacheFolder,
-            xPDO::OPT_CACHE_HANDLER => $cacheHandler,
-        );
-        $this->modx->cacheManager->set($cacheElementKey, $data, 0, $cacheOptions);
-    }
-
-    /**
-     * @param string $key
-     * @return bool
-     */
     public function getFromProfile($key) {
         if ($this->modx->user->isAuthenticated('mgr')) {
             $profile = $this->modx->user->getOne('Profile');
