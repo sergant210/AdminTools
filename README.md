@@ -44,15 +44,16 @@ Now you can log in to the manager via email if you have the corresponding permis
 Use it to restrict access to the pages of the site following the rules: 
 * Permissions for everyone have the lowest priority.
 * Permissions for user groups have a higher priority. This permissions are applied from top to bottom of the group list. To change the order of application use the priority field. 
-* User permissions have the highest priority. 
+* User permissions have the highest priority.  
+
 To close pages from guests add the permission on the resource page for the guests with 'deny' value.
 
 ### Color themes
 By default available 2 themes - "dark" and "purple". But you can create your own. Copy the purple theme file - **assets/components/admintools/css/mgr/themes/purple.css** and give it the name of your theme. For example, green.css. Change the theme class '.purple-theme' on the '.green-theme' within. Tune it as needed. Set the system setting **admintools_theme** to "green".
 
 ### Custom style and javascript files
-This feature is designed to add custom style and js files to the manager interface. You can customize the manager interface as you wish. Use the corresponding system settings - **admintools_custom_css** and **admintools_custom_js**. if you want to add multiple files, separate them by commas.
-For example, if you want to add nice scroll to the tree sidebar you need to add two js libraries - jquery and nicescroll. Download the [nicescroll](//code.google.com/archive/p/jquery-nicescroll/downloads) library and save it in the *assets/components/admintools/js/mgr/custom/* folder. Then open it and add to the end next code
+This feature is designed to add custom style and js files to the manager interface. You can customize the manager interface as you wish. Use the corresponding system settings - **admintools_custom_css** and **admintools_custom_js**. If you want to add multiple files, separate them by commas.  
+For example, if you want to add nice scroll to the tree sidebar you need to add two js files - jquery and nicescroll. Download the [nicescroll](//code.google.com/archive/p/jquery-nicescroll/downloads) library and save it in the *assets/components/admintools/js/mgr/custom/* folder. Then open it and add to the end next code
 ```
 Ext.onReady(
     function() {
