@@ -145,4 +145,60 @@ Ext.onReady(function () {
 	for (var i = 0; Items.length > i; i++) {
 		Items[i].parentNode.classList.add('has-subnav');
 	}
+	// Package actions
+	if (MODx.grid.Package) {
+		Ext.override(MODx.grid.Package, {
+			onClick: function (e) {
+				var t = e.getTarget();
+				var classes = t.className.split(' ');
+				if (classes[0] == 'controlBtn') {
+					var action = classes[1];
+					var record = this.getSelectionModel().getSelected();
+					var packageOptions = adminToolsPackageActions[record.data.name] ? adminToolsPackageActions[record.data.name] : false;
+					this.menu.record = record.data;
+					if (packageOptions) {
+						var message;
+						[action, 'all'].every(function (item, i) {
+							if (packageOptions[item] !== undefined) {
+								if (Ext.isString(packageOptions[item])) {
+									message = packageOptions[item];
+								} else if (!packageOptions[item]) {
+									message = packageOptions['message'] ? packageOptions['message'] : _('permission_denied');
+								} else if (packageOptions[item]) {
+									return false;
+								}
+							}
+							if (message !== undefined) {
+								Ext.MessageBox.alert(_('warning'), message);
+								action = '';
+								return false;
+							}
+							return true;
+						});
+					}
+					switch (action) {
+						case 'remove':
+							this.remove(record, e);
+							break;
+						case 'install':
+						case 'reinstall':
+							this.install(record);
+							break;
+						case 'uninstall':
+							this.uninstall(record, e);
+							break;
+						case 'update':
+						case 'checkupdate':
+							this.update(record, e);
+							break;
+						case 'details':
+							this.viewPackage(record, e);
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		});
+	}
 });

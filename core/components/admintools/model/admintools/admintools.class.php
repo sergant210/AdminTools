@@ -143,7 +143,11 @@ class AdminTools {
                         $this->modx->smarty->assign('maincssjs', $scripts);
                     }
                     $scripts = "<script type=\"text/javascript\">\n";
-                    $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n</script>";
+                    $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n";
+                    // Package Denies
+                    $packageActions = $this->modx->getOption('admintools_package_actions', null, '{}', true);
+                    $scripts .= "\tvar adminToolsPackageActions = " . $packageActions . ";\n";
+                    $scripts .= "</script>";
                     $this->modx->controller->addHtml($scripts);
                     // Custom javascript files
                     if ($customJS = $this->modx->getOption('admintools_custom_js')) {

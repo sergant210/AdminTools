@@ -138,7 +138,13 @@
 	background-color: #342033;
 	color: #d7d7d7;
 }
-/*hover nodes*/
+/*selected node*/
+.purple-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-selected,
+.purple-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-selected span,
+.purple-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-selected .icon {
+	background-color: #432d42;
+}
+/*hovered node*/
 .purple-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over,
 .purple-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over span,
 .purple-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over .icon {

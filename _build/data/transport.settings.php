@@ -98,6 +98,11 @@ $tmp = array(
         'value' => '',
         'area' => 'admintools_main',
     ),
+    'package_actions' => array(
+        'xtype' => 'textfield',
+        'value' => '',
+        'area' => 'admintools_main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

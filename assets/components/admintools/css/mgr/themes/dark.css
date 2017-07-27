@@ -75,7 +75,13 @@
 	background-color: #202735;
 	color: #d7d7d7;
 }
-/*hover nodes*/
+/*selected node*/
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-selected,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-selected span,
+.dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-selected .icon {
+	background-color: #343b4c;
+}
+/*hover a node*/
 .dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over,
 .dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over span,
 .dark-theme #modx-leftbar-tabpanel .x-tree-node .x-tree-node-el.x-tree-node-over .icon {

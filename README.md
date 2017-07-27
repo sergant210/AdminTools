@@ -15,9 +15,10 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - animation of the manager menu to prevent misclick.
 - alternative permissions for resources (added "Permissions" tab to the resource form).
 - plugin table with bound events.
-- the tree sidebar can be placed to the left side or to the right side.
-- 2 color themes with ability to customize them.
+- the tree sidebar can be placed either on the left or on the right side.
+- 2 color themes with ability to customize them or add custom one.
 - ability to load custom style and javascript files in the manager.
+- permissions for package actions.
 
 ### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example
@@ -64,6 +65,34 @@ Ext.onReady(
 Now set the value `//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js,{adminToolsJs}custom/jquery.nicescroll.js` to the **admintools_custom_js** system setting. Enjoy.  
 ![](https://file.modx.pro/files/b/2/b/b2bbc6344dabb41d546abf2486a066ae.png)
 \* Use `{adminToolsJs}` instead of *assets/components/admintools/js/mgr/*, `{adminToolsCss}` instead of *assets/components/admintools/css/mgr/*.
+
+#### Package actions
+This feature allows to prohibit certain actions with packages. To do it you need to specify the "admintools_package_actions" system setting according to the format:
+```$javascript
+// Javascript object format
+{packageName1: {action1:false, action2:'Special message for the action2', action3:false, message:"Default message!"},
+packageName2, {action1:"You can't do it!"}}
+```
+The package name is case sensitive.
+For example, you can prevent the manager from deleting the "Ace" package.
+```$javascript
+{Ace: {remove:false, message:"You can't do it! This is a very important package."}}
+// is equivalent to
+{Ace: {remove:"You can't do it!"}}
+```
+Allow only viewing the details of the package.
+```$javascript
+{Ace: {details:true, all:"This action is prohibited."}}
+```
+
+**Available actions:**
+- install
+- reinstall
+- uninstall
+- update
+- checkupdate
+- details
+- all
 
 #### Remark
 All these features can be switched off by the corresponding system setting. Some features are disabled by default.
