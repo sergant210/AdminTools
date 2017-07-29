@@ -66,7 +66,7 @@ Now set the value `//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js,{a
 ![](https://file.modx.pro/files/b/2/b/b2bbc6344dabb41d546abf2486a066ae.png)
 \* Use `{adminToolsJs}` instead of *assets/components/admintools/js/mgr/*, `{adminToolsCss}` instead of *assets/components/admintools/css/mgr/*.
 
-#### Package actions
+### Package actions
 This feature allows to prohibit certain actions with packages. To do it you need to specify the "admintools_package_actions" system setting according to the format:
 ```$javascript
 // Javascript object format

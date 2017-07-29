@@ -154,7 +154,7 @@ Ext.onReady(function () {
 				if (classes[0] == 'controlBtn') {
 					var action = classes[1];
 					var record = this.getSelectionModel().getSelected();
-					var packageOptions = adminToolsPackageActions[record.data.name] ? adminToolsPackageActions[record.data.name] : false;
+					var packageOptions = adminToolsPackageActions[record.data.name] || adminToolsPackageActions[record.data.name] || false;
 					this.menu.record = record.data;
 					if (packageOptions) {
 						var message;
