@@ -90,9 +90,11 @@ Allow only viewing the details of the package.
 - reinstall
 - uninstall
 - update
+- remove
 - checkupdate
 - details
 - all
+- message
 
 #### Remark
 All these features can be switched off by the corresponding system setting. Some features are disabled by default.
