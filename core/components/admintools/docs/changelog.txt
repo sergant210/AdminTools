@@ -1,3 +1,7 @@
+1.12.1-pl
+==============
+- Some bugfixes.
+
 1.12.0-pl
 ==============
 - Added package action management which allows to prevent from installing, uninstalling, updating and removing packages.

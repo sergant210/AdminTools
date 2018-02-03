@@ -66,7 +66,7 @@ if ($AdminTools instanceof AdminTools) {
                 hideLabel: true,
                 name: "createCache",
                 id: "createCache",
-                checked: false
+                checked: '. intval($modx->getOption('admintools_create_resource_cache', null, false)) .'
             });
             if (Ext.getCmp("modx-page-settings-right-box-right")) {
                 Ext.getCmp("modx-page-settings-right-box-right").insert(2,cb);

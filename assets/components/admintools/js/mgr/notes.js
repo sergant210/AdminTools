@@ -260,7 +260,7 @@ Ext.extend(AdminTools.grid.Notes, MODx.grid.Grid, {
 		}
 		var id = this.menu.record.id,
 			editor = AdminTools.readPanel.getEditor();
-		//TODO Отражать в заголовке окна title заметки
+		//TODO: Отражать в заголовке окна title заметки
 		AdminTools.currentNote.set({title: this.menu.record.title, text: this.menu.record.text, id: id, user: this.menu.record.createdby});
 		editor.setValue(this.menu.record.text);
 		editor.setReadOnly(false);

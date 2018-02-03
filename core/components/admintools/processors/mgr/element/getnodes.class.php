@@ -621,9 +621,15 @@ class modElementGetNodesProcessor extends modProcessor {
             } else {
                 $name = $elementClassKey == 'modTemplate' ? $element['templatename'] : $element['name'];
             }
-            // Fix missing icon field into some elements (like modTemplateVar, modChunk)
-            if (!isset($element['icon'])) {
-                $element['icon'] = '';
+            // Fix missing icon field in some elements (like modTemplateVar, modChunk)
+            if (is_array($element)) {
+                if (!isset($element['icon'])) {
+                    $element['icon'] = '';
+                }
+            } else {
+                if (!isset($element->icon)) {
+                    $element->icon = '';
+                }
             }
             $class = array();
             if ($canNewElement) $class[] = 'pnew';
