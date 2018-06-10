@@ -3,7 +3,7 @@
 
 	<object class="adminNotes" table="admintools_notes" extends="xPDOSimpleObject">
 		<field key="title" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-		<field key="text" dbtype="text" phptype="test" null="false" default="" />
+		<field key="text" dbtype="text" phptype="string" null="false" default="" />
 		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
 		<field key="tags" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
 		<field key="private" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />

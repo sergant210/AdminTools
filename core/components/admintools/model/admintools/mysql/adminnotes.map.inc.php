@@ -29,7 +29,7 @@ $xpdo_meta_map['adminNotes']= array (
     'text' => 
     array (
       'dbtype' => 'text',
-      'phptype' => 'test',
+      'phptype' => 'string',
       'null' => false,
       'default' => '',
     ),
