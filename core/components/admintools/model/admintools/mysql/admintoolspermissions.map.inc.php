@@ -4,6 +4,10 @@ $xpdo_meta_map['adminToolsPermissions']= array (
   'version' => '1.1',
   'table' => 'admintools_permissions',
   'extends' => 'xPDOSimpleObject',
+  'tableMeta' => 
+  array (
+    'engine' => 'MyISAM',
+  ),
   'fields' => 
   array (
     'rid' => NULL,

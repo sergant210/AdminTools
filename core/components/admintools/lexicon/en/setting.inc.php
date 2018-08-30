@@ -1,7 +1,7 @@
 <?php
 
 $_lang['area_admintools_main'] = 'Main';
-$_lang['area_admintools_authorization'] = 'Authorization';
+$_lang['area_admintools_authorization'] = 'Authentication';
 $_lang['area_admintools_permissions'] = 'Permissions';
 $_lang['setting_admintools_favorites_icon'] = 'Favorite element icon';
 $_lang['setting_admintools_favorites_icon_desc'] = 'An icon to replace standart icon. For example, "icon-star".';
@@ -15,14 +15,16 @@ $_lang['setting_admintools_enable_favorite_elements'] = 'Enable the favorite ele
 $_lang['setting_admintools_enable_favorite_elements_desc'] = 'Enable the favorite elements.';
 $_lang['setting_admintools_clear_only_resource_cache'] = 'Clear only resource cache';
 $_lang['setting_admintools_clear_only_resource_cache_desc'] = 'Only the resource cache is clearing on saving resource to DB, not the site cache.';
+$_lang['setting_admintools_create_resource_cache'] = 'Create resource cache';
+$_lang['setting_admintools_create_resource_cache_desc'] = 'Create resource cache after saving.';
 $_lang['setting_admintools_hide_component_description'] = 'Hide component description';
 $_lang['setting_admintools_hide_component_description_desc'] = 'Hide component description at menu "Extras".';
-$_lang['setting_admintools_email_authorization'] = 'Backend authorization via email';
-$_lang['setting_admintools_email_authorization_desc'] = 'Send the authotization link on user email.';
+$_lang['setting_admintools_email_authorization'] = 'Backend authentication via email';
+$_lang['setting_admintools_email_authorization_desc'] = 'Send the authentication link on user email.';
 $_lang['setting_admintools_authorization_ttl'] = 'Authorization link TTL';
-$_lang['setting_admintools_authorization_ttl_desc'] = 'Authorization link TTL.';
-$_lang['setting_admintools_loginform_resource'] = 'ID of the authorization page';
-$_lang['setting_admintools_loginform_resource_desc'] = 'ID of the authorization page.';
+$_lang['setting_admintools_authorization_ttl_desc'] = 'Authentication link TTL.';
+$_lang['setting_admintools_loginform_resource'] = 'Login page';
+$_lang['setting_admintools_loginform_resource_desc'] = 'ID of the login page.';
 $_lang['setting_admintools_enable_notes'] = 'Enable the notes';
 $_lang['setting_admintools_enable_notes_desc'] = 'Enable the notes.';
 $_lang['setting_admintools_animate_menu'] = 'Menu animation';

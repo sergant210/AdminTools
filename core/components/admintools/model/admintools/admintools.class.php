@@ -98,12 +98,10 @@ class AdminTools {
                     if ($this->modx->getOption('admintools_enable_elements_log', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/elementlog.js');
                         $this->modx->controller->addLexiconTopic('manager_log');
-
                     }
                     // admin notes
                     if ($this->modx->getOption('admintools_enable_notes', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/notes.js');
-
                     }
                     // Hide components description
                     $_css = '';
@@ -282,6 +280,10 @@ class AdminTools {
         $c->where(array(
             'modUser.username' => $data['userdata'],
             'OR:Profile.email:=' => $data['userdata'],
+        ));
+        $c->where(array(
+            'modUser.active' => 1,
+            'Profile.blocked' => 0,
         ));
         $message = '';
         /** @var modUser $user */

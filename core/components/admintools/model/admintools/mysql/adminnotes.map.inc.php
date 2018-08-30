@@ -4,6 +4,10 @@ $xpdo_meta_map['adminNotes']= array (
   'version' => '1.1',
   'table' => 'admintools_notes',
   'extends' => 'xPDOSimpleObject',
+  'tableMeta' => 
+  array (
+    'engine' => 'MyISAM',
+  ),
   'fields' => 
   array (
     'title' => '',
@@ -21,7 +25,7 @@ $xpdo_meta_map['adminNotes']= array (
     'title' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '255',
+      'precision' => '191',
       'phptype' => 'string',
       'null' => false,
       'default' => '',
@@ -29,14 +33,14 @@ $xpdo_meta_map['adminNotes']= array (
     'text' => 
     array (
       'dbtype' => 'text',
-      'phptype' => 'test',
+      'phptype' => 'string',
       'null' => false,
       'default' => '',
     ),
     'url' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '255',
+      'precision' => '191',
       'phptype' => 'string',
       'null' => false,
       'default' => '',
@@ -44,7 +48,7 @@ $xpdo_meta_map['adminNotes']= array (
     'tags' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '255',
+      'precision' => '191',
       'phptype' => 'string',
       'null' => false,
       'default' => '',

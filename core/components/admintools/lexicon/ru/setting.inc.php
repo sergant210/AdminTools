@@ -1,7 +1,7 @@
 <?php
 
 $_lang['area_admintools_main'] = 'Основные';
-$_lang['area_admintools_authorization'] = 'Авторизация';
+$_lang['area_admintools_authorization'] = 'Аутентификация';
 $_lang['area_admintools_permissions'] = 'Права доступа';
 $_lang['setting_admintools_favorites_icon'] = 'Иконка избранного элемента';
 $_lang['setting_admintools_favorites_icon_desc'] = 'Иконка, которая заменит стандартную иконку элемента, например, "icon-star".';
@@ -17,14 +17,16 @@ $_lang['setting_admintools_enable_favorite_elements'] = 'Включить изб
 $_lang['setting_admintools_enable_favorite_elements_desc'] = 'Включает функционал избранных элементов.';
 $_lang['setting_admintools_clear_only_resource_cache'] = 'Удалять только кеш ресурса';
 $_lang['setting_admintools_clear_only_resource_cache_desc'] = 'При сохранении ресурса удаляет только его кеш, а не всего сайта. ';
+$_lang['setting_admintools_create_resource_cache'] = 'Создать кеш ресурса';
+$_lang['setting_admintools_create_resource_cache_desc'] = 'Создать кеш ресурса после сохранения.';
 $_lang['setting_admintools_hide_component_description'] = 'Скрыть описание компонентов';
 $_lang['setting_admintools_hide_component_description_desc'] = 'Скрывает описание компонентов в меню "Приложения".';
-$_lang['setting_admintools_email_authorization'] = 'Включить авторизацию через email';
-$_lang['setting_admintools_email_authorization_desc'] = 'Высылает на почту ссылку для авторизации.';
+$_lang['setting_admintools_email_authorization'] = 'Аутентификация через email';
+$_lang['setting_admintools_email_authorization_desc'] = 'Высылает на почту ссылку для аутентификации.';
 $_lang['setting_admintools_authorization_ttl'] = 'Время доступа по высланной ссылке';
 $_lang['setting_admintools_authorization_ttl_desc'] = 'Время в секундах, в течение которого можно авторизоавться по высланной ссылке.';
-$_lang['setting_admintools_loginform_resource'] = 'Ресурс для авторизации';
-$_lang['setting_admintools_loginform_resource_desc'] = 'Укажите id ресурса для авторизации в менеджере сайта.';
+$_lang['setting_admintools_loginform_resource'] = 'Ресурс для аутентификации';
+$_lang['setting_admintools_loginform_resource_desc'] = 'Укажите id ресурса для аутентификации.';
 $_lang['setting_admintools_animate_menu'] = 'Анимация главного меню';
 $_lang['setting_admintools_animate_menu_desc'] = 'Включает анимацию главного меню.';
 $_lang['setting_admintools_template_resource_relationship'] = 'Связь шаблонов и ресурсов';

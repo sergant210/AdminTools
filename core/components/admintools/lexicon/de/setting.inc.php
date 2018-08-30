@@ -14,6 +14,8 @@ $_lang['setting_admintools_enable_elements_log_desc'] = 'Fügt einen Button zum 
 // Need to translate to german
 $_lang['setting_admintools_clear_only_resource_cache'] = 'Löschen sie nur ressource-cache';
 $_lang['setting_admintools_clear_only_resource_cache_desc'] = 'Only the resource cache is clearing on saving resource to DB, not the site cache.';
+$_lang['setting_admintools_create_resource_cache'] = 'Create resource cache';
+$_lang['setting_admintools_create_resource_cache_desc'] = 'Create resource cache after saving.';
 $_lang['setting_admintools_hide_component_description'] = 'Ausblenden komponentenbeschreibung';
 $_lang['setting_admintools_hide_component_description_desc'] = 'Ausblenden komponentenbeschreibung im menü "Extras".';
 $_lang['setting_admintools_email_authorization'] = 'Backend genehmigung per e-mail';

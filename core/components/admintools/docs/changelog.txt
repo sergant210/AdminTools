@@ -1,3 +1,9 @@
+1.12.2-pl
+==============
+- Optimized for utf8mb4.
+- Fixed broken email authentication.
+- Fixed bug with new admin notes creating.
+
 1.12.1-pl
 ==============
 - Some bugfixes.

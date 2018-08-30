@@ -34,7 +34,7 @@ if ($AdminTools instanceof AdminTools) {
         case 'OnManagerAuthentication':
             if ($modx->getOption('admintools_user_can_login', null, false)) {
                 $modx->setOption('admintools_user_can_login', false);
-                $modx->event->output(array('true'));
+                $modx->event->output(true);
             }
             break;
         case 'OnLoadWebDocument':
