@@ -45,3 +45,5 @@ $_lang['setting_admintools_custom_js'] = 'Список файлов скрипт
 $_lang['setting_admintools_custom_js_desc'] = "Список файлов скриптов через запятую. Указывать можно любой URL. Доступна маска {adminToolsCss}.";
 $_lang['setting_admintools_package_actions'] = 'Действия с пакетами';
 $_lang['setting_admintools_package_actions_desc'] = "Позволяет запретить определённые действия с пакетами. Формат: {package:{action1:'Сообщение', action2:false, message:'Сообщение по-умолчанию'}}";
+$_lang['setting_admintools_only_current_context_user'] = 'Пользователь только текущего контекста';
+$_lang['setting_admintools_only_current_context_user_desc'] = "Не подгружать пользователя из контекста mgr, если он не залогинен в текущем контексте.";

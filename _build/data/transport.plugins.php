@@ -14,6 +14,7 @@ $tmp = array(
             'OnTempFormPrerender' => array(),
             'OnDocFormPrerender' => array(),
             'OnLoadWebDocument' => array(),
+            'OnMODXInit' => array('priority' => -100),
 		)
 	)
 );

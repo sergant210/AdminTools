@@ -115,10 +115,15 @@ if ($AdminTools instanceof AdminTools) {
             }
             if (!empty($output)) $modx->controller->addHtml('<script type="text/javascript">' . $output . '</script>');
             break;
-        /*case 'OnWebPagePrerender':
-            $output = &$modx->resource->_output;
-            $replace = "";
-            preg_replace('/</script>/', $replace, $output, 1);
-            break;*/
+        case 'OnMODXInit':
+            if ($modx->context->get('key') !== 'mgr') {
+                if ( $modx->getOption('only_current_context_user', null, false)
+                     && $modx->user->isAuthenticated('mgr')
+                     && !$modx->user->isAuthenticated($modx->context->get('key')) ) {
+                        $modx->user = $this->newObject('modUser');
+                        $modx->user->fromArray(array('id' => 0, 'username' => $modx->getOption('default_username', '', '(anonymous)', true)), '', true);
+                }
+            }
+            break;
     }
 }

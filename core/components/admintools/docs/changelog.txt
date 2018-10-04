@@ -1,8 +1,12 @@
+1.13.0-pl
+==============
+- Added a system setting to disable setting the authenticated user from "mgr" context for a guest user on a website.
+
 1.12.2-pl
 ==============
 - Optimized for utf8mb4.
 - Fixed broken email authentication.
-- Fixed bug with new admin notes creating.
+- Fixed bug with creating a new admin notes.
 
 1.12.1-pl
 ==============
