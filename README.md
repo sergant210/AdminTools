@@ -19,6 +19,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - 2 color themes with ability to customize them or add custom one.
 - ability to load custom style and javascript files in the manager.
 - permissions for package actions.
+- disable setting the authenticated user from "mgr" context for a guest user on a website.
 
 ### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example
