@@ -103,6 +103,11 @@ $tmp = array(
         'value' => '',
         'area' => 'admintools_main',
     ),
+    'only_current_context_user' => array(
+        'xtype' => 'combo-boolean',
+        'value' => false,
+        'area' => 'admintools_main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

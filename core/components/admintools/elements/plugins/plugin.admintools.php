@@ -117,7 +117,7 @@ if ($AdminTools instanceof AdminTools) {
             break;
         case 'OnMODXInit':
             if ($modx->context->get('key') !== 'mgr') {
-                if ( $modx->getOption('only_current_context_user', null, false)
+                if ( $modx->getOption('admintools_only_current_context_user', null, false)
                      && $modx->user->isAuthenticated('mgr')
                      && !$modx->user->isAuthenticated($modx->context->get('key')) ) {
                         $modx->user = $this->newObject('modUser');
