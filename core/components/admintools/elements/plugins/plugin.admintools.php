@@ -120,7 +120,7 @@ if ($AdminTools instanceof AdminTools) {
                 if ( $modx->getOption('admintools_only_current_context_user', null, false)
                      && $modx->user->isAuthenticated('mgr')
                      && !$modx->user->isAuthenticated($modx->context->get('key')) ) {
-                        $modx->user = $this->newObject('modUser');
+                        $modx->user = $modx->newObject('modUser');
                         $modx->user->fromArray(array('id' => 0, 'username' => $modx->getOption('default_username', '', '(anonymous)', true)), '', true);
                 }
             }
