@@ -3,6 +3,7 @@
 $_lang['area_admintools_main'] = 'Einstellungen';
 $_lang['area_admintools_authorization'] = 'Autorisation';
 $_lang['area_admintools_permissions'] = 'Berechtigungen';
+$_lang['area_admintools_security'] = 'Sicherheit';
 $_lang['setting_admintools_favorites_icon'] = 'Favoriten Elemente Icon';
 $_lang['setting_admintools_favorites_icon_desc'] = 'Ein hier eingetragener Icon ersetzt den Standardicon. Zum Beispiel: "icon-star".';
 $_lang['setting_admintools_remember_system_settings'] = 'Filtereinstellungen speichern.';
@@ -44,3 +45,9 @@ $_lang['setting_admintools_custom_js'] = 'Custom js files';
 $_lang['setting_admintools_custom_js_desc'] = "Comma separated user's js files. For example, {adminToolsJs}my.js,//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js";
 $_lang['setting_admintools_package_actions'] = 'Actions with packages';
 $_lang['setting_admintools_package_actions_desc'] = "Allows to prohibit certain actions with packages. Format: {package:{action1:'Message', action2:false, message:'Default message'}}";
+$_lang['setting_admintools_only_current_context_user'] = 'Only current context user';
+$_lang['setting_admintools_only_current_context_user_desc'] = "Do not load user from context mgr if he's not logged in in current context.";
+$_lang['setting_admintools_lock_timeout'] = 'Idle time';
+$_lang['setting_admintools_lock_timeout_desc'] = "The number of minutes of inactivity after which the admin panel will be locked. 0 to disable the autolock.";
+$_lang['setting_admintools_unlock_code'] = 'Unlock code';
+$_lang['setting_admintools_unlock_code_desc'] = "Quick unlock code. Leave it blank to unlock by password.";

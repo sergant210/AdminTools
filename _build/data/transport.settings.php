@@ -108,6 +108,16 @@ $tmp = array(
         'value' => false,
         'area' => 'admintools_main',
     ),
+    'lock_timeout' => array(
+        'xtype' => 'numberfield',
+        'value' => 0,
+        'area' => 'admintools_security',
+    ),
+    'unlock_code' => array(
+        'xtype' => 'textfield',
+        'value' => '',
+        'area' => 'admintools_security',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

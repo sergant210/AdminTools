@@ -1,3 +1,7 @@
+1.14.0-pl
+==============
+- Added ability to lock admin panel.
+
 1.13.1-pl
 ==============
 - Fixed a bug with the last update.

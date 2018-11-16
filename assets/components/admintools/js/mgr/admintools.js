@@ -1,9 +1,30 @@
-var AdminTools = function (config) {
+let AdminTools = function (config) {
 	config = config || {};
 	AdminTools.superclass.constructor.call(this, config);
 };
 Ext.extend(AdminTools, Ext.Component, {
-	page: {}, window: {}, grid: {}, tree: {}, panel: {}, combo: {}, config: {}, view: {}, utils: {}, toolbar: {}
+	page: {}, window: {}, grid: {}, tree: {}, panel: {}, combo: {}, config: {}, view: {}, utils: {}, toolbar: {},
+	lock: function () {
+		MODx.Ajax.request({
+			url: adminToolsSettings.config.connector_url,
+			params: {
+				action: 'mgr/system/lock'
+			},
+			listeners: {
+				success: {
+					fn: function(response) {
+						document.location.reload();
+					},
+					scope: this
+				}
+			}
+		});
+	},
+	setTimeout: function (time) {
+		return setTimeout(function () {
+			AdminTools.lock();
+		}, time)
+	}
 });
 Ext.reg('admintools', AdminTools);
 
@@ -16,7 +37,7 @@ AdminTools.utils.renderBoolean = function (value, props, row) {
 };
 
 AdminTools.utils.renderPrincipalType = function (value, props, row) {
-	var output;
+	let output;
 	switch (value) {
 		case 'grp':
 			output = '<i class="icon icon-group"></i>';
@@ -32,15 +53,15 @@ AdminTools.utils.renderPrincipalType = function (value, props, row) {
 };
 
 AdminTools.utils.getMenu = function (actions, grid, selected) {
-	var menu = [];
-	var cls, icon, title, action = '';
+	let menu = [];
+	let cls, icon, title, action = '';
 
-	for (var i in actions) {
+	for (let i in actions) {
 		if (!actions.hasOwnProperty(i)) {
 			continue;
 		}
 
-		var a = actions[i];
+		let a = actions[i];
 		if (!a['menu']) {
 			if (a == '-') {
 				menu.push('-');
@@ -79,13 +100,13 @@ AdminTools.utils.getMenu = function (actions, grid, selected) {
 
 
 AdminTools.utils.renderActions = function (value, props, row) {
-	var res = [];
-	var cls, icon, title, action, item = '';
-	for (var i in row.data.actions) {
+	let res = [];
+	let cls, icon, title, action, item = '';
+	for (let i in row.data.actions) {
 		if (!row.data.actions.hasOwnProperty(i)) {
 			continue;
 		}
-		var a = row.data.actions[i];
+		let a = row.data.actions[i];
 		if (!a['button']) {
 			continue;
 		}
@@ -128,8 +149,8 @@ Ext.extend(AdminTools.combo.SearchTypes,MODx.combo.ComboBox);
 Ext.reg('admintools-combo-wheresearch',AdminTools.combo.SearchTypes);
 
 Ext.onReady(function () {
-	var theme = '', region = '';
-	//var adminToolsSettings = adminToolsSettings || {config:{theme:'', region:'west'}};
+	let theme = '', region = '';
+	//let adminToolsSettings = adminToolsSettings || {config:{theme:'', region:'west'}};
 	if (adminToolsSettings) {
 		theme = adminToolsSettings.config.theme;
 		region = adminToolsSettings.config.region;
@@ -137,27 +158,50 @@ Ext.onReady(function () {
 	if (theme) Ext.getBody().addClass(theme);
 	if (region == 'east') {
 		Ext.getBody().addClass('right-side-tree');
-		var contentNode = Ext.get('modx-content'),
+		let contentNode = Ext.get('modx-content'),
 			actionButtonsNode = Ext.get('modx-action-buttons-container');
 		if (actionButtonsNode) actionButtonsNode.appendTo(contentNode);
 	}
-	var Items = Ext.query('ul.modx-subsubnav');
-	for (var i = 0; Items.length > i; i++) {
+	let Items = Ext.query('ul.modx-subsubnav');
+	for (let i = 0; Items.length > i; i++) {
 		Items[i].parentNode.classList.add('has-subnav');
 	}
+	// Lock
+	let userMenuList = document.querySelector('#limenu-user ul.modx-subnav');
+	let newLi = document.createElement('li');
+	newLi.id = 'admintools-lock';
+	newLi.innerHTML = '<a href="javascript:AdminTools.lock()">' + _('admintools_lock') + ' <span class="description">' + _('admintools_lock_desc') + '</span></a>';
+
+	setTimeout(function () {
+		userMenuList.insertBefore(newLi, userMenuList.lastChild);
+	}, 500);
+
+	if (adminToolsSettings.config.lock_timeout > 0) {
+		let lockTimeout = AdminTools.setTimeout(adminToolsSettings.config.lock_timeout);
+		['mousemove','keydown','wheel','click','contextmenu'].forEach(function(event) {
+			Ext.select('body').on(event, function(e) {
+				clearTimeout(lockTimeout);
+				lockTimeout = AdminTools.setTimeout(adminToolsSettings.config.lock_timeout);
+			});
+
+		});
+	}
+
 	// Package actions
 	if (MODx.grid.Package) {
 		Ext.override(MODx.grid.Package, {
 			onClick: function (e) {
-				var t = e.getTarget();
-				var classes = t.className.split(' ');
+				let t = e.getTarget();
+				let classes = t.className.split(' ');
+
 				if (classes[0] == 'controlBtn') {
-					var action = classes[1];
-					var record = this.getSelectionModel().getSelected();
-					var packageOptions = adminToolsPackageActions[record.data.name] || adminToolsPackageActions[record.data.name] || false;
+					let action = classes[1];
+					let record = this.getSelectionModel().getSelected();
+					let packageOptions = adminToolsPackageActions[record.data.name] || adminToolsPackageActions[record.data.name] || false;
+
 					this.menu.record = record.data;
 					if (packageOptions) {
-						var message;
+						let message;
 						[action, 'all'].every(function (item, i) {
 							if (packageOptions[item] !== undefined) {
 								if (Ext.isString(packageOptions[item])) {

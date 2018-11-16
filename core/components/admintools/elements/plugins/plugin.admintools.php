@@ -9,6 +9,20 @@ if ($AdminTools instanceof AdminTools) {
         case 'OnManagerPageBeforeRender':
             if ($modx->user->id) $AdminTools->initialize();
             break;
+        case 'OnManagerPageAfterRender':
+            if ($AdminTools->isLocked()) {
+                $controller->content = $modx->getChunk('tpl.lockScreen', [
+                                                                'username' => $modx->user->username, 
+                                                                'photo' => $modx->user->getPhoto(),
+                                                                'title' => $modx->getOption('site_name'),
+                                                                'lang' => $modx->getOption('manager_language'),
+                                                                'form_action' => $AdminTools->getOption('connectorUrl'),
+                                                                'auth' => $modx->user->getUserToken('mgr'),
+                                                                'assets_url' => MODX_ASSETS_URL,
+                                                            ]
+                );
+            }
+            break;
         case 'OnDocFormSave':
             if ($modx->getOption('admintools_clear_only_resource_cache',null,false)) {
                 if ($modx->event->params['mode'] != 'upd') {

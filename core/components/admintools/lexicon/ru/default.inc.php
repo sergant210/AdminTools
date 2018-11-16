@@ -104,6 +104,10 @@ $_lang['admintools_plugin_remove_confirm'] = 'Вы уверены, что хот
 $_lang['admintools_plugin_form_code'] = 'Сформировать код плагина';
 $_lang['admintools_plugin_form_code_desc'] = 'Формирует код плагина для выбранных событий. При этом старый код будет удален.';
 $_lang['plugin_desc_category'] = 'Категория, к которой принадлежит этот плагин.';
+$_lang['admintools_lock'] = 'Заблокировать';
+$_lang['admintools_lock_desc'] = 'Заблокировать панель управления';
+$_lang['admintools_unlock'] = 'Разблокировать';
+$_lang['admintools_enter_password_or_unlockcode'] = 'Введите пароль или код';
 
 $_lang['admintools_permissions_err_ae'] = 'Запись уже существует!';
 $_lang['admintools_permissions_err_ns'] = 'Не выбрано ни одной записи!';

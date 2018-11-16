@@ -20,6 +20,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - ability to load custom style and javascript files in the manager.
 - permissions for package actions.
 - disable setting the authenticated user from "mgr" context for a guest user on a website.
+- ability to lock the admin panel without logging out by timeout or manually.
 
 ### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example
@@ -96,6 +97,10 @@ Allow only viewing the details of the package.
 - details
 - all
 - message
+
+### Lock the admin panel
+![Lock admin panel](https://modzone.ru/assets/images/articles/223/admintools_lock_en2.jpg)
+![Lock admin panel](https://modzone.ru/assets/images/articles/223/admintools_lock_en.jpg)
 
 #### Remark
 All these features can be switched off by the corresponding system setting. Some features are disabled by default.

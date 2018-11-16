@@ -8,6 +8,7 @@ $tmp = array(
 		'description' => '',
 		'events' => array(
 			'OnManagerPageBeforeRender' => array(),
+			'OnManagerPageAfterRender' => array(),
             'OnDocFormSave' => array(),
             'OnManagerPageInit' => array(),
             'OnManagerAuthentication' => array(),

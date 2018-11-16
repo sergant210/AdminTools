@@ -3,6 +3,7 @@
 $_lang['area_admintools_main'] = 'Основные';
 $_lang['area_admintools_authorization'] = 'Аутентификация';
 $_lang['area_admintools_permissions'] = 'Права доступа';
+$_lang['area_admintools_security'] = 'Безопасность';
 $_lang['setting_admintools_favorites_icon'] = 'Иконка избранного элемента';
 $_lang['setting_admintools_favorites_icon_desc'] = 'Иконка, которая заменит стандартную иконку элемента, например, "icon-star".';
 $_lang['setting_admintools_remember_system_settings'] = 'Запомнить состояние системных настроек';
@@ -47,3 +48,7 @@ $_lang['setting_admintools_package_actions'] = 'Действия с пакета
 $_lang['setting_admintools_package_actions_desc'] = "Позволяет запретить определённые действия с пакетами. Формат: {package:{action1:'Сообщение', action2:false, message:'Сообщение по-умолчанию'}}";
 $_lang['setting_admintools_only_current_context_user'] = 'Пользователь только текущего контекста';
 $_lang['setting_admintools_only_current_context_user_desc'] = "Не подгружать пользователя из контекста mgr, если он не залогинен в текущем контексте.";
+$_lang['setting_admintools_lock_timeout'] = 'Время бездействия';
+$_lang['setting_admintools_lock_timeout_desc'] = "Количество минут, через которое произойдёт блокировка админ панели при отсутствии активности. 0 отключает автоблокировку.";
+$_lang['setting_admintools_unlock_code'] = 'Код разблокировки';
+$_lang['setting_admintools_unlock_code_desc'] = "Код быстрой разблокировки админ панели. Оставьте пустым, чтобы разблокировать по паролю.";

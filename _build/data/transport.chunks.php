@@ -7,6 +7,10 @@ $tmp = array(
         'file' => 'login.form',
         'description' => '',
     ),
+    'tpl.lockScreen' => array(
+        'file' => 'lockscreen',
+        'description' => '',
+    ),
 );
 
 // Save chunks for setup options

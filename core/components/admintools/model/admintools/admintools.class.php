@@ -24,7 +24,9 @@ class AdminTools {
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
             'templatesPath' => $corePath . 'elements/templates/',
-            'processorsPath' => $corePath . 'processors/'
+            'processorsPath' => $corePath . 'processors/',
+            'unlockCode' => $this->modx->getOption('admintools_unlock_code', null, ''),
+            'lockTimeout' => $this->modx->getOption('admintools_lock_timeout', null, 0) * 60 * 1000,
         ), $config);
         if (!$this->modx->addPackage('admintools', $this->config['modelPath'])) $this->modx->log(modX::LOG_LEVEL_ERROR, '[adminTools] Can\'t load the package.' );
         $this->modx->lexicon->load('admintools:default');
@@ -74,7 +76,6 @@ class AdminTools {
                                 'plugins' => array(),
                                 'snippets' => array()
                             );
-//                                $this->saveToCache($_SESSION['admintools']['favoriteElements']['elements'], 'elements', 'favorite_elements/' . $this->modx->user->id);
                             $this->saveToProfile($_SESSION['admintools']['favoriteElements']['elements'], 'adminToolsElements');
                         } else {
                             $_SESSION['admintools']['favoriteElements']['elements'] = $elements;
@@ -87,7 +88,6 @@ class AdminTools {
                         $settings = $this->getFromProfile('systemSettings');
                         if (empty($settings)) {
                             $_SESSION['admintools']['systemSettings'] = array('namespace' => 'core', 'area' => '');
-//                                $this->saveToCache($_SESSION['admintools']['systemSettings'], 'systemSettings', 'favorite_elements/' . $this->modx->user->id);
                             $this->saveToProfile($_SESSION['admintools']['systemSettings'], 'systemSettings');
                         } else {
                             $_SESSION['admintools']['systemSettings'] = $settings;
@@ -114,7 +114,7 @@ class AdminTools {
                         $_css .= "\t#modx-navbar ul.modx-subsubnav {display:block !important;opacity: 0; visibility: hidden;} \n";
                         $_css .= "\t#modx-navbar ul.modx-subnav li:hover ul.modx-subsubnav {opacity: 1; visibility: visible;} \n";
                     }
-                    if ($_css) $this->modx->controller->addHtml("<style type=\"text/css\">\n". $_css ."</style>");
+                    if ($_css) $this->modx->controller->addHtml("<style>\n". $_css ."</style>");
                     // Plugins
                     if ($this->modx->getOption('admintools_plugins_events', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/plugins.js');
@@ -127,20 +127,22 @@ class AdminTools {
                     */
                     // config
                     $region = $this->modx->getOption('admintools_modx_tree_position', null, 'left', true) == 'right' ? 'east' : 'west';
-
-                    $_SESSION['admintools']['config'] = array(
+                    if ($region == 'east') {
+                        $scripts = "<script>var sideBarRegion = '{$region}'</script>\n";
+                        $scripts .= $this->modx->smarty->get_template_vars('maincssjs');
+                        $layout_src = $this->getOption('jsUrl') . 'mgr/core/modx.layout.js';
+                        $scripts .= "<script src=\"{$layout_src}\"></script>";
+                        $this->modx->smarty->assign('maincssjs', $scripts);
+                    }
+                    // Lock
+                    $_SESSION['admintools']['locked'] = isset($_SESSION['admintools']['locked']) ? $_SESSION['admintools']['locked'] : false;
+                    $_SESSION['admintools']['config'] = [
                         'connector_url' => $this->config['assetsUrl'].'connector.php',
                         'theme' => $theme,
                         'region' => $region,
-                    );
-                    if ($region == 'east') {
-                        $scripts = "<script type=\"text/javascript\">var sideBarRegion = '{$region}'</script>\n";
-                        $scripts .= $this->modx->smarty->get_template_vars('maincssjs');
-                        $layout_src = $this->getOption('jsUrl') . 'mgr/core/modx.layout.js';
-                        $scripts .= "<script type=\"text/javascript\" src=\"{$layout_src}\"></script>";
-                        $this->modx->smarty->assign('maincssjs', $scripts);
-                    }
-                    $scripts = "<script type=\"text/javascript\">\n";
+                        'lock_timeout' => $this->config['lockTimeout'],
+                    ];
+                    $scripts = "<script>\n";
                     $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n";
                     // Package Denies
                     $packageActions = $this->modx->getOption('admintools_package_actions', null, '{}', true);
@@ -489,6 +491,21 @@ class AdminTools {
         /** @var modRestCurlClient $client */
         $client = $this->modx->getService('rest.modRestCurlClient');
         $result = $client->request($siteUrl, $uri, 'POST');
+    }
+
+    public function isLocked()
+    {
+        return !empty($_SESSION['admintools']['locked']);
+    }
+
+    public function unlock($unlockCode)
+    {
+        if (!empty($unlockCode)) {
+            $_SESSION['admintools']['locked'] = empty($this->config['unlockCode'])
+                ? !$this->modx->user->passwordMatches($unlockCode)
+                : $this->config['unlockCode'] !== $unlockCode;
+        }
+        return !$_SESSION['admintools']['locked'];
     }
 }
 
