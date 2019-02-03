@@ -1,6 +1,7 @@
 1.14.1-pl
 ==============
 - Added a system setting to hide the lock menu item.
+- Updated the "tpl.lockScreen" chunk. Don't forget to update it.
 
 1.14.0-pl
 ==============
