@@ -52,3 +52,5 @@ $_lang['setting_admintools_lock_timeout'] = 'Idle time';
 $_lang['setting_admintools_lock_timeout_desc'] = "The number of minutes of inactivity after which the admin panel will be locked. 0 to disable the autolock.";
 $_lang['setting_admintools_unlock_code'] = 'Unlock code';
 $_lang['setting_admintools_unlock_code_desc'] = "Quick unlock code. Leave it blank to unlock by password.";
+$_lang['setting_admintools_show_lockmenu'] = 'Show lock menu';
+$_lang['setting_admintools_show_lockmenu_desc'] = "Show lock menu item in the user menu.";

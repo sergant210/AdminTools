@@ -174,7 +174,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 'type' => $type,
                 'elementType' => ucfirst($type),
                 'classKey' => $elementClassKey,
-                'active' => !$element['disabled'],
+                'active' => (isset($element['disabled']) ? !$element['disabled'] : true),
                 'qtip' => strip_tags($element['description']),
                 'selected' => $active,
                 'favorite' => in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$type.'s'])
@@ -675,7 +675,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 'type' => $elementIdentifier,
                 'elementType' => $elementType,
                 'classKey' => $elementClassKey,
-                'active' => !$element['disabled'],
+                'active' => (isset($element['disabled']) ? !$element['disabled'] : true),
                 'qtip' => strip_tags($element['description']),
                 'selected' => $active,
                 'favorite' => in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$map[0].'s'])
@@ -842,7 +842,6 @@ class modElementGetNodesProcessor extends modProcessor {
             } else {
                 $icon = ($element['icon'] ? $element['icon'] : ($element['static'] ? 'icon-file-text-o' : 'icon-file-o'));
             }
-
             $idNote = $showElementIds ? ' (' . $element['id'] . ')' : '';
             $nodes[] = array(
                 'text' => strip_tags($name) . $idNote,
@@ -857,7 +856,7 @@ class modElementGetNodesProcessor extends modProcessor {
                 'type' => $map[1],
                 'elementType' => $elementType,
                 'classKey' => $elementClassKey,
-                'active' => !$element['disabled'],
+                'active' => (isset($element['disabled']) ? !$element['disabled'] : true),
                 'qtip' => strip_tags($element['description']),
                 'selected' => $active,
                 'favorite' => in_array($element['id'],$_SESSION['admintools']['favoriteElements']['elements'][$map[1].'s'])

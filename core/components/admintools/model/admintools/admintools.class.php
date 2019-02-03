@@ -27,6 +27,7 @@ class AdminTools {
             'processorsPath' => $corePath . 'processors/',
             'unlockCode' => $this->modx->getOption('admintools_unlock_code', null, ''),
             'lockTimeout' => $this->modx->getOption('admintools_lock_timeout', null, 0) * 60 * 1000,
+            'show_lockmenu' => $this->modx->getOption('admintools_show_lockmenu', null, true),
         ), $config);
         if (!$this->modx->addPackage('admintools', $this->config['modelPath'])) $this->modx->log(modX::LOG_LEVEL_ERROR, '[adminTools] Can\'t load the package.' );
         $this->modx->lexicon->load('admintools:default');
@@ -128,7 +129,7 @@ class AdminTools {
                     // config
                     $region = $this->modx->getOption('admintools_modx_tree_position', null, 'left', true) == 'right' ? 'east' : 'west';
                     if ($region == 'east') {
-                        $scripts = "<script>var sideBarRegion = '{$region}'</script>\n";
+                        $scripts = "<script>let sideBarRegion = '{$region}'</script>\n";
                         $scripts .= $this->modx->smarty->get_template_vars('maincssjs');
                         $layout_src = $this->getOption('jsUrl') . 'mgr/core/modx.layout.js';
                         $scripts .= "<script src=\"{$layout_src}\"></script>";
@@ -141,12 +142,13 @@ class AdminTools {
                         'theme' => $theme,
                         'region' => $region,
                         'lock_timeout' => $this->config['lockTimeout'],
+                        'show_lockmenu' => $this->config['show_lockmenu'],
                     ];
                     $scripts = "<script>\n";
-                    $scripts .= "\tvar adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n";
+                    $scripts .= "\tlet adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n";
                     // Package Denies
                     $packageActions = $this->modx->getOption('admintools_package_actions', null, '{}', true);
-                    $scripts .= "\tvar adminToolsPackageActions = " . $packageActions . ";\n";
+                    $scripts .= "\tlet adminToolsPackageActions = " . $packageActions . ";\n";
                     $scripts .= "</script>";
                     $this->modx->controller->addHtml($scripts);
                     // Custom javascript files
@@ -506,6 +508,11 @@ class AdminTools {
                 : $this->config['unlockCode'] !== $unlockCode;
         }
         return !$_SESSION['admintools']['locked'];
+    }
+
+    public function getInputPlaceholder()
+    {
+        return empty($this->config['unlockCode']) ? $this->modx->lexicon('admintools_enter_password') : $this->modx->lexicon('admintools_enter_unlockcode');
     }
 }
 

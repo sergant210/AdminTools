@@ -68,7 +68,7 @@
 	<div class="username">[[+username]]</div>
 	<form name="unlockform" action="[[+form_action]]" method="POST">
 		<div>
-			<input id="unlock_code" class="form-element" type="password" name="unlock_code" placeholder="[[%admintools_enter_password_or_unlockcode]]" required>
+			<input id="unlock_code" class="form-element" type="password" name="unlock_code" placeholder="[[+input_placeholder]]" required>
 		</div>
 		<div>
 			<button class="form-element btn submit-btn">[[%admintools_unlock]]</button>

@@ -108,6 +108,11 @@ $tmp = array(
         'value' => false,
         'area' => 'admintools_main',
     ),
+    'show_lockmenu' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'admintools_security',
+    ),
     'lock_timeout' => array(
         'xtype' => 'numberfield',
         'value' => 0,

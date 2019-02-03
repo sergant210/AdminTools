@@ -167,15 +167,16 @@ Ext.onReady(function () {
 		Items[i].parentNode.classList.add('has-subnav');
 	}
 	// Lock
-	let userMenuList = document.querySelector('#limenu-user ul.modx-subnav');
-	let newLi = document.createElement('li');
-	newLi.id = 'admintools-lock';
-	newLi.innerHTML = '<a href="javascript:AdminTools.lock()">' + _('admintools_lock') + ' <span class="description">' + _('admintools_lock_desc') + '</span></a>';
+	if (adminToolsSettings.config.show_lockmenu > 0) {
+		let userMenuList = document.querySelector('#limenu-user ul.modx-subnav');
+		let newLi = document.createElement('li');
+		newLi.id = 'admintools-lock';
+		newLi.innerHTML = '<a href="javascript:AdminTools.lock()">' + _('admintools_lock') + ' <span class="description">' + _('admintools_lock_desc') + '</span></a>';
 
-	setTimeout(function () {
-		userMenuList.insertBefore(newLi, userMenuList.lastChild);
-	}, 500);
-
+		setTimeout(function () {
+			userMenuList.insertBefore(newLi, userMenuList.lastChild);
+		}, 500);
+	}
 	if (adminToolsSettings.config.lock_timeout > 0) {
 		let lockTimeout = AdminTools.setTimeout(adminToolsSettings.config.lock_timeout);
 		['mousemove','keydown','wheel','click','contextmenu'].forEach(function(event) {

@@ -19,6 +19,7 @@ if ($AdminTools instanceof AdminTools) {
                                                                 'form_action' => $AdminTools->getOption('connectorUrl'),
                                                                 'auth' => $modx->user->getUserToken('mgr'),
                                                                 'assets_url' => MODX_ASSETS_URL,
+                                                                'input_placeholder' => $AdminTools->getInputPlaceholder(),
                                                             ]
                 );
             }

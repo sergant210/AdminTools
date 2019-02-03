@@ -56,7 +56,8 @@ $_lang['admintools_create_resource_cache_help'] = 'If enabled, the resource will
 $_lang['admintools_lock'] = 'Lock';
 $_lang['admintools_lock_desc'] = 'Lock the admin panel';
 $_lang['admintools_unlock'] = 'Unlock';
-$_lang['admintools_enter_password_or_unlockcode'] = 'Enter password or unlock code.';
+$_lang['admintools_enter_password'] = 'Enter password';
+$_lang['admintools_enter_unlockcode'] = 'Enter unlock code';
 
 $_lang['admintools_permissions'] = 'Berechtigungen';
 $_lang['admintools_permissions_desc'] = 'Wenn die Berechtigung nicht gesetzt ist, dann wird der Zugriff auf alle nicht gestattet.';

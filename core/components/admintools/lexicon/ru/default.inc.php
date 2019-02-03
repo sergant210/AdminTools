@@ -107,7 +107,8 @@ $_lang['plugin_desc_category'] = 'Категория, к которой прин
 $_lang['admintools_lock'] = 'Заблокировать';
 $_lang['admintools_lock_desc'] = 'Заблокировать панель управления';
 $_lang['admintools_unlock'] = 'Разблокировать';
-$_lang['admintools_enter_password_or_unlockcode'] = 'Введите пароль или код';
+$_lang['admintools_enter_password'] = 'Введите пароль';
+$_lang['admintools_enter_unlockcode'] = 'Введите код разблокировки';
 
 $_lang['admintools_permissions_err_ae'] = 'Запись уже существует!';
 $_lang['admintools_permissions_err_ns'] = 'Не выбрано ни одной записи!';

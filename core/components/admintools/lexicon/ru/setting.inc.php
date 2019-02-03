@@ -52,3 +52,5 @@ $_lang['setting_admintools_lock_timeout'] = 'Время бездействия';
 $_lang['setting_admintools_lock_timeout_desc'] = "Количество минут, через которое произойдёт блокировка админ панели при отсутствии активности. 0 отключает автоблокировку.";
 $_lang['setting_admintools_unlock_code'] = 'Код разблокировки';
 $_lang['setting_admintools_unlock_code_desc'] = "Код быстрой разблокировки админ панели. Оставьте пустым, чтобы разблокировать по паролю.";
+$_lang['setting_admintools_show_lockmenu'] = 'Показывать меню брокировки';
+$_lang['setting_admintools_show_lockmenu_desc'] = "Показывать пункт меню брокировки в меню пользователя.";
