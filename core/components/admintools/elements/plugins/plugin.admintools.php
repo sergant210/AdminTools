@@ -1,8 +1,8 @@
 <?php
 /** @var array $scriptProperties */
-$path = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/').'model/admintools/';
+$path = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/') . 'services/';
 /** @var AdminTools $AdminTools */
-$AdminTools = $modx->getService('admintools','AdminTools',$path);
+$AdminTools = $modx->getService('admintools', 'AdminTools', $path);
 $elementType = null;
 if ($AdminTools instanceof AdminTools) {
     switch ($modx->event->name) {
@@ -12,23 +12,20 @@ if ($AdminTools instanceof AdminTools) {
         case 'OnManagerPageAfterRender':
             if ($AdminTools->isLocked()) {
                 $controller->content = $modx->getChunk('tpl.lockScreen', [
-                                                                'username' => $modx->user->username, 
-                                                                'photo' => $modx->user->getPhoto(),
-                                                                'title' => $modx->getOption('site_name'),
-                                                                'lang' => $modx->getOption('manager_language'),
-                                                                'form_action' => $AdminTools->getOption('connectorUrl'),
-                                                                'auth' => $modx->user->getUserToken('mgr'),
-                                                                'assets_url' => MODX_ASSETS_URL,
-                                                                'input_placeholder' => $AdminTools->getInputPlaceholder(),
-                                                            ]
+                        'username' => $modx->user->username,
+                        'photo' => $modx->user->getPhoto(),
+                        'title' => $modx->getOption('site_name'),
+                        'lang' => $modx->getOption('manager_language'),
+                        'form_action' => $AdminTools->getOption('connectorUrl'),
+                        'auth' => $modx->user->getUserToken('mgr'),
+                        'assets_url' => MODX_ASSETS_URL,
+                        'input_placeholder' => $AdminTools->getInputPlaceholder(),
+                    ]
                 );
             }
             break;
         case 'OnDocFormSave':
-            if ($modx->getOption('admintools_clear_only_resource_cache',null,false)) {
-                if ($modx->event->params['mode'] != 'upd') {
-                    return;
-                }
+            if ($modx->getOption('admintools_clear_only_resource_cache',null,false) && $modx->event->params['mode'] == modSystemEvent::MODE_UPD) {
                 if ($resource->get('syncsite')) {
                     $AdminTools->clearResourceCache($resource);
                 }
@@ -40,8 +37,8 @@ if ($AdminTools instanceof AdminTools) {
         case 'OnManagerPageInit':
             if (!$modx->user->isAuthenticated('mgr') && $modx->getOption('admintools_email_authorization', null, false)) {
                 $id = (int) $modx->getOption('admintools_loginform_resource');
-                if (!empty($id) && $modx->getCount('modResource', array('id'=>$id, 'published'=>1, 'deleted'=>0))) {
-                    $url = $modx->makeUrl($id,'','','full');
+                if (!empty($id) && $modx->getCount('modResource', ['id' => $id, 'published' => 1, 'deleted' => 0])) {
+                    $url = $modx->makeUrl($id, '', '', 'full');
                     $modx->setOption('manager_login_url_alternate', $url);
                 }
             }
@@ -67,12 +64,13 @@ if ($AdminTools instanceof AdminTools) {
             break;
         case 'OnDocFormPrerender':
             $_html = array();
+            $output = '';
             if ($modx->getOption('admintools_template_resource_relationship', null, true)) {
                 $_html['tpl_res_relationship'] = '
             var tmpl = Ext.getCmp("modx-resource-template");
             if (tmpl.getValue()) tmpl.label.update(_("resource_template") + "&nbsp;&nbsp;<a href=\"?a=element/template/update&id=" + tmpl.getValue() + "\"><i class=\"icon icon-external-link\"></i></a>");';
             }
-            if ($modx->getOption('admintools_clear_only_resource_cache', null, true) && $resource instanceof modResource) {
+            if ($modx->getOption('admintools_clear_only_resource_cache', null, true) && $modx->event->params['mode'] != modSystemEvent::MODE_NEW) {
                 $_html['create_resource_cache'] = '
             var cb = Ext.create({
                 xtype: "xcheckbox",
@@ -93,7 +91,6 @@ if ($AdminTools instanceof AdminTools) {
                 });
             }';
             }
-            $output = '';
             if (!empty($_html)) {
             $output .= '
     Ext.onReady(function() {
@@ -128,7 +125,7 @@ if ($AdminTools instanceof AdminTools) {
 	});
 ';
             }
-            if (!empty($output)) $modx->controller->addHtml('<script type="text/javascript">' . $output . '</script>');
+            if (!empty($output)) $modx->controller->addHtml('<script>' . $output . '</script>');
             break;
         case 'OnMODXInit':
             if ($modx->context->get('key') !== 'mgr') {

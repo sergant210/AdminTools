@@ -1,6 +1,7 @@
 <?php
-$path = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/').'model/admintools/';
 /** @var AdminTools $AdminTools */
+/** @var array $scriptProperties */
+$path = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/').'services/';
 $AdminTools = $modx->getService('admintools','AdminTools',$path, $scriptProperties);
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
     $get = $modx->sanitize($_GET, $modx->sanitizePatterns);
@@ -43,5 +44,5 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     $assetsUrl = $AdminTools->getOption('assetsUrl');
     $modx->regClientCss($assetsUrl . 'css/mgr/login.css');
     $modx->regClientScript($assetsUrl . 'js/mgr/login.js');
-    return $modx->getChunk($tpl,array('errormsg'=>$errormsg));
+    return $modx->getChunk($tpl, ['errormsg' => $errormsg]);
 }

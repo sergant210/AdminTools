@@ -9,8 +9,10 @@ class atUnlockAdminPanelProcessor extends modProcessor {
     // public $permission = '';
 
     public function initialize() {
-        $path = $this->modx->getOption('admintools_core_path', null, $this->modx->getOption('core_path') . 'components/admintools/') . 'model/admintools/';
-        $this->modx->getService('admintools', 'AdminTools', $path, array());
+        if (is_null($this->modx->admintools)) {
+            $path = $this->modx->getOption('admintools_core_path', null, $this->modx->getOption('core_path') . 'components/admintools/') . 'services/';
+            $this->modx->getService('admintools', 'AdminTools', $path, []);
+        }
         return ($this->modx->admintools instanceof AdminTools);
     }
 

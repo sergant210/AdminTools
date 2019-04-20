@@ -39,19 +39,19 @@ a.x-menu-item .x-menu-item-text .icon {
 	color: inherit !important;
 }
 .badge {
+	background-color: #337ab7 !important;
+	border-radius: 10px;
+	color: #fff !important;
 	display: inline-block;
-	min-width: 10px;
-	padding: 3px 7px;
 	font-size: 12px;
 	font-weight: bold;
 	line-height: 1;
-	color: #fff !important;
 	margin-right: 5px;
+	min-width: 10px;
+	padding: 3px 5px;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	background-color: #337ab7 !important;
-	border-radius: 10px;
 }
 #modx-tree-element .x-btn-over {
 	color: #555 !important;
@@ -336,4 +336,14 @@ ul.admintools-plugin-actions .btn {
 	border-right: 5px solid #556c88;
 	border-left: none;
 	right: 6px;
+}
+/* messages */
+#message-counter {
+	background-color: #fc0a03 !important;
+	position: absolute;
+	left: 43px;
+	top: 7px;
+}
+#message-counter:empty {
+	display: none;
 }

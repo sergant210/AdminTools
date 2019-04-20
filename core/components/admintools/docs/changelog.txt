@@ -1,3 +1,9 @@
+1.15.0-pl
+==============
+- Added an unread messages indicator.
+- Fixed a bug with js files for backend users with restricted permissions (#19).
+- Moved the AdminTools service class from the model folder to the service folder.
+
 1.14.1-pl
 ==============
 - Added a system setting to hide the lock menu item.

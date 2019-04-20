@@ -1,22 +1,26 @@
 <?php
+
 /**
  * The base class for AdminTools.
  */
-class AdminTools {
+class AdminTools
+{
     /* @var modX $modx */
     public $modx;
-    public $initialized = array();
-    protected $config = array();
+    public $initialized = [];
+    protected $config = [];
+
     /**
      * @param modX $modx
      * @param array $config
      */
-    function __construct(modX &$modx, array $config = array()) {
+    function __construct(modX &$modx, array $config = [])
+    {
         $this->modx =& $modx;
         $corePath = $this->modx->getOption('admintools_core_path', $config, $this->modx->getOption('core_path') . 'components/admintools/');
         $assetsUrl = $this->modx->getOption('admintools_assets_url', $config, $this->modx->getOption('assets_url') . 'components/admintools/');
         $connectorUrl = $assetsUrl . 'connector.php';
-        $this->config = array_merge(array(
+        $this->config = array_merge([
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
@@ -28,12 +32,15 @@ class AdminTools {
             'unlockCode' => $this->modx->getOption('admintools_unlock_code', null, ''),
             'lockTimeout' => $this->modx->getOption('admintools_lock_timeout', null, 0) * 60 * 1000,
             'show_lockmenu' => $this->modx->getOption('admintools_show_lockmenu', null, true),
-        ), $config);
-        if (!$this->modx->addPackage('admintools', $this->config['modelPath'])) $this->modx->log(modX::LOG_LEVEL_ERROR, '[adminTools] Can\'t load the package.' );
+        ], $config);
+        if (!$this->modx->addPackage('admintools', $this->config['modelPath'])) {
+            $this->modx->log(modX::LOG_LEVEL_ERROR, '[adminTools] Can\'t load the package.');
+        }
         $this->modx->lexicon->load('admintools:default');
     }
 
-    public function initialize($ctx = 'mgr') {
+    public function initialize($ctx = 'mgr')
+    {
         switch ($ctx) {
             case 'mgr':
                 if (empty($this->initialized[$ctx])) {
@@ -42,26 +49,28 @@ class AdminTools {
                     $theme = $this->modx->getOption('admintools_theme', null, '');
                     $theme = trim($theme) == 'default' ? '' : trim($theme);
                     if (!empty($theme)) {
-                        $themeCssFile = 'mgr/themes/'.$theme.'.css';
+                        $themeCssFile = 'mgr/themes/' . $theme . '.css';
                         $this->modx->controller->addCss($this->config['cssUrl'] . $themeCssFile);
                         $theme .= '-theme';
                     }
                     // Custom style files
                     if ($customCSS = $this->modx->getOption('admintools_custom_css')) {
-                        $customCSS = explode(',',$customCSS);
+                        $customCSS = explode(',', $customCSS);
                         foreach ($customCSS as $cssFile) {
                             $cssFile = str_replace('{adminToolsCss}', $this->config['cssUrl'] . 'mgr/', $cssFile);
                             $this->modx->controller->addCss($cssFile);
                         }
                     }
                     $this->modx->controller->addJavascript($this->config['jsUrl'] . 'mgr/admintools.js');
+                    /** @var bool $pElementTree Permission for the element tree */
+                    $pElementTree = $this->modx->hasPermission('element_tree');
                     // favorite elements
-                    if ($this->modx->getOption('admintools_enable_favorite_elements', null, true)) {
+                    if ($pElementTree && $this->modx->getOption('admintools_enable_favorite_elements', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/favorites.js');
                         // View "All/Favorites"
                         $states = $this->getFromProfile('adminToolsStates');
                         if (empty($states)) {
-                            $_SESSION['admintools']['favoriteElements']['states'] = array('template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false);
+                            $_SESSION['admintools']['favoriteElements']['states'] = ['template' => false, 'chunk' => false, 'tv' => false, 'plugin' => false, 'snippet' => false];
                             $this->saveToProfile($_SESSION['admintools']['favoriteElements']['states'], 'adminToolsStates');
                             //$this->saveToCache($_SESSION['admintools']['favoriteElements']['states'], 'states', 'favorite_elements/' . $this->modx->user->id);
                         } else {
@@ -70,33 +79,35 @@ class AdminTools {
                         // Get favorites elements
                         $elements = $this->getFromProfile('adminToolsElements');
                         if (empty($elements)) {
-                            $_SESSION['admintools']['favoriteElements']['elements'] = array(
-                                'templates' => array(),
-                                'tvs' => array(),
-                                'chunks' => array(),
-                                'plugins' => array(),
-                                'snippets' => array()
-                            );
+                            $_SESSION['admintools']['favoriteElements']['elements'] = [
+                                'templates' => [],
+                                'tvs' => [],
+                                'chunks' => [],
+                                'plugins' => [],
+                                'snippets' => [],
+                            ];
                             $this->saveToProfile($_SESSION['admintools']['favoriteElements']['elements'], 'adminToolsElements');
                         } else {
                             $_SESSION['admintools']['favoriteElements']['elements'] = $elements;
                         }
-                        $_SESSION['admintools']['favoriteElements']['icon'] = $this->modx->getOption('admintools_favorites_icon') ? 'icon '. $this->modx->getOption('admintools_favorites_icon') : '';
+                        $_SESSION['admintools']['favoriteElements']['icon'] = $this->modx->getOption('admintools_favorites_icon') ? 'icon ' . $this->modx->getOption('admintools_favorites_icon') : '';
                     }
                     // system settings
-                    if ($this->modx->getOption('admintools_remember_system_settings', null, true)) {
+                    if ($this->modx->hasPermission('settings') && $this->modx->getOption('admintools_remember_system_settings', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/systemsettings.js');
                         $settings = $this->getFromProfile('systemSettings');
                         if (empty($settings)) {
-                            $_SESSION['admintools']['systemSettings'] = array('namespace' => 'core', 'area' => '');
+                            $_SESSION['admintools']['systemSettings'] = ['namespace' => 'core', 'area' => ''];
                             $this->saveToProfile($_SESSION['admintools']['systemSettings'], 'systemSettings');
                         } else {
                             $_SESSION['admintools']['systemSettings'] = $settings;
                         }
-                        if (empty($_SESSION['admintools']['systemSettings']['namespace'])) $_SESSION['admintools']['systemSettings']['namespace'] = 'core';
+                        if (empty($_SESSION['admintools']['systemSettings']['namespace'])) {
+                            $_SESSION['admintools']['systemSettings']['namespace'] = 'core';
+                        }
                     }
                     // edited elements log
-                    if ($this->modx->getOption('admintools_enable_elements_log', null, true)) {
+                    if ($pElementTree && $this->modx->getOption('admintools_enable_elements_log', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/elementlog.js');
                         $this->modx->controller->addLexiconTopic('manager_log');
                     }
@@ -115,9 +126,11 @@ class AdminTools {
                         $_css .= "\t#modx-navbar ul.modx-subsubnav {display:block !important;opacity: 0; visibility: hidden;} \n";
                         $_css .= "\t#modx-navbar ul.modx-subnav li:hover ul.modx-subsubnav {opacity: 1; visibility: visible;} \n";
                     }
-                    if ($_css) $this->modx->controller->addHtml("<style>\n". $_css ."</style>");
+                    if ($_css) {
+                        $this->modx->controller->addHtml("<style>\n" . $_css . "</style>");
+                    }
                     // Plugins
-                    if ($this->modx->getOption('admintools_plugins_events', null, true)) {
+                    if ($pElementTree && $this->modx->getOption('admintools_plugins_events', null, true)) {
                         $this->modx->controller->addLastJavascript($this->config['jsUrl'] . 'mgr/plugins.js');
                     }
                     // taskpanel
@@ -135,17 +148,22 @@ class AdminTools {
                         $scripts .= "<script src=\"{$layout_src}\"></script>";
                         $this->modx->smarty->assign('maincssjs', $scripts);
                     }
+                    // Messages
+                    $messageNumber = $this->modx->getOption('admintools_messages', null, true)
+                                ? $this->modx->getCount('modUserMessage', ['recipient' => $this->modx->user->id, 'read' => 0])
+                                : -1;
                     // Lock
                     $_SESSION['admintools']['locked'] = isset($_SESSION['admintools']['locked']) ? $_SESSION['admintools']['locked'] : false;
                     $_SESSION['admintools']['config'] = [
-                        'connector_url' => $this->config['assetsUrl'].'connector.php',
+                        'connector_url' => $this->config['assetsUrl'] . 'connector.php',
                         'theme' => $theme,
                         'region' => $region,
                         'lock_timeout' => $this->config['lockTimeout'],
                         'show_lockmenu' => $this->config['show_lockmenu'],
+                        'messages' => $messageNumber,
                     ];
                     $scripts = "<script>\n";
-                    $scripts .= "\tlet adminToolsSettings = ".$this->modx->toJSON(array_merge($_SESSION['admintools'],array('currentUser'=>$this->modx->user->id))).";\n";
+                    $scripts .= "\tlet adminToolsSettings = " . $this->modx->toJSON(array_merge($_SESSION['admintools'], ['currentUser' => $this->modx->user->id])) . ";\n";
                     // Package Denies
                     $packageActions = $this->modx->getOption('admintools_package_actions', null, '{}', true);
                     $scripts .= "\tlet adminToolsPackageActions = " . $packageActions . ";\n";
@@ -153,7 +171,7 @@ class AdminTools {
                     $this->modx->controller->addHtml($scripts);
                     // Custom javascript files
                     if ($customJS = $this->modx->getOption('admintools_custom_js')) {
-                        $customJS = explode(',',$customJS);
+                        $customJS = explode(',', $customJS);
                         foreach ($customJS as $jsFile) {
                             $jsFile = str_replace('{adminToolsJs}', $this->config['jsUrl'] . 'mgr/', $jsFile);
                             $this->modx->controller->addLastJavascript($jsFile);
@@ -179,6 +197,7 @@ class AdminTools {
             $this->config[$key] = $value;
         }
     }
+
     /**
      * @param $property
      * @param string $default
@@ -188,6 +207,7 @@ class AdminTools {
     {
         return isset($this->config[$property]) ? $this->config[$property] : $default;
     }
+
     /**
      * @return array
      */
@@ -196,7 +216,8 @@ class AdminTools {
         return $this->config;
     }
 
-    public function getFromProfile($key) {
+    public function getFromProfile($key)
+    {
         if ($this->modx->user->isAuthenticated('mgr')) {
             $profile = $this->modx->user->getOne('Profile');
             $fields = $profile->get('extended');
@@ -215,7 +236,8 @@ class AdminTools {
      * @param array $data
      * @param string $key
      */
-    public function saveToProfile($data, $key) {
+    public function saveToProfile($data, $key)
+    {
         if ($this->modx->user->isAuthenticated('mgr')) {
             $profile = $this->modx->user->getOne('Profile');
             $fields = $profile->get('extended');
@@ -232,21 +254,24 @@ class AdminTools {
      * @param array $object
      * @deprecated
      */
-    public function updateElementLog(array $object) {
-        $type = explode('/',$object['action']);
-        $elementData = array(
-            'type'=>$type[1],
+    public function updateElementLog(array $object)
+    {
+        $type = explode('/', $object['action']);
+        $elementData = [
+            'type' => $type[1],
             'eid' => $object['id'],
             'name' => $type[1] == 'template' ? $object['templatename'] : $object['name'],
             'editedon' => date('Y-m-d H:i:s'),
             'user' => $this->modx->user->get('username'),
-        );
-        $key = $elementData['type'].'-'.$elementData['eid'];
+        ];
+        $key = $elementData['type'] . '-' . $elementData['eid'];
         $data[$key] = $elementData;
         $elements = $this->getFromCache('element_log', 'elementlog/');
         if (is_array($elements)) {
-            if (isset($elements[$key])) unset($elements[$key]);
-            $elements = array_merge($data,$elements);
+            if (isset($elements[$key])) {
+                unset($elements[$key]);
+            }
+            $elements = array_merge($data, $elements);
         } else {
             $elements = $data;
         }
@@ -257,41 +282,44 @@ class AdminTools {
      * @deprecated
      * @return mixed
      */
-    public function getElementLog() {
+    public function getElementLog()
+    {
         return $this->getFromCache('element_log', 'elementlog/');
     }
 
     /**
      * @param modResource $resource
      */
-    public function clearResourceCache(&$resource) {
+    public function clearResourceCache(&$resource)
+    {
 //        $resource->clearCache();
         $resource->_contextKey = $resource->context_key;
         /** @var modCacheManager $cache */
         $cache = $this->modx->cacheManager->getCacheProvider($this->modx->getOption('cache_resource_key', null, 'resource'));
         $key = $resource->getCacheKey();
-        $cache->delete($key, array('deleteTop' => true));
+        $cache->delete($key, ['deleteTop' => true]);
         $cache->delete($key);
 
         $this->modx->_clearResourceCache = true;
         $this->modx->cacheManager = new atCacheManager($this->modx);
     }
 
-    public function sendLoginLink($data){
+    public function sendLoginLink($data)
+    {
         $c = $this->modx->newQuery('modUser');
-        $c->select(array('modUser.*','Profile.email','Profile.fullname'));
-        $c->innerJoin('modUserProfile','Profile');
-        $c->where(array(
+        $c->select(['modUser.*', 'Profile.email', 'Profile.fullname']);
+        $c->innerJoin('modUserProfile', 'Profile');
+        $c->where([
             'modUser.username' => $data['userdata'],
             'OR:Profile.email:=' => $data['userdata'],
-        ));
-        $c->where(array(
+        ]);
+        $c->where([
             'modUser.active' => 1,
             'Profile.blocked' => 0,
-        ));
+        ]);
         $message = '';
         /** @var modUser $user */
-        $user = $this->modx->getObject('modUser',$c);
+        $user = $this->modx->getObject('modUser', $c);
         if ($user) {
             $this->modx->user = $user;
             if (!$this->modx->hasPermission('frames')) {
@@ -302,10 +330,10 @@ class AdminTools {
             }
             $hash = $this->addLoginState($user);
             if (!empty($hash)) {
-                $key = md5($_SERVER['REMOTE_ADDR'].'/'.$_SERVER['HTTP_USER_AGENT'].$user->id);
-                $args = array('a' => 'login', 'id' => $key, 'hash' => $hash);
-                $url = $this->modx->makeUrl($this->modx->resource->id, '', $args,'full');
-                $options['email_body'] = $this->modx->lexicon('admintools_authorization_email_body', array('url'=>$url));
+                $key = md5($_SERVER['REMOTE_ADDR'] . '/' . $_SERVER['HTTP_USER_AGENT'] . $user->id);
+                $args = ['a' => 'login', 'id' => $key, 'hash' => $hash];
+                $url = $this->modx->makeUrl($this->modx->resource->id, '', $args, 'full');
+                $options['email_body'] = $this->modx->lexicon('admintools_authorization_email_body', ['url' => $url]);
                 $this->sendEmail($user->get('email'), $options);
             } else {
                 $message = $this->modx->lexicon('admintools_link_already_sent');
@@ -320,43 +348,47 @@ class AdminTools {
      * @param modUser $user
      * @return bool
      */
-    public function addLoginState($user){
+    public function addLoginState($user)
+    {
         $hash = '';
-        $key = md5($_SERVER['REMOTE_ADDR'].'/'.$_SERVER['HTTP_USER_AGENT'].$user->id);
+        $key = md5($_SERVER['REMOTE_ADDR'] . '/' . $_SERVER['HTTP_USER_AGENT'] . $user->id);
         $state = $this->getLoginState($key);
         if (empty($state)) {
-            $ttl = $this->modx->getOption('admintools_authorization_ttl',null,200);
+            $ttl = $this->modx->getOption('admintools_authorization_ttl', null, 200);
             $hash = md5(uniqid(md5($user->get('email') . '/' . $key), true));
             $this->modx->registry->user->subscribe('/admintools/login/');
-            $this->modx->registry->user->send('/admintools/login/', array(
-                $key => array(
+            $this->modx->registry->user->send('/admintools/login/', [
+                $key => [
                     'hash' => $hash,
                     'uid' => $user->get('id'),
-                )
-            ), array('ttl' => $ttl));
+                ],
+            ], ['ttl' => $ttl]);
         }
         return $hash;
     }
 
-    public function getLoginState($key){
+    public function getLoginState($key)
+    {
         $data = '';
         if ($this->modx->getService('registry', 'registry.modRegistry')) {
             $this->modx->registry->addRegister('user', 'registry.modDbRegister');
             $this->modx->registry->user->connect();
-            $this->modx->registry->user->subscribe('/admintools/login/'.$key);
-            if ($msgs = $this->modx->registry->user->read(array('remove_read' => false, 'poll_limit' => 1))) {
+            $this->modx->registry->user->subscribe('/admintools/login/' . $key);
+            if ($msgs = $this->modx->registry->user->read(['remove_read' => false, 'poll_limit' => 1])) {
                 $data = reset($msgs);
             }
         }
         return $data;
     }
-    public function deleteLoginState($key){
+
+    public function deleteLoginState($key)
+    {
         $deleted = false;
         if ($this->modx->getService('registry', 'registry.modRegistry')) {
             $this->modx->registry->addRegister('user', 'registry.modDbRegister');
             $this->modx->registry->user->connect();
-            $this->modx->registry->user->subscribe('/admintools/login/'.$key);
-            $this->modx->registry->user->read(array('remove_read' => true, 'poll_limit' => 1));
+            $this->modx->registry->user->subscribe('/admintools/login/' . $key);
+            $this->modx->registry->user->read(['remove_read' => true, 'poll_limit' => 1]);
             $deleted = true;
         }
         return $deleted;
@@ -370,7 +402,8 @@ class AdminTools {
      *
      * @return string|bool
      */
-    public function sendEmail($email, array $options = array()) {
+    public function sendEmail($email, array $options = [])
+    {
         /** @var modPHPMailer $mail */
         $mail = $this->modx->getService('mail', 'mail.modPHPMailer');
 
@@ -400,14 +433,14 @@ class AdminTools {
             $data['username'] = $user->get('username');
             $data['password'] = 'password';
             $data['login_context'] = 'mgr';
-            $data['addContexts'] = array();
-            $data['rememberme'] = (int) $this->modx->getOption('admintools_rememberme',null, 0);
+            $data['addContexts'] = [];
+            $data['rememberme'] = (int)$this->modx->getOption('admintools_rememberme', null, 0);
         } else {
             return 'Error when try to login.';
         }
-        $query = $this->modx->newQuery('modPlugin', array(
+        $query = $this->modx->newQuery('modPlugin', [
             'name' => 'AdminTools',
-        ));
+        ]);
         $query->select('id');
         $id = $this->modx->getValue($query->prepare());
         if (!empty($id)) {
@@ -440,25 +473,28 @@ class AdminTools {
      * @param int $rid Resource id
      * @return bool
      */
-    public function hasPermissions($rid = 0) {
+    public function hasPermissions($rid = 0)
+    {
         //TODO-sergant  Сделать map файл.
-        if ($rid == 0) $rid = $this->modx->resource->get('id');
+        if ($rid == 0) {
+            $rid = $this->modx->resource->get('id');
+        }
         $user = $this->modx->user;
         $userId = $this->modx->user->get('id');
         $q = $this->modx->newQuery('adminToolsPermissions');
         $q->setClassAlias('Permissions');
 //        $q->leftJoin('modUserProfile','User', 'Permissions.principal = User.internalKey AND Permissions.principal_type = "usr"');
-        $q->leftJoin('modUserGroup','Group', 'Permissions.principal = Group.id AND Permissions.principal_type = "grp"');
+        $q->leftJoin('modUserGroup', 'Group', 'Permissions.principal = Group.id AND Permissions.principal_type = "grp"');
         $q->select('Permissions.*, Group.name as groupname');
-        $q->where(array(
+        $q->where([
             'Permissions.rid' => $rid,
-        ));
+        ]);
         $q->sortby('Permissions.weight', 'ASC');
         $q->sortby('Permissions.priority', 'ASC');
         $tstart = microtime(true);
         if ($q->prepare() && $q->stmt->execute()) {
-        	$this->modx->queryTime += microtime(true) - $tstart;
-        	$this->modx->executedQueries++;
+            $this->modx->queryTime += microtime(true) - $tstart;
+            $this->modx->executedQueries++;
             $permissions = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         $allow = true;
@@ -466,21 +502,21 @@ class AdminTools {
             foreach ($permissions as $permission) {
                 switch ($permission['principal_type']) {
                     case 'all':
-                        $allow = (bool) $permission['status'];
+                        $allow = (bool)$permission['status'];
                         break;
                     case 'gst':
-                        if ($userId == 0){
-                            $allow = (bool) $permission['status'];
+                        if ($userId == 0) {
+                            $allow = (bool)$permission['status'];
                         }
                         break;
                     case 'grp':
-                        if ($userId && $user->isMember($permission['groupname'])){
-                            $allow = (bool) $permission['status'];
+                        if ($userId && $user->isMember($permission['groupname'])) {
+                            $allow = (bool)$permission['status'];
                         }
                         break;
                     case 'usr':
-                        if ($userId  == $permission['principal']){
-                            $allow = (bool) $permission['status'];
+                        if ($userId == $permission['principal']) {
+                            $allow = (bool)$permission['status'];
                         }
                         break;
                 }
@@ -488,7 +524,9 @@ class AdminTools {
         }
         return $allow;
     }
-    public function createResourceCache($uri = '/') {
+
+    public function createResourceCache($uri = '/')
+    {
         $siteUrl = $this->modx->getOption('site_url');
         /** @var modRestCurlClient $client */
         $client = $this->modx->getService('rest.modRestCurlClient');
@@ -519,12 +557,13 @@ class AdminTools {
 /**
  * Cache manager class for adminTools.
  */
-require_once MODX_CORE_PATH.'model/modx/modcachemanager.class.php';
+require_once MODX_CORE_PATH . 'model/modx/modcachemanager.class.php';
+
 class atCacheManager extends modCacheManager
 {
-    public function refresh(array $providers = array(), array &$results = array())
+    public function refresh(array $providers = [], array &$results = [])
     {
-        if ($this->modx->getOption('admintools_clear_only_resource_cache',null,false) && !empty($this->modx->_clearResourceCache)) {
+        if ($this->modx->getOption('admintools_clear_only_resource_cache', null, false) && !empty($this->modx->_clearResourceCache)) {
             $this->modx->_clearResourceCache = false;
             unset($providers['resource']);
             $this->modx->cacheManager = null;

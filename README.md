@@ -21,6 +21,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - permissions for package actions.
 - disable setting the authenticated user from "mgr" context for a guest user on a website.
 - ability to lock the admin panel without logging out by timeout or manually.
+- unread messages indicator.
 
 ### Setting the email authentication in the backend
 * Create a new document with blank template and call the snippet "adminTools" in it. For example

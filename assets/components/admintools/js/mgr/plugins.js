@@ -562,12 +562,14 @@ Ext.onReady(function () {
 		}
 	}
 	var tree = Ext.getCmp('modx-tree-element');
-	if (tree.rendered) {
-		var interval = setInterval(showEventPluginButton,500);
-	} else {
-		tree.on('render', function () {
-			setTimeout(showEventPluginButton,500);
-		});
+	if (tree) {
+		if (tree.rendered) {
+			var interval = setInterval(showEventPluginButton, 500);
+		} else {
+			tree.on('render', function () {
+				setTimeout(showEventPluginButton, 500);
+			});
+		}
 	}
 });
 

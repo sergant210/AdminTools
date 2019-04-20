@@ -139,7 +139,7 @@ class modElementGetNodesProcessor extends modProcessor {
             }
             if ($canNewCategory) $class[] = 'pnewcat';
             if ($element['locked']) $class[] = 'element-node-locked';
-            if ($elementClassKey == 'modPlugin' && $element['disabled']) {
+            if ($elementClassKey == 'modPlugin' && @$element['disabled']) {
                 $class[] = 'element-node-disabled';
             }
             if (!empty($scriptProperties['currentElement']) && $scriptProperties['currentElement'] == $element['id'] && $scriptProperties['currentAction'] == $this->actionMap[$type]) {
@@ -643,7 +643,7 @@ class modElementGetNodesProcessor extends modProcessor {
             }
             if ($canNewCategory) $class[] = 'pnewcat';
             if ($element['locked']) $class[] = 'element-node-locked';
-            if ($elementClassKey == 'modPlugin' && $element['disabled']) {
+            if ($elementClassKey == 'modPlugin' && @$element['disabled']) {
                 $class[] = 'element-node-disabled';
             }
             if ($element['static'] ) {
@@ -821,7 +821,7 @@ class modElementGetNodesProcessor extends modProcessor {
             }
             if ($canNewCategory) $class[] = 'pnewcat';
             if ($element['locked']) $class[] = 'element-node-locked';
-            if ($elementClassKey == 'modPlugin' && $element['disabled']) {
+            if ($elementClassKey == 'modPlugin' && @$element['disabled']) {
                 $class[] = 'element-node-disabled';
             }
             if ($element['static'] ) {

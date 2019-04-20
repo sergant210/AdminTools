@@ -11,11 +11,10 @@ require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';
 /** @noinspection PhpIncludeInspection */
 require_once MODX_CONNECTORS_PATH . 'index.php';
 /** @var AdminTools $AdminTools */
-$AdminTools = $modx->getService('admintools', 'AdminTools', $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/') . 'model/admintools/');
+$corePath = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/');$AdminTools = $modx->getService('admintools', 'AdminTools', $corePath . 'services/');
 $modx->lexicon->load('admintools:default');
 
 // handle request
-$corePath = $modx->getOption('admintools_core_path', null, $modx->getOption('core_path') . 'components/admintools/');
 $path = $modx->getOption('processorsPath', $AdminTools->getOptions(), $corePath . 'processors/');
 /** @noinspection PhpMethodParametersCountMismatchInspection */
 $modx->request->handleRequest(array(

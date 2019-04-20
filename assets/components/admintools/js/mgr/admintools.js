@@ -24,7 +24,30 @@ Ext.extend(AdminTools, Ext.Component, {
 		return setTimeout(function () {
 			AdminTools.lock();
 		}, time)
-	}
+	},
+	syncMessageCounter: function () {
+		if (AdminTools.messageCounterEl === undefined) {
+			AdminTools.messageCounterEl = document.getElementById('message-counter');
+		}
+		let counter = this.getMessageCounter();
+		AdminTools.messageCounterEl.innerText = (counter == 0) ? '' : counter;
+	},
+	getMessageCounter: function () {
+		return adminToolsSettings.config.messages;
+	},
+	increaseMessageCounter: function () {
+		adminToolsSettings.config.messages++;
+		this.syncMessageCounter();
+		return adminToolsSettings.config.messages;
+	},
+	decreaseMessageCounter: function () {
+		adminToolsSettings.config.messages--;
+		if (adminToolsSettings.config.messages < 0) {
+			adminToolsSettings.config.messages = 0;
+		}
+		this.syncMessageCounter();
+		return adminToolsSettings.config.messages;
+	},
 });
 Ext.reg('admintools', AdminTools);
 
@@ -174,8 +197,8 @@ Ext.onReady(function () {
 		newLi.innerHTML = '<a href="javascript:AdminTools.lock()">' + _('admintools_lock') + ' <span class="description">' + _('admintools_lock_desc') + '</span></a>';
 
 		setTimeout(function () {
-			userMenuList.insertBefore(newLi, userMenuList.lastChild);
-		}, 500);
+			if (userMenuList) userMenuList.insertBefore(newLi, userMenuList.lastChild);
+		}, 300);
 	}
 	if (adminToolsSettings.config.lock_timeout > 0) {
 		let lockTimeout = AdminTools.setTimeout(adminToolsSettings.config.lock_timeout);
@@ -186,6 +209,33 @@ Ext.onReady(function () {
 			});
 
 		});
+	}
+
+	// Messages
+	if (adminToolsSettings.config.messages >= 0) {
+		Ext.ComponentMgr.onAvailable('modx-grid-message', function () {
+			this.getStore().on("update", function (g, p, o) {
+				if (o == 'commit') {
+					if (p.data.read) {
+						AdminTools.decreaseMessageCounter();
+					} else {
+						AdminTools.increaseMessageCounter();
+					}
+				}
+			}, this);
+			this.on('afterRemoveRow', function (r) {
+				AdminTools.decreaseMessageCounter();
+			})
+		});
+		let userMenu = document.querySelector('#limenu-user > a');
+		let newSpan = document.createElement('span');
+		newSpan.id = 'message-counter';
+		newSpan.className = 'badge';
+		newSpan.innerText = AdminTools.getMessageCounter() ? AdminTools.getMessageCounter() : '';
+
+		setTimeout(function () {
+			if (userMenu) userMenu.appendChild(newSpan);
+		}, 300);
 	}
 
 	// Package actions

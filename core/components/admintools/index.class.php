@@ -14,7 +14,7 @@ abstract class AdminToolsMainController extends modExtraManagerController {
 	 */
 	public function initialize() {
 		$corePath = $this->modx->getOption('admintools_core_path', null, $this->modx->getOption('core_path') . 'components/admintools/');
-		require_once $corePath . 'model/admintools/admintools.class.php';
+		require_once $corePath . 'services/admintools.class.php';
 
 		$this->AdminTools = new AdminTools($this->modx);
 		//$this->addCss($this->AdminTools->getOption('cssUrl') . 'mgr/main.css');
