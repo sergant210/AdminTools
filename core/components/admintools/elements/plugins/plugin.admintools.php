@@ -7,7 +7,9 @@ $elementType = null;
 if ($AdminTools instanceof AdminTools) {
     switch ($modx->event->name) {
         case 'OnManagerPageBeforeRender':
-            if ($modx->user->id) $AdminTools->initialize();
+            if ($modx->user->id) {
+                $AdminTools->initialize();
+            }
             break;
         case 'OnManagerPageAfterRender':
             if ($AdminTools->isLocked()) {
@@ -25,7 +27,7 @@ if ($AdminTools instanceof AdminTools) {
             }
             break;
         case 'OnDocFormSave':
-            if ($modx->getOption('admintools_clear_only_resource_cache',null,false) && $modx->event->params['mode'] == modSystemEvent::MODE_UPD) {
+            if ($modx->getOption('admintools_clear_only_resource_cache', null, false) && $modx->event->params['mode'] === modSystemEvent::MODE_UPD) {
                 if ($resource->get('syncsite')) {
                     $AdminTools->clearResourceCache($resource);
                 }
@@ -50,7 +52,7 @@ if ($AdminTools instanceof AdminTools) {
             }
             break;
         case 'OnLoadWebDocument':
-            if ($modx->user->isAuthenticated($modx->context->get('key')) && (!$modx->user->active || $modx->user->Profile->blocked)) {
+            if ((!$modx->user->active || $modx->user->Profile->blocked) && $modx->user->isAuthenticated($modx->context->get('key'))) {
                 $modx->runProcessor('security/logout');
             }
             if ($modx->getOption('admintools_alternative_permissions', null, false) && !$AdminTools->hasPermissions()){
@@ -63,7 +65,7 @@ if ($AdminTools instanceof AdminTools) {
             }
             break;
         case 'OnDocFormPrerender':
-            $_html = array();
+            $_html = [];
             $output = '';
             if ($modx->getOption('admintools_template_resource_relationship', null, true)) {
                 $_html['tpl_res_relationship'] = '
@@ -79,7 +81,7 @@ if ($AdminTools instanceof AdminTools) {
                 hideLabel: true,
                 name: "createCache",
                 id: "createCache",
-                checked: '. intval($modx->getOption('admintools_create_resource_cache', null, false)) .'
+                checked: '. (int)$modx->getOption('admintools_create_resource_cache', null, false) .'
             });
             if (Ext.getCmp("modx-page-settings-right-box-right")) {
                 Ext.getCmp("modx-page-settings-right-box-right").insert(2,cb);
@@ -125,16 +127,18 @@ if ($AdminTools instanceof AdminTools) {
 	});
 ';
             }
-            if (!empty($output)) $modx->controller->addHtml('<script>' . $output . '</script>');
+            if (!empty($output)) {
+                $modx->controller->addHtml('<script>' . $output . '</script>');
+            }
             break;
         case 'OnMODXInit':
-            if ($modx->context->get('key') !== 'mgr') {
-                if ( $modx->getOption('admintools_only_current_context_user', null, false)
-                     && $modx->user->isAuthenticated('mgr')
-                     && !$modx->user->isAuthenticated($modx->context->get('key')) ) {
-                        $modx->user = $modx->newObject('modUser');
-                        $modx->user->fromArray(array('id' => 0, 'username' => $modx->getOption('default_username', '', '(anonymous)', true)), '', true);
-                }
+            if (($modx->context->get('key') !== 'mgr')
+                && $modx->getOption('admintools_only_current_context_user', null, false)
+                && $modx->user->isAuthenticated('mgr')
+                && !$modx->user->isAuthenticated($modx->context->get('key')))
+            {
+               $modx->user = $modx->newObject('modUser');
+                $modx->user->fromArray(['id' => 0, 'username' => $modx->getOption('default_username', '', '(anonymous)', true)], '', true);
             }
             break;
     }

@@ -8,7 +8,7 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 - a system setting which disables clearing the site cache while saving the resource, MODX clears only the current resource cache; 
 - a checkbox "Create cache" to the resource form which allows to save the resource to the cache when you save it.
 - a system setting for hiding component description at "Extras" menu;
-- backend users can be authorized via email. Need to do some manipulations. 
+- backend users can log in via email or user name. Need to do some manipulations. 
 - automatic log out the user if he is blocked or inactive.
 - user notes. You can find it in the user menu next to other items (profile, messages, logout). Take a [look](http://modzone.ru/blog/2016/04/21/admintools-user-notes/).
 - a tab "Resources" to the template form and a link to the template to the resource form.
@@ -42,7 +42,10 @@ It's a MODx Revolution Extra for administrators and developers. It adds some fea
 * Write the id of this document to the system setting **admintools_loginform_resource**.
 * Switch the system setting **admintools_email_authorization** to TRUE.  
 
-Now you can log in to the manager via email if you have the corresponding permission.
+Now you can log in to the manager via email if you have the corresponding permission.  
+
+**IMPORTANT!**  
+Only user with the same user-agent and ip can log in using the authentication link.
 
 ### Alternative permissions for resources
 Use it to restrict access to the pages of the site following the rules: 

@@ -14,9 +14,9 @@ class AdminTools
      * @param modX $modx
      * @param array $config
      */
-    function __construct(modX &$modx, array $config = [])
+    function __construct(modX $modx, array $config = [])
     {
-        $this->modx =& $modx;
+        $this->modx = $modx;
         $corePath = $this->modx->getOption('admintools_core_path', $config, $this->modx->getOption('core_path') . 'components/admintools/');
         $assetsUrl = $this->modx->getOption('admintools_assets_url', $config, $this->modx->getOption('assets_url') . 'components/admintools/');
         $connectorUrl = $assetsUrl . 'connector.php';
@@ -47,7 +47,7 @@ class AdminTools
                     $this->modx->controller->addLexiconTopic('admintools:default');
                     $this->modx->controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
                     $theme = $this->modx->getOption('admintools_theme', null, '');
-                    $theme = trim($theme) == 'default' ? '' : trim($theme);
+                    $theme = trim($theme) === 'default' ? '' : trim($theme);
                     if (!empty($theme)) {
                         $themeCssFile = 'mgr/themes/' . $theme . '.css';
                         $this->modx->controller->addCss($this->config['cssUrl'] . $themeCssFile);
@@ -141,7 +141,7 @@ class AdminTools
                     */
                     // config
                     $region = $this->modx->getOption('admintools_modx_tree_position', null, 'left', true) == 'right' ? 'east' : 'west';
-                    if ($region == 'east') {
+                    if ($region === 'east') {
                         $scripts = "<script>let sideBarRegion = '{$region}'</script>\n";
                         $scripts .= $this->modx->smarty->get_template_vars('maincssjs');
                         $layout_src = $this->getOption('jsUrl') . 'mgr/core/modx.layout.js';
@@ -150,8 +150,8 @@ class AdminTools
                     }
                     // Messages
                     $messageNumber = $this->modx->getOption('admintools_messages', null, true)
-                                ? $this->modx->getCount('modUserMessage', ['recipient' => $this->modx->user->id, 'read' => 0])
-                                : -1;
+                        ? $this->modx->getCount('modUserMessage', ['recipient' => $this->modx->user->id, 'read' => 0])
+                        : -1;
                     // Lock
                     $_SESSION['admintools']['locked'] = isset($_SESSION['admintools']['locked']) ? $_SESSION['admintools']['locked'] : false;
                     $_SESSION['admintools']['config'] = [
@@ -224,12 +224,12 @@ class AdminTools
 
             if (isset($fields[$key])) {
                 return $fields[$key];
-            } else {
-                return false;
             }
-        } else {
-            return false;
+
+            return null;
         }
+
+        return null;
     }
 
     /**
@@ -260,7 +260,7 @@ class AdminTools
         $elementData = [
             'type' => $type[1],
             'eid' => $object['id'],
-            'name' => $type[1] == 'template' ? $object['templatename'] : $object['name'],
+            'name' => $type[1] === 'template' ? $object['templatename'] : $object['name'],
             'editedon' => date('Y-m-d H:i:s'),
             'user' => $this->modx->user->get('username'),
         ];
@@ -304,8 +304,14 @@ class AdminTools
         $this->modx->cacheManager = new atCacheManager($this->modx);
     }
 
+    /**
+     * @param array $data
+     * @return string|null
+     */
     public function sendLoginLink($data)
     {
+        $this->loginDataValidate($data);
+
         $c = $this->modx->newQuery('modUser');
         $c->select(['modUser.*', 'Profile.email', 'Profile.fullname']);
         $c->innerJoin('modUserProfile', 'Profile');
@@ -328,72 +334,93 @@ class AdminTools
                 $this->modx->user = $this->modx->getUser();
                 return $message;
             }
-            $hash = $this->addLoginState($user);
-            if (!empty($hash)) {
-                $key = md5($_SERVER['REMOTE_ADDR'] . '/' . $_SERVER['HTTP_USER_AGENT'] . $user->id);
-                $args = ['a' => 'login', 'id' => $key, 'hash' => $hash];
-                $url = $this->modx->makeUrl($this->modx->resource->id, '', $args, 'full');
-                $options['email_body'] = $this->modx->lexicon('admintools_authorization_email_body', ['url' => $url]);
-                $this->sendEmail($user->get('email'), $options);
-            } else {
-                $message = $this->modx->lexicon('admintools_link_already_sent');
+            $token = $this->getToken();
+            if ($this->getLoginUser($user->id)) {
+                return $this->modx->lexicon('admintools_link_already_sent');
             }
+
+            $this->addLoginState($user->id, $token);
+            $args = ['a' => 'login', 'token' => $token];
+            $url = $this->modx->makeUrl($this->modx->resource->id, '', $args, 'full');
+            $options['email_body'] = $this->modx->lexicon('admintools_authorization_email_body', ['url' => $url]);
+            $this->sendEmail($user->get('email'), $options);
         } else {
             $message = $this->modx->lexicon('admintools_user_not_found');
         }
         return $message;
     }
 
+    protected function getLoginUser($uid)
+    {
+        $cacheManager = $this->modx->getCacheManager();
+        return $cacheManager->get($uid, [xPDO::OPT_CACHE_KEY => 'admintools/login']);
+    }
+
     /**
-     * @param modUser $user
+     * @param int $uid
+     * @param string $token
+     */
+    public function addLoginState($uid, $token)
+    {
+        $ttl = $this->modx->getOption('admintools_authorization_ttl', null, 600);
+        $key = $this->getUserLoginKey();
+        /*$this->modx->registry->user->subscribe('/admintools/login/');
+        $this->modx->registry->user->send('/admintools/login/', [
+            $token => [
+                'key' => $key,
+                'uid' => $user->get('id'),
+            ],
+        ], ['ttl' => $ttl]);*/
+        $payload = [
+            'key' => $key,
+            'uid' => $uid,
+        ];
+        $cacheManager = $this->modx->getCacheManager();
+        return  $cacheManager->set($token, $payload, $ttl, [xPDO::OPT_CACHE_KEY => 'admintools/login']) &&
+                $cacheManager->set($uid, $token, $ttl, [xPDO::OPT_CACHE_KEY => 'admintools/login']);
+    }
+
+    /**
+     * @param string $token
+     * @return false|mixed
+     */
+    public function getLoginState($token)
+    {
+        /*$message = [];
+        if ($this->modx->getService('registry', 'registry.modRegistry')) {
+            $registry = $this->modx->registry->getRegister('user', 'registry.modDbRegister');
+//            $registry->connect();
+            $registry->subscribe('/admintools/login/' . $token);
+            $message = $registry->read(['remove_read' => $delete, 'poll_limit' => 1]);
+            if ($delete) {
+                return true;
+            }
+        }*/
+        return $this->modx->getCacheManager()->get($token, [xPDO::OPT_CACHE_KEY => 'admintools/login']);
+    }
+
+    /**
+     * @param string $token
+     * @param int $uid
      * @return bool
      */
-    public function addLoginState($user)
+    public function deleteLoginState($token, $uid)
     {
-        $hash = '';
-        $key = md5($_SERVER['REMOTE_ADDR'] . '/' . $_SERVER['HTTP_USER_AGENT'] . $user->id);
-        $state = $this->getLoginState($key);
-        if (empty($state)) {
-            $ttl = $this->modx->getOption('admintools_authorization_ttl', null, 200);
-            $hash = md5(uniqid(md5($user->get('email') . '/' . $key), true));
-            $this->modx->registry->user->subscribe('/admintools/login/');
-            $this->modx->registry->user->send('/admintools/login/', [
-                $key => [
-                    'hash' => $hash,
-                    'uid' => $user->get('id'),
-                ],
-            ], ['ttl' => $ttl]);
-        }
-        return $hash;
+        $cacheManager = $this->modx->getCacheManager();
+
+        return  $cacheManager->delete($token, [xPDO::OPT_CACHE_KEY => 'admintools/login']) &&
+                $cacheManager->delete($uid, [xPDO::OPT_CACHE_KEY => 'admintools/login']);
     }
 
-    public function getLoginState($key)
+    protected function loginDataValidate(array $data = [])
     {
-        $data = '';
-        if ($this->modx->getService('registry', 'registry.modRegistry')) {
-            $this->modx->registry->addRegister('user', 'registry.modDbRegister');
-            $this->modx->registry->user->connect();
-            $this->modx->registry->user->subscribe('/admintools/login/' . $key);
-            if ($msgs = $this->modx->registry->user->read(['remove_read' => false, 'poll_limit' => 1])) {
-                $data = reset($msgs);
-            }
+        if (empty($data['action']) || $data['action'] !== 'login') {
+            throw new InvalidArgumentException('Access is denied');
         }
-        return $data;
-    }
-
-    public function deleteLoginState($key)
-    {
-        $deleted = false;
-        if ($this->modx->getService('registry', 'registry.modRegistry')) {
-            $this->modx->registry->addRegister('user', 'registry.modDbRegister');
-            $this->modx->registry->user->connect();
-            $this->modx->registry->user->subscribe('/admintools/login/' . $key);
-            $this->modx->registry->user->read(['remove_read' => true, 'poll_limit' => 1]);
-            $deleted = true;
+        if (empty($data['userdata'])) {
+            throw new InvalidArgumentException($this->modx->lexicon('admintools_enter_username_or_email'));
         }
-        return $deleted;
     }
-
     /**
      * Sends email with authorization link
      *
@@ -425,11 +452,16 @@ class AdminTools
         return $response;
     }
 
-    public function loginUser($userId)
+    /**
+     * @param int $uid User id
+     * @param string $token
+     * @return string|null
+     */
+    public function loginUser($uid, $token)
     {
         $error_message = '';
         /** @var modUser $user */
-        if ($user = $this->modx->getObject('modUser', $userId)) {
+        if ($user = $this->modx->getObject('modUser', ['id' => $uid])) {
             $data['username'] = $user->get('username');
             $data['password'] = 'password';
             $data['login_context'] = 'mgr';
@@ -443,24 +475,17 @@ class AdminTools
         ]);
         $query->select('id');
         $id = $this->modx->getValue($query->prepare());
-        if (!empty($id)) {
-//            $this->modx->addEventListener('OnManagerPageBeforeRender', $id);
-//            $this->modx->addEventListener('OnManagerAuthentication', $id);
-            $this->modx->eventMap['OnManagerPageBeforeRender'][$id] = $id;
-            $this->modx->eventMap['OnManagerAuthentication'][$id] = $id;
-        } else {
-            $error_message = $this->modx->lexicon('admintools_plugin_not_found');
-            return $error_message;
+        if (empty($id)) {
+            return $this->modx->lexicon('admintools_plugin_not_found');
         }
+        $this->modx->eventMap['OnManagerPageBeforeRender'][$id] = $id;
+        $this->modx->eventMap['OnManagerAuthentication'][$id] = $id;
         $this->modx->setOption('admintools_user_can_login', true);
         /** @var modProcessorResponse $response */
         $response = $this->modx->runProcessor('security/login', $data);
         if (($response instanceof modProcessorResponse) && !$response->isError()) {
-            $key = md5($_SERVER['REMOTE_ADDR'] . '/' . $_SERVER['HTTP_USER_AGENT'] . $userId);
-            $this->deleteLoginState($key);
-            $url = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
-            $url = $this->modx->getOption('url_scheme', null, MODX_URL_SCHEME) . $this->modx->getOption('http_host', null, MODX_HTTP_HOST) . rtrim($url, '/');
-            $this->modx->sendRedirect($url);
+            $this->deleteLoginState($token, $uid);
+            $this->modx->sendRedirect($this->getManagerUrl());
         } else {
             $errors = $response->getAllErrors();
             $error_message = implode("\n", $errors);
@@ -475,8 +500,8 @@ class AdminTools
      */
     public function hasPermissions($rid = 0)
     {
-        //TODO-sergant  Сделать map файл.
-        if ($rid == 0) {
+        //TODO-sergant  Make a map file?
+        if ($rid === 0) {
             $rid = $this->modx->resource->get('id');
         }
         $user = $this->modx->user;
@@ -505,7 +530,7 @@ class AdminTools
                         $allow = (bool)$permission['status'];
                         break;
                     case 'gst':
-                        if ($userId == 0) {
+                        if ($userId === 0) {
                             $allow = (bool)$permission['status'];
                         }
                         break;
@@ -515,7 +540,7 @@ class AdminTools
                         }
                         break;
                     case 'usr':
-                        if ($userId == $permission['principal']) {
+                        if ($userId === $permission['principal']) {
                             $allow = (bool)$permission['status'];
                         }
                         break;
@@ -525,19 +550,29 @@ class AdminTools
         return $allow;
     }
 
+    /**
+     * @param string $uri
+     */
     public function createResourceCache($uri = '/')
     {
         $siteUrl = $this->modx->getOption('site_url');
         /** @var modRestCurlClient $client */
         $client = $this->modx->getService('rest.modRestCurlClient');
-        $result = $client->request($siteUrl, $uri, 'POST');
+        $client->request($siteUrl, $uri, 'POST');
     }
 
+    /**
+     * @return bool
+     */
     public function isLocked()
     {
         return !empty($_SESSION['admintools']['locked']);
     }
 
+    /**
+     * @param string $unlockCode
+     * @return bool
+     */
     public function unlock($unlockCode)
     {
         if (!empty($unlockCode)) {
@@ -551,6 +586,44 @@ class AdminTools
     public function getInputPlaceholder()
     {
         return empty($this->config['unlockCode']) ? $this->modx->lexicon('admintools_enter_password') : $this->modx->lexicon('admintools_enter_unlockcode');
+    }
+
+    /**
+     * @return string
+     */
+    public function getManagerUrl()
+    {
+        $url = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
+
+        return $this->modx->getOption('url_scheme', null, MODX_URL_SCHEME) . $this->modx->getOption('http_host', null, MODX_HTTP_HOST) . rtrim($url, '/');
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserLoginKey()
+    {
+        return md5($_SERVER['REMOTE_ADDR'] . '/' . $_SERVER['HTTP_USER_AGENT']);
+    }
+
+    /**
+     *
+     * @param int $length Token length
+     * @return string
+     */
+    public function getToken($length = 16)
+    {
+        if(!isset($length) || (int)$length <= 8 ){
+            $length = 16;
+        }
+        if (function_exists('random_bytes')) {
+            return bin2hex(random_bytes($length));
+        }
+        do {
+            $bytes = openssl_random_pseudo_bytes(32, $innerStrong);
+        } while(!$bytes || !$innerStrong);
+
+        return bin2hex($bytes);
     }
 }
 
