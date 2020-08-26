@@ -1,3 +1,9 @@
+1.15.1-pl
+==============
+- Fixed a bug with absent elements in the categories section [#23].
+- Fixed email login security issue ("tpl.login.form" chunk must be updated).
+- Other code optimization.
+
 1.15.0-pl
 ==============
 - Added an unread messages indicator.

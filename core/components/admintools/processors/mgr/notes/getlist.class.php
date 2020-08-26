@@ -44,12 +44,7 @@ class NotesGetListProcessor extends modObjectGetListProcessor {
 
         return $c;
     }
-    //TODO Debug
-    public function prepareQueryAfterCount(xPDOQuery $c) {
-//        $c->prepare();
-//        $this->modx->log(modX::LOG_LEVEL_ERROR, $c->toSql());
-        return $c;
-    }
+
     /**
      * @param xPDOObject $object
      *

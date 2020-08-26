@@ -52,12 +52,11 @@ class eventPluginsGetListProcessor extends modObjectProcessor {
         }
         $data = array();
         $data['total'] = $this->modx->getCount($this->classKey,$c);
-//$c = $this->prepareQueryAfterCount($c);
-        $limit = intval($this->getProperty('limit'));
-        $start = intval($this->getProperty('start'));
+        $limit = (int)$this->getProperty('limit');
+        $start = (int)$this->getProperty('start');
         $this->sortKey = $this->getProperty('sort');
         $c->sortby($this->sortKey,$this->getProperty('dir'));
-        if ($this->sortKey == 'event') {
+        if ($this->sortKey === 'event') {
             $c->sortby('modPluginEvent.priority','ASC');
             $c->sortby('Plugin.id','ASC');
         }
@@ -82,7 +81,7 @@ class eventPluginsGetListProcessor extends modObjectProcessor {
         }
         return $this->outputArray($list,$data['total']);
     }
-    //TODO Debug
+
     public function prepareQueryAfterCount(xPDOQuery $c) {
         $c->prepare();
         $this->modx->log(modX::LOG_LEVEL_ERROR, $c->toSql());
@@ -98,7 +97,7 @@ class eventPluginsGetListProcessor extends modObjectProcessor {
         $array['key'] = $array['event'] . '_' . $array['id'];
         $array['name'] = '<a href="index.php?a=element/plugin/update&id='. $array['id'] . '">' . $array['name'] . '</a>';
         unset($array['id']);
-        if ($this->sortKey == 'event') {
+        if ($this->sortKey === 'event') {
             $array['actions'][] = array(
                 'cls' => '',
                 'icon' => 'icon icon-link',

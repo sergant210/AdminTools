@@ -17,7 +17,7 @@
 					</div>
 				</div>
 				<div class="form-action">
-					<button id="send-email-btn" value="1" type="button" class="primary-button login-form-btn">[[%admintools_send_authorization_link]]</button>
+					<button id="send-email-btn" value="1" type="submit" class="primary-button login-form-btn" data-sending="[[%admintools_sending]]">[[%admintools_send_authorization_link]]</button>
 				</div>
 			</form>
 		</div>
