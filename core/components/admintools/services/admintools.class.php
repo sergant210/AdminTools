@@ -540,7 +540,7 @@ class AdminTools
                         }
                         break;
                     case 'usr':
-                        if ($userId === $permission['principal']) {
+                        if ($userId === (int)$permission['principal']) {
                             $allow = (bool)$permission['status'];
                         }
                         break;

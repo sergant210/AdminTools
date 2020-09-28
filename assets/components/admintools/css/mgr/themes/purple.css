@@ -116,6 +116,9 @@
 	margin-right: 10px;
 	opacity: 0.6;
 }
+.purple-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-btn {
+	margin-right: 20px;
+}
 .purple-theme #modx-leftbar .x-toolbar-ct .x-toolbar-right #emptifier.x-item-disabled {
 	opacity: 0.3;
 }
