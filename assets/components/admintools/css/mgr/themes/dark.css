@@ -31,7 +31,11 @@
 .dark-theme  #modx-leftbar-tabs-xsplit .x-layout-mini-east {left: -2px;}
 .dark-theme #modx-leftbar-tabs-xcollapsed .x-layout-mini,
 .dark-theme #modx-leftbar-tabs-xsplit .x-layout-mini {
-	top: 43px !important;
+	top: 42px !important;
+	height: 38px !important;
+	left: 0 !important;
+	opacity: 0.7 !important;
+	background: #202735 !important;
 }
 /*tabs*/
 .dark-theme #modx-leftbar .x-tab-panel-header {background: #202735 !important;}
