@@ -82,7 +82,11 @@
 .purple-theme #modx-leftbar-tabs-xsplit .x-layout-mini-east {left: -2px;}
 .purple-theme #modx-leftbar-tabs-xcollapsed .x-layout-mini,
 .purple-theme #modx-leftbar-tabs-xsplit .x-layout-mini {
-	top: 43px !important;
+	top: 42px !important;
+	height: 38px !important;
+	left: 0 !important;
+	opacity: 0.7 !important;
+	background: #342033 !important;
 }
 /*.purple-theme #modx-leftbar-tabs-xsplit .x-layout-mini:after,
 .purple-theme #modx-leftbar-tabs-xcollapsed .x-layout-mini:after {
