@@ -52,7 +52,7 @@ if ($AdminTools instanceof AdminTools) {
             }
             break;
         case 'OnLoadWebDocument':
-            if ((!$modx->user->active || $modx->user->Profile->blocked) && $modx->user->isAuthenticated($modx->context->get('key'))) {
+            if ((!$modx->user->active || (!empty($modx->user->Profile) && $modx->user->Profile->blocked)) && $modx->user->isAuthenticated($modx->context->get('key'))) {
                 $modx->runProcessor('security/logout');
             }
             if ($modx->getOption('admintools_alternative_permissions', null, false) && !$AdminTools->hasPermissions()){
